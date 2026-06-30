@@ -10,6 +10,8 @@ const LAYER_TOGGLES = [
   { id: "eveline-places", label: "Eveline's places", file: "data/layers/eveline-places.geojson", color: "#7a3e9d" },
 ];
 
+let tilesMap = {}; // period id -> pmtiles path, or null if not yet converted
+
 let state = {
   periods: [],
   activePeriodId: null,
@@ -19,12 +21,16 @@ let state = {
 };
 
 let map;
+let protocol;
 
 async function init() {
   const periodsRes = await fetch("data/periods.json");
   const periodsData = await periodsRes.json();
   state.periods = periodsData.periods;
   state.activePeriodId = state.periods[0].id;
+
+  const tilesRes = await fetch("data/tiles-map.json");
+  tilesMap = await tilesRes.json();
 
   renderTimeline();
   renderToggles();
@@ -53,6 +59,7 @@ function renderTimeline() {
       renderTimeline();
       await loadPeriodContent(p.id);
       renderPanel();
+      if (map && map.isStyleLoaded()) setBasemapForPeriod(p.id);
       updateMapLayersForPeriod();
     });
     el.appendChild(btn);
@@ -109,6 +116,8 @@ function renderTabContent(tab, content) {
   switch (tab) {
     case "info":
       return `<div>${content.info}</div>`;
+    case "background":
+      return `<div>${content.background}</div>`;
     case "flora":
       return content.flora.length
         ? content.flora.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
@@ -117,6 +126,10 @@ function renderTabContent(tab, content) {
       return content.fauna.length
         ? content.fauna.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
+    case "people":
+      return content.people.length
+        ? content.people.map(p => `<div class="people-card"><p>${p.name}</p><span>${p.role || ""} ${p.note ? "— " + p.note : ""}</span></div>`).join("")
+        : `<span class="empty">No people entries yet for this period.</span>`;
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
@@ -127,25 +140,19 @@ function renderTabContent(tab, content) {
 }
 
 function initMap() {
+  protocol = new pmtiles.Protocol();
+  maplibregl.addProtocol("pmtiles", protocol.tile);
+
   map = new maplibregl.Map({
     container: "map",
-    style: {
-      version: 8,
-      sources: {
-        "topo-placeholder": {
-          type: "raster",
-          tiles: ["https://a.tile.opentopomap.org/{z}/{x}/{y}.png", "https://b.tile.opentopomap.org/{z}/{x}/{y}.png", "https://c.tile.opentopomap.org/{z}/{x}/{y}.png"],
-          tileSize: 256,
-          attribution: "Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA) — placeholder, to be replaced by QGIS/PMTiles export"
-        }
-      },
-      layers: [{ id: "topo-placeholder", type: "raster", source: "topo-placeholder" }]
-    },
+    style: { version: 8, sources: {}, layers: [] },
     center: [5, 50],
     zoom: 3.2
   });
 
   map.on("load", async () => {
+    setBasemapForPeriod(state.activePeriodId);
+
     for (const layerDef of LAYER_TOGGLES) {
       const res = await fetch(layerDef.file);
       const geojson = await res.json();
@@ -173,11 +180,44 @@ function initMap() {
   });
 }
 
+// Swaps the basemap source/layer: real PMTiles for this period if converted yet,
+// otherwise falls back to the OpenTopoMap placeholder.
+function setBasemapForPeriod(periodId) {
+  if (!map.isStyleLoaded() && map.getSource("period-basemap") === undefined) {
+    // still fine to proceed; addSource works once map has loaded once
+  }
+  if (map.getLayer("period-basemap")) map.removeLayer("period-basemap");
+  if (map.getSource("period-basemap")) map.removeSource("period-basemap");
+
+  const pmtilesPath = tilesMap[periodId];
+
+  if (pmtilesPath) {
+    map.addSource("period-basemap", {
+      type: "raster",
+      url: `pmtiles://${pmtilesPath}`,
+      tileSize: 256,
+      attribution: "Period basemap — derived from QGIS DEM/classification render"
+    });
+  } else {
+    map.addSource("period-basemap", {
+      type: "raster",
+      tiles: ["https://a.tile.opentopomap.org/{z}/{x}/{y}.png", "https://b.tile.opentopomap.org/{z}/{x}/{y}.png", "https://c.tile.opentopomap.org/{z}/{x}/{y}.png"],
+      tileSize: 256,
+      attribution: "Map data: © OpenStreetMap contributors, SRTM | Map style: © OpenTopoMap (CC-BY-SA) — placeholder, not yet replaced for this period"
+    });
+  }
+
+  // Insert basemap below the point-layer overlays if they already exist, otherwise just add it
+  const beforeId = map.getLayer("archaeological-sites") ? "archaeological-sites" : undefined;
+  map.addLayer({ id: "period-basemap", type: "raster", source: "period-basemap" }, beforeId);
+}
+
 function applyLayerVisibility(layerId) {
   if (!map || !map.getLayer(layerId)) return;
   map.setLayoutProperty(layerId, "visibility", state.layersOn[layerId] ? "visible" : "none");
 }
 
+// Filters archaeological-sites / eveline-places features to those tagged with the active period
 function updateMapLayersForPeriod() {
   if (!map) return;
   LAYER_TOGGLES.forEach(layerDef => {
