@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ancient Europe — prototype skeleton</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/3.6.2/maplibre-gl.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/3.6.2/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -22,7 +22,7 @@
   <div class="main-area">
     <div class="map-area">
       <div id="map"></div>
-      <div class="map-placeholder-note">Real QGIS/PMTiles basemap not wired up yet — this pane proves layer toggles and period switching against placeholder tiles.</div>
+      <div class="map-placeholder-note">LGM uses its real QGIS-derived basemap. Other periods still show an OpenTopoMap placeholder until converted.</div>
     </div>
 
     <div class="info-panel">

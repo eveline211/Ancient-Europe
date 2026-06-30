@@ -126,10 +126,6 @@ function renderTabContent(tab, content) {
       return content.fauna.length
         ? content.fauna.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
-    case "people":
-      return content.people.length
-        ? content.people.map(p => `<div class="people-card"><p>${p.name}</p><span>${p.role || ""} ${p.note ? "— " + p.note : ""}</span></div>`).join("")
-        : `<span class="empty">No people entries yet for this period.</span>`;
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
