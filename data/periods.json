@@ -1,0 +1,14 @@
+{
+  "periods": [
+    { "id": "lgm",                "name": "LGM — Last Glacial Maximum", "shortName": "LGM",          "yearsAgo": "25,500–17,500 BCE" },
+    { "id": "meiendorf-bolling",  "name": "Meiendorf / Bølling",        "shortName": "Meiendorf/Bølling", "yearsAgo": "12,650–11,950 BCE" },
+    { "id": "allerod",            "name": "Allerød",                    "shortName": "Allerød",       "yearsAgo": "11,950–10,750 BCE" },
+    { "id": "younger-dryas",      "name": "Younger Dryas",              "shortName": "Younger Dryas", "yearsAgo": "10,750–9,700 BCE" },
+    { "id": "early-preboreal",    "name": "Early Preboreal",            "shortName": "Early Preboreal", "yearsAgo": "9,700–9,200 BCE" },
+    { "id": "late-preboreal",     "name": "Late Preboreal",             "shortName": "Late Preboreal", "yearsAgo": "9,200–8,700 BCE" },
+    { "id": "early-boreal",       "name": "Early Boreal",               "shortName": "Early Boreal",  "yearsAgo": "8,700–8,000 BCE" },
+    { "id": "late-boreal",        "name": "Late Boreal",                "shortName": "Late Boreal",   "yearsAgo": "8,000–7,200 BCE" },
+    { "id": "atlantic",           "name": "Atlantic",                   "shortName": "Atlantic",      "yearsAgo": "6,500–4,500 BCE" },
+    { "id": "present-day",        "name": "Present Day",                "shortName": "Present",       "yearsAgo": "Today" }
+  ]
+}

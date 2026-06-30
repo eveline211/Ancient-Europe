@@ -1,0 +1,16 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [4.90, 52.37] },
+      "properties": {
+        "id": "eveline-001",
+        "name": "Placeholder place of interest",
+        "periods": ["present-day"],
+        "note": "Replace with Eveline's actual picks and the reason each one matters.",
+        "source": "curated"
+      }
+    }
+  ]
+}

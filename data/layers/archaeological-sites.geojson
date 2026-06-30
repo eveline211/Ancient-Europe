@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [5.18, 50.40] },
+      "properties": {
+        "id": "site-001",
+        "name": "Goyet Caves",
+        "periods": ["lgm", "meiendorf-bolling"],
+        "siteType": "cave-site",
+        "description": "Placeholder description — replace with real site text and sourcing.",
+        "source": "placeholder"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [2.35, 48.86] },
+      "properties": {
+        "id": "site-002",
+        "name": "Example Mesolithic camp",
+        "periods": ["early-boreal", "late-boreal"],
+        "siteType": "settlement",
+        "description": "Placeholder description — replace with real site text and sourcing.",
+        "source": "placeholder"
+      }
+    }
+  ]
+}
