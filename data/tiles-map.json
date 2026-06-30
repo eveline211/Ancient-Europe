@@ -1,12 +1,12 @@
 {
   "lgm": "tiles/lgm.pmtiles",
-  "meiendorf-bolling": null,
-  "allerod": null,
-  "younger-dryas": null,
-  "early-preboreal": null,
-  "late-preboreal": null,
-  "early-boreal": null,
-  "late-boreal": null,
-  "atlantic": null,
-  "present-day": null
+  "meiendorf-bolling": "tiles/meiendorf-bolling.pmtiles",
+  "allerod": "tiles/allerod.pmtiles",
+  "younger-dryas": "tiles/younger-dryas.pmtiles",
+  "early-preboreal": "tiles/early-preboreal.pmtiles",
+  "late-preboreal": "tiles/late-preboreal.pmtiles",
+  "early-boreal": "tiles/early-boreal.pmtiles",
+  "late-boreal": "tiles/late-boreal.pmtiles",
+  "atlantic": "tiles/atlantic.pmtiles",
+  "present-day": "tiles/present-day.pmtiles"
 }
