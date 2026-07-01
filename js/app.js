@@ -111,6 +111,15 @@ function renderPanel() {
   contentEl.innerHTML = renderTabContent(state.activeTab, content);
 }
 
+// Renders one flora/fauna card. Uses f.image (a URL) if set, otherwise shows
+// a placeholder square with a fallback emoji icon.
+function renderSpeciesCard(f, fallbackIcon) {
+  const imgBox = f.image
+    ? `<div class="fauna-card-img"><img src="${f.image}" alt="${f.name}"></div>`
+    : `<div class="fauna-card-img"><span class="placeholder-icon">${fallbackIcon}</span></div>`;
+  return `<div class="fauna-card">${imgBox}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
+}
+
 function renderTabContent(tab, content) {
   if (!content) return `<span class="empty">Loading…</span>`;
   switch (tab) {
@@ -118,14 +127,20 @@ function renderTabContent(tab, content) {
       return `<div>${content.info}</div>`;
     case "background":
       return `<div>${content.background}</div>`;
-    case "flora":
-      return content.flora.length
-        ? content.flora.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
+    case "flora": {
+      const intro = content.floraDescription ? `<div class="content-block">${content.floraDescription}</div>` : "";
+      const cards = content.flora.length
+        ? content.flora.map(f => renderSpeciesCard(f, "🌿")).join("")
         : `<span class="empty">No flora entries yet for this period.</span>`;
-    case "fauna":
-      return content.fauna.length
-        ? content.fauna.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
+      return intro + cards;
+    }
+    case "fauna": {
+      const intro = content.faunaDescription ? `<div class="content-block">${content.faunaDescription}</div>` : "";
+      const cards = content.fauna.length
+        ? content.fauna.map(f => renderSpeciesCard(f, "🐾")).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
+      return intro + cards;
+    }
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
