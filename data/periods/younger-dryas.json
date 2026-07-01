@@ -2,8 +2,60 @@
   "id": "younger-dryas",
   "info": "An abrupt return to near-glacial cold reversed the Allerød's woodland gains within decades — the sharpest single vegetation swing in the entire sequence.",
   "background": "An abrupt and dramatic return to near-glacial conditions, probably triggered by a shutdown of Atlantic circulation. Within decades, temperatures across northwest Europe plummeted. Birch and pine retreated southward; dwarf birch, willow scrub and cold steppe herbs recolonised ground that had briefly been woodland. Artemisia, Chenopodiaceae and arctic forbs returned across the lowlands. The landscape reverted to something close to the Meiendorf picture — open, cold, largely treeless across the northern two-thirds of the map. The contrast with the Allerød immediately before it was striking and rapid. Trees survived in refugia along the Atlantic fringe and in southern areas. This period is one of the most visible transitions in European pollen records, and on your map it would represent the sharpest single change in vegetation cover across the entire sequence.",
-  "flora": [],
-  "fauna": [],
+  "flora": [
+    {
+      "name": "Mountain Avens",
+      "latin": "Dryas octopetala",
+      "note": ""
+    },
+    {
+      "name": "Dwarf Birch",
+      "latin": "Betula nana",
+      "note": ""
+    },
+    {
+      "name": "Arctic Willow",
+      "latin": "Salix spp.",
+      "note": ""
+    },
+    {
+      "name": "Cotton Grass",
+      "latin": "Eriophorum",
+      "note": ""
+    }
+  ],
+  "fauna": [
+    {
+      "name": "Reindeer",
+      "latin": "",
+      "note": "Cold-adapted herbivore"
+    },
+    {
+      "name": "Aurochs",
+      "latin": "",
+      "note": "Largest surviving grazer"
+    },
+    {
+      "name": "Wild Horse",
+      "latin": "",
+      "note": "Open landscape specialist"
+    },
+    {
+      "name": "Grey Wolf",
+      "latin": "",
+      "note": "Apex predator"
+    },
+    {
+      "name": "Snowy Owl",
+      "latin": "",
+      "note": "Indicator of Arctic conditions"
+    },
+    {
+      "name": "Arctic Char",
+      "latin": "",
+      "note": "Cold freshwater fish"
+    }
+  ],
   "people": [],
   "video": {
     "url": null,

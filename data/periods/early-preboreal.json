@@ -2,8 +2,60 @@
   "id": "early-preboreal",
   "info": "The Holocene begins: birch woodland raced northward at over a kilometre per year, while the megafauna that had shaped the landscape for millennia were now functionally gone.",
   "background": "The Younger Dryas ended as abruptly as it began. Temperatures rose rapidly, and birch woodland re-expanded northward at remarkable speed — pollen data suggests spreading rates of over 1000 metres per year for pioneer species. Open birch woodland became the dominant landscape across much of the map area within a few centuries. Pine followed closely behind from eastern source populations. The herb layer remained relatively rich and open — hazel was beginning its expansion but not yet dominant. This is the opening of the Holocene proper, and a critical ecological threshold: the large herbivore community that had structured vegetation for millennia was now functionally gone across most of the map area. Fire set by Mesolithic hunter-gatherers was becoming the primary driver of landscape openness, replacing herbivory. Roughly 50–60% of the landscape was still fully open, with open woodland expanding rapidly.",
-  "flora": [],
-  "fauna": [],
+  "flora": [
+    {
+      "name": "Silver Birch",
+      "latin": "Betula pendula",
+      "note": ""
+    },
+    {
+      "name": "Scots Pine",
+      "latin": "Pinus sylvestris",
+      "note": ""
+    },
+    {
+      "name": "Hazel",
+      "latin": "Corylus avellana",
+      "note": ""
+    },
+    {
+      "name": "Bracken",
+      "latin": "Pteridium aquilinum",
+      "note": ""
+    }
+  ],
+  "fauna": [
+    {
+      "name": "Aurochs",
+      "latin": "",
+      "note": "Largest wild herbivore"
+    },
+    {
+      "name": "European Bison",
+      "latin": "",
+      "note": "Surviving megaherbivore"
+    },
+    {
+      "name": "Red Deer",
+      "latin": "",
+      "note": "Dominant woodland herbivore"
+    },
+    {
+      "name": "Eurasian Beaver",
+      "latin": "",
+      "note": "Wetland engineer"
+    },
+    {
+      "name": "Black Stork",
+      "latin": "",
+      "note": "Ancient forest specialist"
+    },
+    {
+      "name": "Atlantic Salmon",
+      "latin": "",
+      "note": "Free-flowing river icon"
+    }
+  ],
   "people": [],
   "video": {
     "url": null,

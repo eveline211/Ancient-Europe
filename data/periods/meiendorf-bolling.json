@@ -2,8 +2,60 @@
   "id": "meiendorf-bolling",
   "info": "A sharp warming pulse pushed the polar desert and steppe northward, as pioneer birch and willow scrub began colonising the still-mostly-open landscape.",
   "background": "As temperatures rose sharply at the onset of this first warm interstadial, the polar desert and loess steppe began to retreat northward. Pioneer vegetation advanced rapidly — dwarf birch and willow scrub colonised previously barren ground, and open grassland and herb communities persisted across much of the lowlands. Birch trees began advancing from their southern refugia, initially as scattered individuals in an otherwise open landscape. The transition was fast by geological standards but the landscape remained predominantly open — perhaps 65–75% fully open ground, with open woodland patches developing in more sheltered or southerly areas. This period marks the beginning of the end for the classic mammoth steppe fauna, as megafauna populations were already in steep decline, meaning the vegetation was beginning to lose its primary large-herbivore regulation for the first time in hundreds of thousands of years.",
-  "flora": [],
-  "fauna": [],
+  "flora": [
+    {
+      "name": "Silver Birch",
+      "latin": "Betula pendula",
+      "note": ""
+    },
+    {
+      "name": "Juniper",
+      "latin": "Juniperus communis",
+      "note": ""
+    },
+    {
+      "name": "Mountain Avens",
+      "latin": "Dryas octopetala",
+      "note": ""
+    },
+    {
+      "name": "European Larch",
+      "latin": "Larix decidua",
+      "note": ""
+    }
+  ],
+  "fauna": [
+    {
+      "name": "Woolly Mammoth",
+      "latin": "Mammuthus primigenius",
+      "note": "Last widespread populations"
+    },
+    {
+      "name": "Giant Deer",
+      "latin": "",
+      "note": "One of Europe's largest deer"
+    },
+    {
+      "name": "Wild Horse",
+      "latin": "",
+      "note": "Characteristic grazer"
+    },
+    {
+      "name": "Red Deer",
+      "latin": "",
+      "note": "Expanding woodland species"
+    },
+    {
+      "name": "Grey Wolf",
+      "latin": "",
+      "note": "Top predator across Europe"
+    },
+    {
+      "name": "Arctic Char",
+      "latin": "",
+      "note": "Cold freshwater specialist"
+    }
+  ],
   "people": [],
   "video": {
     "url": null,

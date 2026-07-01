@@ -2,17 +2,58 @@
   "id": "lgm",
   "info": "Northern Europe lay buried under ice, with a barren polar desert to its south and open loess steppe beyond that — a cold, treeless world shaped more by grazing megafauna than by fire.",
   "background": "Northern Europe lay under a vast ice sheet covering all of Scandinavia and most of Britain. Immediately south of the ice margin stretched a zone of polar desert — barren, wind-scoured periglacial terrain with virtually no vegetation cover, covering what is now the Netherlands, northern Germany, Belgium and southern Britain. Further south, the dominant landscape was open loess steppe and herb tundra: a cold, windswept plain dominated by grasses, Artemisia, Chenopodiaceae and a surprisingly rich forb layer including Thalictrum, Sanguisorba, Helianthemum and Armeria. This was not the uniform grass steppe it was once assumed to be — eDNA evidence shows forbs dominated over graminoids, pointing to large herbivores rather than fire as the main structuring force. Scattered microrefugia — sheltered valleys, south-facing slopes, possibly thermal springs — harboured isolated stands of Pinus and Betula. The southern fringe of the map, along the Atlantic coast of Iberia and in the foothills of the Pyrenees, Apennines and Balkans, supported open parkland and scattered deciduous woodland — the refugia from which postglacial recolonisation would later proceed. The North Sea basin (Doggerland) was largely exposed land, cold and dry, not yet the wetland it would become. Overall canopy cover across the map was minimal — perhaps 85–90% fully open, with open woodland only in southern refugial zones.",
-  "flora": [],
-  "fauna": [
+  "flora": [
     {
-      "name": "Woolly mammoth",
-      "latin": "Mammuthus primigenius",
-      "note": "tundra grazer"
+      "name": "Wormwood",
+      "latin": "Artemisia",
+      "note": ""
     },
     {
-      "name": "Cave lion",
+      "name": "Dwarf Birch",
+      "latin": "Betula nana",
+      "note": ""
+    },
+    {
+      "name": "Arctic Willow",
+      "latin": "Salix spp.",
+      "note": ""
+    },
+    {
+      "name": "Rock Rose",
+      "latin": "Helianthemum",
+      "note": ""
+    }
+  ],
+  "fauna": [
+    {
+      "name": "Woolly Mammoth",
+      "latin": "Mammuthus primigenius",
+      "note": "Flagship megaherbivore"
+    },
+    {
+      "name": "Woolly Rhinoceros",
+      "latin": "",
+      "note": "Large grazer"
+    },
+    {
+      "name": "Steppe Bison",
+      "latin": "",
+      "note": "Mixed-feeding herbivore"
+    },
+    {
+      "name": "Cave Lion",
       "latin": "Panthera spelaea",
-      "note": "apex predator"
+      "note": "Apex predator"
+    },
+    {
+      "name": "Reindeer",
+      "latin": "",
+      "note": "Dominant cold-adapted herbivore"
+    },
+    {
+      "name": "Snowy Owl",
+      "latin": "",
+      "note": "Characteristic Arctic bird"
     }
   ],
   "people": [],

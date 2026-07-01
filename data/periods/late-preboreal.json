@@ -2,8 +2,60 @@
   "id": "late-preboreal",
   "info": "Hazel exploded across the landscape at over 1500 metres a year, one of the most dramatic events in the European pollen record.",
   "background": "Hazel expanded explosively across northwest Europe during this period — one of the most dramatic and well-documented events in the European pollen record, with spread rates exceeding 1500 metres per year in some reconstructions. Hazel dominated the understorey and scrub layer across large areas, often preceding or accompanying the thermophilous trees. Its rapid spread is interpreted partly as a climate response but also as a sign of reduced browsing pressure — in the Eemian interglacial, when large herbivores were abundant, hazel was present but less dominant. Birch and pine remained the main tree canopy. The landscape was transitioning from open tundra-woodland to a more structured birch-pine forest with a dense hazel understorey, particularly in the oceanic west of the map. Open ground was contracting but still significant, perhaps 35–45% of the landscape, maintained mainly by Mesolithic burning.",
-  "flora": [],
-  "fauna": [],
+  "flora": [
+    {
+      "name": "Silver Birch",
+      "latin": "Betula pendula",
+      "note": ""
+    },
+    {
+      "name": "Scots Pine",
+      "latin": "Pinus sylvestris",
+      "note": ""
+    },
+    {
+      "name": "Hazel",
+      "latin": "Corylus avellana",
+      "note": ""
+    },
+    {
+      "name": "Meadowsweet",
+      "latin": "Filipendula ulmaria",
+      "note": ""
+    }
+  ],
+  "fauna": [
+    {
+      "name": "Aurochs",
+      "latin": "",
+      "note": "Keystone grazer"
+    },
+    {
+      "name": "Roe Deer",
+      "latin": "",
+      "note": "Expanding woodland browser"
+    },
+    {
+      "name": "Eurasian Beaver",
+      "latin": "",
+      "note": "Ecosystem engineer"
+    },
+    {
+      "name": "Brown Bear",
+      "latin": "",
+      "note": "Forest omnivore"
+    },
+    {
+      "name": "White-tailed Eagle",
+      "latin": "",
+      "note": "Wetland predator"
+    },
+    {
+      "name": "European Eel",
+      "latin": "",
+      "note": "Migratory freshwater fish"
+    }
+  ],
   "people": [],
   "video": {
     "url": null,
