@@ -2,6 +2,7 @@
   "id": "late-boreal",
   "info": "The Mesolithic climax: oak and elm dominated a mostly forested landscape, with alder carr defining the shrinking margins of Doggerland.",
   "background": "The most structurally forested period yet — oak and elm dominated the canopy across much of the map, with lime advancing through the warmest and most oceanic western areas and alder colonising river valleys and wet ground rapidly. Alder carr became a defining feature of floodplains and coastal lowlands, including the margins of the shrinking North Sea land bridge. This is the Mesolithic climax — the period when the hunter-gatherer populations of northwest Europe reached their greatest density and ecological sophistication, living in a landscape that was predominantly forested but structured by their own burning and hunting practices. Structurally this forest was denser than the Eemian natural baseline — a consequence of megafauna loss rather than a natural climax state. Perhaps 15–25% fully open ground remained, concentrated along coasts, wetlands and actively managed zones. Doggerland was by now significantly reduced by rising sea levels, its final remnants likely a mosaic of reed marsh, alder carr and open water.",
+  "floraDescription": "Europe's forests continued to diversify as oak, elm and hazel became widespread across much of the continent. Lime gradually expanded into warmer regions, while alder established dense woodlands along rivers, lakes and wetlands. The increasingly complex forest structure created a rich variety of habitats, although the closing canopy reduced many of the sun-loving grasses and flowering plants that had flourished in earlier periods. Natural disturbances, browsing by large mammals and occasional Mesolithic fires maintained scattered clearings within an otherwise continuous woodland. By the end of the Boreal, Europe supported mature mixed forests unlike anything seen since before the last Ice Age, setting the stage for the continent's climatic optimum.",
   "flora": [
     {
       "name": "Pedunculate Oak",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "By the Late Boreal, Europe's forests covered much of the landscape, yet they remained far from silent. Large herbivores continued to shape woodland structure, rivers flowed freely across broad floodplains and wetlands supported a rich diversity of birds and fish. Brown bears, wolves and lynx still roamed widely, while beavers engineered dynamic freshwater habitats throughout the continent. The first farming communities were beginning to emerge in southeastern Europe, although most of northern and western Europe remained occupied by hunter-gatherers. Beneath this apparent stability, however, Europe's ecosystems were already missing many of the giant herbivores that had once maintained a more open and species-rich landscape.",
   "fauna": [
     {
       "name": "European Bison",

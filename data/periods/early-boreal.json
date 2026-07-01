@@ -2,6 +2,7 @@
   "id": "early-boreal",
   "info": "Elm, oak and eventually lime arrived from southern refugia, building the richest forest mix Europe had seen since the last interglacial.",
   "background": "The thermophilous trees arrived. Elm spread rapidly from southern refugia, followed closely by oak, with lime beginning to appear in the most oceanic western areas. Pine and hazel remained dominant across much of the map but were now joined by a diverse deciduous component. The landscape was developing into a mixed forest, richer and more structurally varied than anything seen since the Eemian interglacial. However, pollen richness data shows a paradox — plant species diversity was actually declining through this period as forest canopy closed and suppressed light-demanding forbs and open-habitat specialists. The herb layer was losing the variety it had maintained since the LGM. Open ground was shrinking further, perhaps 25–35% of the landscape, increasingly patchy and concentrated along river corridors, coasts and areas of regular Mesolithic burning.",
+  "floraDescription": "Mixed forests spread across Europe as oak and elm joined the established pine and hazel woodlands, signalling the arrival of the first warmth-loving deciduous trees. Canopies gradually became denser, reducing the abundance of light-demanding grasses and flowering plants that had characterised earlier periods. Nevertheless, woodland remained structurally diverse, shaped by fire, rivers, windthrow and the activity of browsing mammals. Rather than forming an unbroken forest, the landscape consisted of a shifting mosaic of mature woodland, wetlands and natural openings. This period marks the beginning of Europe's classic temperate forests, while also foreshadowing the gradual canopy closure that would reach its maximum during the Atlantic climatic optimum.",
   "flora": [
     {
       "name": "Pedunculate Oak",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "Open woodlands gradually developed into more continuous forests, although many landscapes remained shaped by natural grazing, wetlands and small-scale burning by Mesolithic communities. Aurochs, European bison, red deer and elk continued to browse and graze across extensive woodland mosaics, while wolves and lynx regulated growing herbivore populations. Beavers maintained dynamic river systems, creating natural clearings and floodplain habitats. Human use of fire locally reopened the landscape, partly replacing the ecological role once performed by Europe's extinct megafauna. Even so, overall herbivore biomass remained far below the evolutionary conditions under which Europe's forests, plants and wildlife had originally developed.",
   "fauna": [
     {
       "name": "European Bison",

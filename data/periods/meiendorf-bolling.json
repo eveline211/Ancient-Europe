@@ -2,6 +2,7 @@
   "id": "meiendorf-bolling",
   "info": "A sharp warming pulse pushed the polar desert and steppe northward, as pioneer birch and willow scrub began colonising the still-mostly-open landscape.",
   "background": "As temperatures rose sharply at the onset of this first warm interstadial, the polar desert and loess steppe began to retreat northward. Pioneer vegetation advanced rapidly — dwarf birch and willow scrub colonised previously barren ground, and open grassland and herb communities persisted across much of the lowlands. Birch trees began advancing from their southern refugia, initially as scattered individuals in an otherwise open landscape. The transition was fast by geological standards but the landscape remained predominantly open — perhaps 65–75% fully open ground, with open woodland patches developing in more sheltered or southerly areas. This period marks the beginning of the end for the classic mammoth steppe fauna, as megafauna populations were already in steep decline, meaning the vegetation was beginning to lose its primary large-herbivore regulation for the first time in hundreds of thousands of years.",
+  "floraDescription": "Rapid warming transformed Europe's frozen landscapes into a patchwork of open grasslands, shrublands and expanding pioneer woodland. Dwarf birch and willow were among the first plants to colonise newly exposed ground, while scattered birch trees gradually spread northward from southern refugia. Although woodland was increasing, most of the landscape remained open and species-rich. At the same time, populations of Europe's great Ice Age herbivores were declining, weakening the natural grazing pressure that had maintained the mammoth steppe for millennia. For the first time, vegetation began responding as much to the loss of ecosystem engineers as to a changing climate, marking the beginning of a profound ecological transition.",
   "flora": [
     {
       "name": "Silver Birch",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "A rapid warming climate transformed Europe after the Last Glacial Maximum. Woodlands slowly expanded across the landscape, while the open mammoth steppe began to fragment. Many of the great Ice Age giants were already in retreat. Mammoths and woolly rhinoceroses survived only in shrinking populations, and cave lions had almost disappeared from western Europe. At the same time, species adapted to mixed woodland, including red deer and brown bears, became increasingly common. Rivers and newly formed lakes expanded, creating favourable habitats for fish and waterbirds. This was a true transition period in which glacial and temperate ecosystems briefly coexisted before the final disappearance of Europe's surviving megafauna.",
   "fauna": [
     {
       "name": "Woolly Mammoth",

@@ -2,6 +2,7 @@
   "id": "early-preboreal",
   "info": "The Holocene begins: birch woodland raced northward at over a kilometre per year, while the megafauna that had shaped the landscape for millennia were now functionally gone.",
   "background": "The Younger Dryas ended as abruptly as it began. Temperatures rose rapidly, and birch woodland re-expanded northward at remarkable speed — pollen data suggests spreading rates of over 1000 metres per year for pioneer species. Open birch woodland became the dominant landscape across much of the map area within a few centuries. Pine followed closely behind from eastern source populations. The herb layer remained relatively rich and open — hazel was beginning its expansion but not yet dominant. This is the opening of the Holocene proper, and a critical ecological threshold: the large herbivore community that had structured vegetation for millennia was now functionally gone across most of the map area. Fire set by Mesolithic hunter-gatherers was becoming the primary driver of landscape openness, replacing herbivory. Roughly 50–60% of the landscape was still fully open, with open woodland expanding rapidly.",
+  "floraDescription": "With the onset of the Holocene, a warmer and more stable climate allowed forests to expand rapidly across Europe. Open tundra landscapes were gradually replaced by light birch woodlands, while Scots pine spread northward and hazel began its remarkable expansion. Despite increasing tree cover, these were still open, species-rich forests with abundant flowering plants and natural clearings. A fundamental ecological shift was now underway: the disappearance of Europe's great Ice Age herbivores meant that vegetation was no longer primarily regulated by grazing. Instead, fire—often associated with Mesolithic hunter-gatherers—and smaller browsing mammals became the principal forces maintaining landscape diversity, setting Europe on a new ecological trajectory.",
   "flora": [
     {
       "name": "Silver Birch",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "The beginning of the Holocene marked the end of Europe's Ice Age. As temperatures rapidly stabilised, forests expanded across much of the continent and the last traces of the mammoth steppe disappeared. The extinction of mammoths, woolly rhinoceroses and giant deer fundamentally reshaped European ecosystems. Aurochs became the largest wild grazer, accompanied by red deer, elk, wild boar and European bison. Beavers spread along rivers, creating wetlands that supported an increasing diversity of plants and animals. Although Mesolithic hunter-gatherers still lived at relatively low population densities, human hunting and the absence of Europe's former megaherbivores allowed forests to become denser than they had been for hundreds of thousands of years.",
   "fauna": [
     {
       "name": "Aurochs",

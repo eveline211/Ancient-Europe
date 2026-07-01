@@ -2,6 +2,7 @@
   "id": "present-day",
   "info": "Forest cover has fallen far below the Atlantic peak, replaced by a managed cultural landscape — closing a 23-million-year thread of herbivore-shaped open woodland.",
   "background": "The cultural landscape. Closed-canopy forest cover has been dramatically reduced from the Atlantic peak, but what replaced it — farmland, managed woodland, urban areas — bears no resemblance to the natural mosaic woodland baseline either. The closest surviving analogues to the pre-megafauna natural vegetation structure are found in traditionally grazed wood-pasture systems in parts of eastern Europe, Iberia's dehesa landscapes, and active trophic rewilding sites. Across the map area as a whole, perhaps 30–35% is wooded, but almost entirely managed, fragmented and low in large-herbivore biomass. The 23-million-year thread of open woodland mosaic maintained by large herbivores has been effectively severed.",
+  "floraDescription": "Modern Europe's vegetation reflects thousands of years of agriculture, forestry and urban development. Ancient forests have become fragmented, while many open habitats are now maintained through farming rather than by natural ecological processes. Native woodland still contains iconic trees such as oak, beech and alder, but much of the continent's vegetation has been reshaped by intensive land use and the introduction of non-native species. In recent decades, conservation and rewilding projects have begun restoring natural river systems, wetlands and native woodlands, allowing characteristic plant communities to recover. These efforts increasingly recognise that Europe's landscapes are dynamic ecosystems, shaped by the long interaction between climate, wildlife and people.",
   "flora": [
     {
       "name": "European Beech",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "Modern Europe's wildlife reflects the outcome of more than 50,000 years of ecological change. Most of the continent's largest herbivores have disappeared, and remaining populations occupy only fragments of their former ranges. Compared with the Last Interglacial, large-herbivore biomass has declined by more than 90%, fundamentally altering the way ecosystems function. Yet recent conservation efforts have reversed some long-term trends. European bison, wolves, lynx and beavers are returning to parts of their historic range, restoring ecological processes that had been absent for centuries. Although Europe's landscapes remain profoundly shaped by human activity, rewilding projects increasingly demonstrate how recovering wildlife can help rebuild healthier and more resilient ecosystems.",
   "fauna": [
     {
       "name": "European Bison",

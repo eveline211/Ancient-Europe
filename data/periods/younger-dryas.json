@@ -2,6 +2,7 @@
   "id": "younger-dryas",
   "info": "An abrupt return to near-glacial cold reversed the Allerød's woodland gains within decades — the sharpest single vegetation swing in the entire sequence.",
   "background": "An abrupt and dramatic return to near-glacial conditions, probably triggered by a shutdown of Atlantic circulation. Within decades, temperatures across northwest Europe plummeted. Birch and pine retreated southward; dwarf birch, willow scrub and cold steppe herbs recolonised ground that had briefly been woodland. Artemisia, Chenopodiaceae and arctic forbs returned across the lowlands. The landscape reverted to something close to the Meiendorf picture — open, cold, largely treeless across the northern two-thirds of the map. The contrast with the Allerød immediately before it was striking and rapid. Trees survived in refugia along the Atlantic fringe and in southern areas. This period is one of the most visible transitions in European pollen records, and on your map it would represent the sharpest single change in vegetation cover across the entire sequence.",
+  "floraDescription": "The Younger Dryas brought an abrupt return to near-glacial conditions, temporarily reversing Europe's postglacial greening. Expanding birch and pine woodlands retreated, giving way once again to open tundra, shrublands and cold steppe vegetation. Dwarf birch, willow and hardy herbs rapidly recolonised much of northern Europe, while small pockets of woodland survived in sheltered southern refugia. Although the cooling lasted only about 1,200 years, it interrupted one of Europe's most important ecological transitions. Climate once again became the dominant force shaping vegetation, briefly overshadowing the declining influence of megaherbivores. When temperatures recovered, forests expanded rapidly from these surviving refuges, marking the definitive beginning of the Holocene",
   "flora": [
     {
       "name": "Mountain Avens",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "A sudden return to near-glacial conditions temporarily interrupted Europe's warming climate. Open landscapes expanded once more, allowing reindeer and other cold-adapted species to move south again. Yet this brief cooling could not restore the lost mammoth steppe. Woolly mammoths had effectively disappeared from Europe, leaving aurochs and wild horses as the largest remaining grazers. Wolves, lynx and brown bears continued to occupy the continent's diverse habitats, while tundra birds returned to the colder landscapes. Although the Younger Dryas lasted little more than a millennium, it marked the final chapter of Europe's Ice Age ecosystems before the beginning of the stable Holocene climate.",
   "fauna": [
     {
       "name": "Reindeer",

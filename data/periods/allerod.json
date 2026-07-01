@@ -2,6 +2,7 @@
   "id": "allerod",
   "info": "A longer, warmer interstadial saw birch-pine woodland spread widely, with hazel making its first appearance — the most significant vegetation shift since the LGM.",
   "background": "A longer and warmer interstadial that saw the most significant vegetation development since the LGM. Birch woodland spread widely across central and northern Europe, with Scots pine expanding from eastern refugia and beginning to mix with birch across much of the map area. Hazel appeared for the first time in the pollen record in some areas, a sign of warming and a disturbance-adapted pioneer responding to browse pressure. The landscape was an open birch-pine woodland — not dense forest, but a mosaic of wooded patches, scrub and open ground, probably comparable structurally to present-day Scandinavian birch woodland zones. Open ground remained extensive, perhaps 50–60% of the landscape. Fire, increasingly of human origin, began to play a role alongside the diminishing large-herbivore influence in maintaining open patches.",
+  "floraDescription": "During the Allerød, Europe's landscapes became increasingly wooded as birch forests expanded and Scots pine spread across much of the continent. Rather than forming dense forests, these early woodlands created an open mosaic of trees, meadows, wetlands and lakes. Hazel appeared for the first time in many regions, signalling both a warmer climate and reduced browsing pressure following the decline of large herbivores. Fire, increasingly linked to human activity, began to maintain natural clearings that added structural diversity to the landscape. This period represents a turning point in European vegetation history, where ecological regulation gradually shifted from megafauna toward fire and human influence.",
   "flora": [
     {
       "name": "Scots Pine",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "As temperatures continued to rise, birch and pine forests spread rapidly across Europe, replacing much of the former open steppe. The disappearance of mammoths and other giant grazers accelerated this transformation, allowing denser woodland to develop. Aurochs became the continent's largest remaining wild cattle, while red deer, moose and wild boar expanded into the growing forests. Beavers increasingly shaped rivers and wetlands by creating ponds and opening woodland along riverbanks. Birds of prey flourished around lakes and floodplains, while pike became a dominant predator in freshwater ecosystems. Europe's fauna was becoming increasingly recognisable, although the ecological legacy of the Ice Age was still visible.",
   "fauna": [
     {
       "name": "Aurochs",

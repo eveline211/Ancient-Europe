@@ -2,6 +2,7 @@
   "id": "atlantic",
   "info": "The warmest, most densely forested period in the sequence — and, despite once being treated as Europe's 'natural' baseline, actually a post-megafauna artefact unlike anything in the prior 23 million years.",
   "background": "The warmest and most ecologically anomalous period in the entire sequence. Oak, lime, elm and alder formed a closed-canopy forest across the lowlands of most of the map area — the landscape that traditional ecology long treated as the \"natural\" baseline of temperate Europe. But this dense forest was in fact a post-megafauna artefact, structurally unlike anything in the preceding 23 million years of European ecological history. The Eemian interglacial, the most recent natural reference point with intact large-herbivore communities, had roughly 60% open woodland, 19% fully open and only 22% closed canopy — the Atlantic reversed those proportions, with perhaps 55–65% closed canopy. Light-demanding forbs, open-habitat insects, and grassland birds all declined sharply. The understorey was dark and species-poor. Along coasts, in river floodplains and in areas of continued Mesolithic and early Neolithic human activity, openings persisted — but the overall picture was the most forested Europe had been in millions of years. The North Sea had fully flooded by the mid-Atlantic, Doggerland was gone, and the coastline broadly resembled its present configuration.",
+  "floraDescription": "The Atlantic period marked the peak of Holocene forest development. Towering oak, lime and elm dominated extensive deciduous woodlands, while alder lined rivers and wetlands and ash became increasingly common in fertile soils. Dense canopies shaded much of the forest floor, favouring shade-tolerant plants such as ivy and limiting many of the light-demanding species that had characterised earlier landscapes. Although these forests are often regarded as Europe's natural climax vegetation, they represented a fundamentally different ecosystem from earlier interglacials. With the great Pleistocene herbivores gone, forests became denser and more continuous, while the spread of early farming communities began introducing new patterns of disturbance into an already transformed landscape.",
   "flora": [
     {
       "name": "Small-leaved Lime",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "The Atlantic period saw Europe's forests reach their greatest extent of the last several million years. Dense oak, lime and elm woodlands covered much of the lowlands, creating an ecosystem unlike the more open landscapes of earlier interglacials. At the same time, agriculture spread across Europe, introducing domestic cattle, sheep, pigs and horses that partially restored some of the grazing pressure lost with the extinct megafauna. Wild species such as aurochs, European bison, wolves and brown bears remained widespread, although increasing human settlement was beginning to fragment their habitats. This seemingly pristine forest landscape was, paradoxically, a product of long-term megafauna decline rather than Europe's original natural state.",
   "fauna": [
     {
       "name": "Aurochs",

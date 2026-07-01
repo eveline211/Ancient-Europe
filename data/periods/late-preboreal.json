@@ -2,6 +2,7 @@
   "id": "late-preboreal",
   "info": "Hazel exploded across the landscape at over 1500 metres a year, one of the most dramatic events in the European pollen record.",
   "background": "Hazel expanded explosively across northwest Europe during this period — one of the most dramatic and well-documented events in the European pollen record, with spread rates exceeding 1500 metres per year in some reconstructions. Hazel dominated the understorey and scrub layer across large areas, often preceding or accompanying the thermophilous trees. Its rapid spread is interpreted partly as a climate response but also as a sign of reduced browsing pressure — in the Eemian interglacial, when large herbivores were abundant, hazel was present but less dominant. Birch and pine remained the main tree canopy. The landscape was transitioning from open tundra-woodland to a more structured birch-pine forest with a dense hazel understorey, particularly in the oceanic west of the map. Open ground was contracting but still significant, perhaps 35–45% of the landscape, maintained mainly by Mesolithic burning.",
+  "floraDescription": "Europe's young forests continued to mature as birch and pine became firmly established across much of the continent. Hazel expanded rapidly beneath the canopy, creating a rich woodland understorey while open glades and river valleys still supported a diverse ground flora. Although forests were becoming denser, they remained far more varied than modern plantations, with wetlands, natural clearings and recently burned patches creating a dynamic landscape. Fire, browsing by surviving herbivores and local disturbance all contributed to maintaining structural diversity. These developing forests represent an important transitional stage between the open Late Glacial landscapes and the increasingly closed woodlands of the Boreal period.",
   "flora": [
     {
       "name": "Silver Birch",
@@ -24,6 +25,7 @@
       "note": ""
     }
   ],
+  "faunaDescription": "Europe's early Holocene ecosystems entered a period of remarkable stability. Large mammals still occupied most of the continent, while forests continued to mature and rivers meandered through increasingly wooded landscapes. Aurochs remained the dominant grazer, with roe deer, wild boar and brown bears thriving in the expanding woodland mosaic. Beavers transformed river valleys into networks of ponds and wetlands, creating habitats for countless other species. Unlike later periods, there is little evidence of widespread faunal decline. Although herbivore numbers were already far below their prehistoric baseline, Europe's wildlife communities remained largely intact and continued to perform many of the ecological functions that had shaped the continent for millennia.",
   "fauna": [
     {
       "name": "Aurochs",
