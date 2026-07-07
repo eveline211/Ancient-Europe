@@ -13,8 +13,8 @@ const LAYER_TOGGLES = [
 // Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
 // Static outlines — same for every period, just toggled on/off for a "then vs now" reference.
 const LINE_LAYERS = [
-  { id: "coastline", label: "Coastline", file: "data/layers/coastline.geojson", color: "#e63946", width: 1 },
-  { id: "borders", label: "Countries", file: "data/layers/borders.geojson", color: "#999999", width: 1 },
+  { id: "coastline", label: "Coastline", file: "data/coastline.geojson", color: "#e63946", width: 1 },
+  { id: "borders", label: "Countries", file: "data/borders.geojson", color: "#999999", width: 1 },
 ];
 
 let tilesMap = {}; // period id -> pmtiles path, or null if not yet converted
