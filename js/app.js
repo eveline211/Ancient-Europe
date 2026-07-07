@@ -13,8 +13,8 @@ const LAYER_TOGGLES = [
 // Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
 // Static outlines — same for every period, just toggled on/off for a "then vs now" reference.
 const LINE_LAYERS = [
-  { id: "coastline", label: "Coastline", file: "data/layers/coastline.geojson", color: "#e63946", width: 1 },
-  { id: "borders", label: "Countries", file: "data/layers/borders.geojson", color: "#999999", width: 1 },
+  { id: "coastline", label: "Coastline", file: "data/coastline.geojson", color: "#e63946", width: 1 },
+  { id: "borders", label: "Countries", file: "data/borders.geojson", color: "#999999", width: 1 },
 ];
 
 // Geographic place-name labels (e.g. "Doggerland", "the Alps"), styled by category.
@@ -156,6 +156,13 @@ function renderPanel() {
   contentEl.innerHTML = renderTabContent(state.activeTab, content);
 }
 
+function renderSpeciesCard(f, fallbackIcon) {
+  const imgBox = f.image
+    ? `<div class="fauna-card-img"><img src="${f.image}" alt="${f.name}"></div>`
+    : `<div class="fauna-card-img"><span class="placeholder-icon">${fallbackIcon}</span></div>`;
+  return `<div class="fauna-card">${imgBox}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
+}
+
 function renderTabContent(tab, content) {
   if (!content) return `<span class="empty">Loading…</span>`;
   switch (tab) {
@@ -163,14 +170,20 @@ function renderTabContent(tab, content) {
       return `<div>${content.info}</div>`;
     case "background":
       return `<div>${content.background}</div>`;
-    case "flora":
-      return content.flora.length
-        ? content.flora.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
+    case "flora": {
+      const intro = content.floraDescription ? `<div class="content-block">${content.floraDescription}</div>` : "";
+      const cards = content.flora.length
+        ? content.flora.map(f => renderSpeciesCard(f, "🌿")).join("")
         : `<span class="empty">No flora entries yet for this period.</span>`;
-    case "fauna":
-      return content.fauna.length
-        ? content.fauna.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
+      return intro + cards;
+    }
+    case "fauna": {
+      const intro = content.faunaDescription ? `<div class="content-block">${content.faunaDescription}</div>` : "";
+      const cards = content.fauna.length
+        ? content.fauna.map(f => renderSpeciesCard(f, "🐾")).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
+      return intro + cards;
+    }
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
@@ -195,64 +208,80 @@ function initMap() {
     setBasemapForPeriod(state.activePeriodId);
 
     for (const layerDef of LINE_LAYERS) {
-      const res = await fetch(layerDef.file);
-      const geojson = await res.json();
-      map.addSource(layerDef.id, { type: "geojson", data: geojson });
-      map.addLayer({
-        id: layerDef.id,
-        type: "line",
-        source: layerDef.id,
-        paint: {
-          "line-color": layerDef.color,
-          "line-width": layerDef.width
-        }
-      });
+      try {
+        const res = await fetch(layerDef.file);
+        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
+        const geojson = await res.json();
+        map.addSource(layerDef.id, { type: "geojson", data: geojson });
+        map.addLayer({
+          id: layerDef.id,
+          type: "line",
+          source: layerDef.id,
+          paint: {
+            "line-color": layerDef.color,
+            "line-width": layerDef.width
+          }
+        });
+      } catch (err) {
+        console.error(`Failed to load line layer "${layerDef.id}":`, err.message);
+      }
     }
 
     for (const layerDef of LAYER_TOGGLES) {
-      const res = await fetch(layerDef.file);
-      const geojson = await res.json();
-      map.addSource(layerDef.id, { type: "geojson", data: geojson });
-      map.addLayer({
-        id: layerDef.id,
-        type: "circle",
-        source: layerDef.id,
-        paint: {
-          "circle-radius": 6,
-          "circle-color": layerDef.color,
-          "circle-stroke-width": 1,
-          "circle-stroke-color": "#fff"
-        }
-      });
-      map.on("click", layerDef.id, (e) => {
-        const props = e.features[0].properties;
-        new maplibregl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(`<strong>${props.name}</strong><br>${props.description || props.note || ""}`)
-          .addTo(map);
-      });
+      try {
+        const res = await fetch(layerDef.file);
+        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
+        const geojson = await res.json();
+        map.addSource(layerDef.id, { type: "geojson", data: geojson });
+        map.addLayer({
+          id: layerDef.id,
+          type: "circle",
+          source: layerDef.id,
+          paint: {
+            "circle-radius": 6,
+            "circle-color": layerDef.color,
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#fff"
+          }
+        });
+        map.on("click", layerDef.id, (e) => {
+          const props = e.features[0].properties;
+          new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`<strong>${props.name}</strong><br>${props.description || props.note || ""}`)
+            .addTo(map);
+        });
+      } catch (err) {
+        console.error(`Failed to load point layer "${layerDef.id}":`, err.message);
+      }
     }
+
     for (const layerDef of SYMBOL_LAYERS) {
-      const res = await fetch(layerDef.file);
-      const geojson = await res.json();
-      map.addSource(layerDef.id, { type: "geojson", data: geojson });
-      map.addLayer({
-        id: layerDef.id,
-        type: "symbol",
-        source: layerDef.id,
-        layout: {
-          "text-field": ["get", "name"],
-          "text-font": CATEGORY_TEXT_FONT,
-          "text-size": CATEGORY_TEXT_SIZE,
-          "text-rotate": ["coalesce", ["get", "rotation"], 0],
-          "text-allow-overlap": false
-        },
-        paint: {
-          "text-color": CATEGORY_TEXT_COLOR,
-          "text-halo-color": "#ffffff",
-          "text-halo-width": 1.2
-        }
-      });
+      try {
+        const res = await fetch(layerDef.file);
+        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
+        const geojson = await res.json();
+        map.addSource(layerDef.id, { type: "geojson", data: geojson });
+        map.addLayer({
+          id: layerDef.id,
+          type: "symbol",
+          source: layerDef.id,
+          layout: {
+            "text-field": ["get", "name"],
+            "text-font": CATEGORY_TEXT_FONT,
+            "text-size": CATEGORY_TEXT_SIZE,
+            "text-rotate": ["coalesce", ["get", "rotation"], 0],
+            "text-allow-overlap": false
+          },
+          paint: {
+            "text-color": CATEGORY_TEXT_COLOR,
+            "text-halo-color": "#ffffff",
+            "text-halo-width": 1.2
+          }
+        });
+      } catch (err) {
+        console.error(`Failed to load symbol layer "${layerDef.id}":`, err.message);
+      }
     }
 
     updateMapLayersForPeriod();
