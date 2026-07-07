@@ -10,6 +10,13 @@ const LAYER_TOGGLES = [
   { id: "eveline-places", label: "Eveline's places", file: "data/layers/eveline-places.geojson", color: "#7a3e9d" },
 ];
 
+// Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
+// Static outlines — same for every period, just toggled on/off for a "then vs now" reference.
+const LINE_LAYERS = [
+  { id: "coastline", label: "Coastline", file: "data/layers/coastline.geojson", color: "#e63946", width: 1 },
+  { id: "borders", label: "Countries", file: "data/layers/borders.geojson", color: "#999999", width: 1 },
+];
+
 let tilesMap = {}; // period id -> pmtiles path, or null if not yet converted
 
 let state = {
@@ -70,8 +77,7 @@ function renderToggles() {
   const el = document.getElementById("overlay-toggles");
   el.innerHTML = "";
   const allToggles = [
-    { id: "coastline", label: "Coastline" },
-    { id: "borders", label: "Countries" },
+    ...LINE_LAYERS.map(l => ({ id: l.id, label: l.label })),
     ...LAYER_TOGGLES.map(l => ({ id: l.id, label: l.label })),
   ];
   allToggles.forEach(t => {
@@ -111,15 +117,6 @@ function renderPanel() {
   contentEl.innerHTML = renderTabContent(state.activeTab, content);
 }
 
-// Renders one flora/fauna card. Uses f.image (a URL) if set, otherwise shows
-// a placeholder square with a fallback emoji icon.
-function renderSpeciesCard(f, fallbackIcon) {
-  const imgBox = f.image
-    ? `<div class="fauna-card-img"><img src="${f.image}" alt="${f.name}"></div>`
-    : `<div class="fauna-card-img"><span class="placeholder-icon">${fallbackIcon}</span></div>`;
-  return `<div class="fauna-card">${imgBox}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
-}
-
 function renderTabContent(tab, content) {
   if (!content) return `<span class="empty">Loading…</span>`;
   switch (tab) {
@@ -127,20 +124,14 @@ function renderTabContent(tab, content) {
       return `<div>${content.info}</div>`;
     case "background":
       return `<div>${content.background}</div>`;
-    case "flora": {
-      const intro = content.floraDescription ? `<div class="content-block">${content.floraDescription}</div>` : "";
-      const cards = content.flora.length
-        ? content.flora.map(f => renderSpeciesCard(f, "🌿")).join("")
+    case "flora":
+      return content.flora.length
+        ? content.flora.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
         : `<span class="empty">No flora entries yet for this period.</span>`;
-      return intro + cards;
-    }
-    case "fauna": {
-      const intro = content.faunaDescription ? `<div class="content-block">${content.faunaDescription}</div>` : "";
-      const cards = content.fauna.length
-        ? content.fauna.map(f => renderSpeciesCard(f, "🐾")).join("")
+    case "fauna":
+      return content.fauna.length
+        ? content.fauna.map(f => `<div class="fauna-card"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div>`).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
-      return intro + cards;
-    }
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
@@ -163,6 +154,21 @@ function initMap() {
 
   map.on("load", async () => {
     setBasemapForPeriod(state.activePeriodId);
+
+    for (const layerDef of LINE_LAYERS) {
+      const res = await fetch(layerDef.file);
+      const geojson = await res.json();
+      map.addSource(layerDef.id, { type: "geojson", data: geojson });
+      map.addLayer({
+        id: layerDef.id,
+        type: "line",
+        source: layerDef.id,
+        paint: {
+          "line-color": layerDef.color,
+          "line-width": layerDef.width
+        }
+      });
+    }
 
     for (const layerDef of LAYER_TOGGLES) {
       const res = await fetch(layerDef.file);
