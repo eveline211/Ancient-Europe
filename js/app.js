@@ -13,18 +13,56 @@ const LAYER_TOGGLES = [
 // Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
 // Static outlines — same for every period, just toggled on/off for a "then vs now" reference.
 const LINE_LAYERS = [
-  { id: "coastline", label: "Coastline", file: "data/coastline.geojson", color: "#e63946", width: 1 },
-  { id: "borders", label: "Countries", file: "data/borders.geojson", color: "#999999", width: 1 },
+  { id: "coastline", label: "Coastline", file: "data/layers/coastline.geojson", color: "#e63946", width: 1 },
+  { id: "borders", label: "Countries", file: "data/layers/borders.geojson", color: "#999999", width: 1 },
 ];
 
-let tilesMap = {}; // period id -> pmtiles path, or null if not yet converted
+// Geographic place-name labels (e.g. "Doggerland", "the Alps"), styled by category.
+// period_txt holds a single period id per point (labels spanning multiple periods
+// are duplicated as separate points, one per period) — different from the
+// "periods" array used on archaeological-sites/eveline-places.
+const SYMBOL_LAYERS = [
+  { id: "labels", label: "Labels", file: "data/labels.geojson" },
+];
+
+const CATEGORY_TEXT_COLOR = [
+  "match", ["get", "category"],
+  "sea", "#2a6f97",
+  "land", "#4a4a4a",
+  "lake", "#1c7ed6",
+  "icelake", "#4a90c2",
+  "icesheet", "#3d6d8c",
+  "mountains", "#6b4423",
+  "coming soon", "#999999",
+  "#333333"
+];
+
+const CATEGORY_TEXT_SIZE = [
+  "match", ["get", "category"],
+  "sea", 13,
+  "land", 12,
+  "lake", 12,
+  "icelake", 11,
+  "icesheet", 12,
+  "mountains", 11,
+  "coming soon", 11,
+  12
+];
+
+const CATEGORY_TEXT_FONT = [
+  "match", ["get", "category"],
+  "coming soon", ["literal", ["Open Sans Italic"]],
+  ["literal", ["Open Sans Regular"]]
+];
+
+
 
 let state = {
   periods: [],
   activePeriodId: null,
   activeTab: "info",
   periodContent: {}, // cache
-  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": true },
+  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": true, "labels": true },
 };
 
 let map;
@@ -78,6 +116,7 @@ function renderToggles() {
   el.innerHTML = "";
   const allToggles = [
     ...LINE_LAYERS.map(l => ({ id: l.id, label: l.label })),
+    ...SYMBOL_LAYERS.map(l => ({ id: l.id, label: l.label })),
     ...LAYER_TOGGLES.map(l => ({ id: l.id, label: l.label })),
   ];
   allToggles.forEach(t => {
@@ -147,7 +186,7 @@ function initMap() {
 
   map = new maplibregl.Map({
     container: "map",
-    style: { version: 8, sources: {}, layers: [] },
+    style: { version: 8, sources: {}, layers: [], glyphs: "https://fonts.openmaptiles.org/{fontstack}/{range}.pbf" },
     center: [5, 50],
     zoom: 3.2
   });
@@ -193,6 +232,29 @@ function initMap() {
           .addTo(map);
       });
     }
+    for (const layerDef of SYMBOL_LAYERS) {
+      const res = await fetch(layerDef.file);
+      const geojson = await res.json();
+      map.addSource(layerDef.id, { type: "geojson", data: geojson });
+      map.addLayer({
+        id: layerDef.id,
+        type: "symbol",
+        source: layerDef.id,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-font": CATEGORY_TEXT_FONT,
+          "text-size": CATEGORY_TEXT_SIZE,
+          "text-rotate": ["coalesce", ["get", "rotation"], 0],
+          "text-allow-overlap": false
+        },
+        paint: {
+          "text-color": CATEGORY_TEXT_COLOR,
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 1.2
+        }
+      });
+    }
+
     updateMapLayersForPeriod();
   });
 }
@@ -240,6 +302,11 @@ function updateMapLayersForPeriod() {
   LAYER_TOGGLES.forEach(layerDef => {
     if (!map.getLayer(layerDef.id)) return;
     map.setFilter(layerDef.id, ["in", state.activePeriodId, ["get", "periods"]]);
+    applyLayerVisibility(layerDef.id);
+  });
+  SYMBOL_LAYERS.forEach(layerDef => {
+    if (!map.getLayer(layerDef.id)) return;
+    map.setFilter(layerDef.id, ["==", ["get", "period_txt"], state.activePeriodId]);
     applyLayerVisibility(layerDef.id);
   });
 }
