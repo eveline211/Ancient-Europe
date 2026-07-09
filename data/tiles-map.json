@@ -1,12 +1,12 @@
 {
-  "lgm": "tiles/lgm.pmtiles",
-  "meiendorf-bolling": "tiles/meiendorf-bolling.pmtiles",
-  "allerod": "tiles/allerod.pmtiles",
-  "younger-dryas": "tiles/younger-dryas.pmtiles",
-  "early-preboreal": "tiles/early-preboreal.pmtiles",
-  "late-preboreal": "tiles/late-preboreal.pmtiles",
-  "early-boreal": "tiles/early-boreal.pmtiles",
-  "late-boreal": "tiles/late-boreal.pmtiles",
-  "atlantic": "tiles/atlantic.pmtiles",
-  "present-day": "tiles/present-day.pmtiles"
+  "lgm": "https://tiles.ancienteurope.org/lgm.pmtiles",
+  "meiendorf-bolling": "https://tiles.ancienteurope.org/meiendorf-bolling.pmtiles",
+  "allerod": "https://tiles.ancienteurope.org/allerod.pmtiles",
+  "younger-dryas": "https://tiles.ancienteurope.org/younger-dryas.pmtiles",
+  "early-preboreal": "https://tiles.ancienteurope.org/early-preboreal.pmtiles",
+  "late-preboreal": "https://tiles.ancienteurope.org/late-preboreal.pmtiles",
+  "early-boreal": "https://tiles.ancienteurope.org/early-boreal.pmtiles",
+  "late-boreal": "https://tiles.ancienteurope.org/late-boreal.pmtiles",
+  "atlantic": "https://tiles.ancienteurope.org/atlantic.pmtiles",
+  "present-day": "https://tiles.ancienteurope.org/present-day.pmtiles"
 }
