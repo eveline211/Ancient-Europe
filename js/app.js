@@ -25,6 +25,10 @@ const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
 
+// Order overlays are added in — used to re-insert the basemap below all of them
+// whenever the period switches (see setBasemapForPeriod).
+const OVERLAY_LAYER_ORDER = ["coastline", "borders", "archaeological-sites", "eveline-places", "labels"];
+
 const CATEGORY_TEXT_COLOR = [
   "match", ["get", "category"],
   "sea", "#2a6f97",
@@ -315,8 +319,8 @@ function setBasemapForPeriod(periodId) {
     });
   }
 
-  // Insert basemap below the point-layer overlays if they already exist, otherwise just add it
-  const beforeId = map.getLayer("archaeological-sites") ? "archaeological-sites" : undefined;
+  // Insert basemap below all overlay layers that currently exist, in their original order
+  const beforeId = OVERLAY_LAYER_ORDER.find(id => map.getLayer(id));
   map.addLayer({ id: "period-basemap", type: "raster", source: "period-basemap" }, beforeId);
 }
 
