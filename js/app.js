@@ -208,11 +208,11 @@ function renderTabContent(tab, content) {
       return `<div>${content.background}</div>`;
     case "flora":
       return content.flora.length
-        ? content.flora.map(renderSpeciesCard).join("")
+        ? content.flora.map(f => renderSpeciesCard(f, "assets/icon_grassland.PNG")).join("")
         : `<span class="empty">No flora entries yet for this period.</span>`;
     case "fauna":
       return content.fauna.length
-        ? content.fauna.map(renderSpeciesCard).join("")
+        ? content.fauna.map(f => renderSpeciesCard(f, "assets/icon_reddeer.PNG")).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
     case "video":
       return content.video && content.video.url
