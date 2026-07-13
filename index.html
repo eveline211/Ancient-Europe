@@ -3,22 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ancient Europe — prototype skeleton</title>
+<title>Ancient Europe</title>
 <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
 <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="app-frame">
+<div class="app-frame" id="app-frame">
+
   <div class="topbar">
-    <div class="topbar-logo">🌍 Ancient Europe <span class="dev-tag">prototype skeleton</span></div>
-    <div class="topbar-right">
+    <div class="topbar-row1">
+      <div class="brand">
+        <!-- TODO: replace with your final transparent logo asset once ready -->
+        <img src="assets/logo-icon.png" alt="Ancient Europe">
+        <span class="brand-word">ANCIENT EUROPE</span>
+      </div>
+      <span class="badge-unlocked" id="unlock-badge">Unlocked</span>
+    </div>
+    <div class="topbar-row2">
       <div class="overlay-toggles" id="overlay-toggles"></div>
     </div>
   </div>
 
+  <!-- MAP VIEW -->
   <div class="main-area">
     <div class="map-area">
       <div id="map"></div>
@@ -39,6 +50,22 @@
     <div class="timeline-label">Select a time period</div>
     <div class="timeline-periods" id="timeline-periods"></div>
   </div>
+
+  <div class="topics-label">Research essays</div>
+  <div class="topics-row" id="topics-row"></div>
+
+  <!-- RESEARCH ESSAY VIEW (shares the topbar above) -->
+  <div id="essay-view">
+    <div class="dd-back" id="essay-back">← Back to map</div>
+    <div class="dd-article">
+      <div class="dd-eyebrow" id="essay-eyebrow">Research essay</div>
+      <div class="dd-headline" id="essay-headline">—</div>
+      <div class="dd-meta" id="essay-meta"></div>
+      <div class="dd-body" id="essay-body"></div>
+      <div class="dd-source" id="essay-source"></div>
+    </div>
+  </div>
+
 </div>
 
 <script src="js/app.js"></script>
