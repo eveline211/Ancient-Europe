@@ -1,0 +1,30 @@
+{
+  "id": "megafauna-collapse",
+  "title": "The megafauna collapse that rewrote Europe's forests",
+  "eyebrow": "Research essay",
+  "meta": ["6 min read", "Davoli et al. 2024, Czyżewski et al. 2026"],
+  "body": [
+    { "type": "paragraph", "html": "For most of the last 23 million years, Europe was never a solid wall of trees. Mammoths, rhinos, giant deer, aurochs and wild horses kept the landscape open — grazing, trampling, and browsing a shifting mosaic of woodland and grassland into being." },
+    { "type": "paragraph", "html": "<strong>That changed with the arrival of modern humans.</strong> Between roughly 40,000 and 15,000 years ago, nearly every large herbivore over 300kg was pushed toward extinction or retreat. By the time the LGM's ice began to melt, the animals that had structured the landscape for millennia were already gone or going." },
+    {
+      "type": "table",
+      "caption": "Table — Flora & fauna trends per period",
+      "columns": ["Period", "Dominant vegetation", "Key tree species", "Key fauna", "Main structuring driver"],
+      "rows": [
+        ["LGM<br>25,500–17,500 BCE", "Open tundra–steppe mosaic; polar desert / loess steppe", "Scattered Pinus, Betula in refugia only; dwarf birch, willow", "Woolly mammoth, woolly rhino, reindeer, wild horse, steppe bison", "Megaherbivore grazing / browsing"],
+        ["Meiendorf / Bølling<br>12,650–11,950 BCE", "Opening tundra; pioneer woodland advancing", "Birch, willow scrub colonising; pine still scarce", "Megafauna in steep decline", "Climate warming; herbivore regulation weakening"],
+        ["Allerød<br>11,950–10,750 BCE", "Open birch–pine woodland mosaic", "Birch dominant, pine expanding, first hazel", "Reduced herbivore pressure; early human presence", "Climate + emerging fire / human influence"],
+        ["Younger Dryas<br>10,750–9,700 BCE", "Reversion to open tundra / cold steppe", "Birch, pine retreat; dwarf birch, willow return", "Residual cold-adapted fauna (reindeer, locally horse)", "Abrupt climatic (AMOC) reversal"],
+        ["Early Preboreal<br>9,700–9,200 BCE", "Open birch woodland", "Birch dominant; pine expanding; hazel beginning", "Large herbivores largely absent", "Fire and early human activity"],
+        ["Late Preboreal<br>9,200–8,700 BCE", "Birch–pine forest with open patches", "Birch + pine; hazel expanding rapidly", "Surviving woodland fauna establishing", "Climate warming; disturbance (fire / browsing)"],
+        ["Early Boreal<br>8,700–8,000 BCE", "Mixed forest developing", "Pine, hazel dominant; elm, oak arriving", "Red deer, roe deer, wild boar", "Fire; canopy closure reducing light-demanding flora"],
+        ["Late Boreal<br>8,000–7,200 BCE", "Dense mixed-deciduous forest, locally closed", "Oak, elm, hazel dominant; lime arriving; alder in valleys", "Aurochs (locally); Mesolithic fire use", "Mesolithic fire; novel ecosystem state"],
+        ["Atlanticum<br>6,500–4,500 BCE", "Closed-canopy climax forest (post-megafauna)", "Oak, lime, elm, alder dominant; ash, ivy", "Red deer, roe deer, wild boar, aurochs, beaver", "Absence of megaherbivores (vs. Eemian baseline)"]
+      ],
+      "note": "Summary of dominant vegetation type, key arriving/dominant tree species, key fauna, and the main ecological driver of vegetation structure for each of the ten EPHA time periods."
+    },
+    { "type": "paragraph", "html": "Without these animals, forest closed in far beyond its natural range. The dense oak–lime–alder canopy of the Atlantic period — long treated as Europe's \"natural\" baseline — was in fact an ecological anomaly: the densest Europe had been in over twenty million years, and a direct consequence of defaunation rather than climate alone." },
+    { "type": "paragraph", "html": "Today, large-herbivore biomass across Europe sits at roughly 6% of its pre-human baseline. The open woodland mosaic that shaped this continent's flora and fauna for millions of years has, in most places, simply gone." }
+  ],
+  "sourceNote": "Sources and further reading on the <a href=\"#\">References page →</a>"
+}
