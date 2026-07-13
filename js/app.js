@@ -24,6 +24,7 @@ const LINE_LAYERS = [
 const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
+
 // The intended bottom-to-top stacking order of every overlay layer.
 // setBasemapForPeriod() uses this to always re-insert the basemap
 // below whichever overlay currently sits lowest, regardless of load order.
@@ -32,6 +33,7 @@ const OVERLAY_LAYER_ORDER = [
   ...LAYER_TOGGLES.map(l => l.id),
   ...SYMBOL_LAYERS.map(l => l.id),
 ];
+
 const CATEGORY_TEXT_COLOR = [
   "match", ["get", "category"],
   "sea", "#2a6f97",
@@ -393,10 +395,10 @@ function setBasemapForPeriod(periodId) {
     });
   }
 
-  // Insert basemap below the point-layer overlays if they already exist, otherwise just add it
-  const beforeId = map.getLayer("archaeological-sites") ? "archaeological-sites" : undefined;
+  // Insert basemap below whichever overlay layer currently sits lowest in the
+  // stack, so it stays at the bottom regardless of which layers exist yet.
+  const beforeId = OVERLAY_LAYER_ORDER.find(id => map.getLayer(id));
   map.addLayer({ id: "period-basemap", type: "raster", source: "period-basemap" }, beforeId);
-}
 
 function applyLayerVisibility(layerId) {
   if (!map || !map.getLayer(layerId)) return;
