@@ -198,10 +198,9 @@ function renderPanel() {
   contentEl.innerHTML = renderTabContent(state.activeTab, content);
 }
 
-// Renders one flora/fauna card. If the entry has an "image" field (path to a
-// circular badge illustration, e.g. "assets/species/red-deer.png"), it's shown
-// bare at 64px — no extra frame, since the artwork already has its own border
-// baked in. Entries without an image just render as text, same as before.
+// Renders one flora/fauna card. Uses the entry's own "image" field if present,
+// otherwise falls back to the shared placeholder icon passed in. Shown bare at
+// 64px — no extra frame, since the artwork already has its own border baked in.
 function renderSpeciesCard(f, fallbackImage) {
   const imgSrc = f.image || fallbackImage;
   const img = imgSrc ? `<img class="fauna-icon-img" src="${imgSrc}" alt="${f.name}">` : "";
@@ -216,13 +215,15 @@ function renderTabContent(tab, content) {
     case "background":
       return `<div>${content.background}</div>`;
     case "flora":
-      return content.flora.length
-        ? content.flora.map(f => renderSpeciesCard(f, "assets/icon_grassland.PNG")).join("")
-        : `<span class="empty">No flora entries yet for this period.</span>`;
+      return (content.floraDescription ? `<div class="content-block">${content.floraDescription}</div>` : "") +
+        (content.flora.length
+          ? content.flora.map(f => renderSpeciesCard(f, "assets/icon_grassland.PNG")).join("")
+          : `<span class="empty">No flora entries yet for this period.</span>`);
     case "fauna":
-      return content.fauna.length
-        ? content.fauna.map(f => renderSpeciesCard(f, "assets/icon_reddeer.PNG")).join("")
-        : `<span class="empty">No fauna entries yet for this period.</span>`;
+      return (content.faunaDescription ? `<div class="content-block">${content.faunaDescription}</div>` : "") +
+        (content.fauna.length
+          ? content.fauna.map(f => renderSpeciesCard(f, "assets/icon_reddeer.PNG")).join("")
+          : `<span class="empty">No fauna entries yet for this period.</span>`);
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
@@ -249,11 +250,15 @@ function renderTopics() {
 }
 
 async function openEssay(essayId) {
-  const data = await loadEssayContent(essayId);
-  state.activeEssayId = essayId;
-  state.view = "essay";
-  document.getElementById("app-frame").classList.add("essay-mode");
-  renderEssay(data);
+  try {
+    const data = await loadEssayContent(essayId);
+    state.activeEssayId = essayId;
+    state.view = "essay";
+    document.getElementById("app-frame").classList.add("essay-mode");
+    renderEssay(data);
+  } catch (err) {
+    console.error("Could not load essay:", essayId, err);
+  }
 }
 
 function closeEssay() {
@@ -399,6 +404,7 @@ function setBasemapForPeriod(periodId) {
   // stack, so it stays at the bottom regardless of which layers exist yet.
   const beforeId = OVERLAY_LAYER_ORDER.find(id => map.getLayer(id));
   map.addLayer({ id: "period-basemap", type: "raster", source: "period-basemap" }, beforeId);
+}
 
 function applyLayerVisibility(layerId) {
   if (!map || !map.getLayer(layerId)) return;
