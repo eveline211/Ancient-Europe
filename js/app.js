@@ -13,8 +13,8 @@ const LAYER_TOGGLES = [
 // Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
 // Static outlines — same for every period, just toggled on/off for a "then vs now" reference.
 const LINE_LAYERS = [
-  { id: "coastline", label: "Coastline", file: "data/coastline.geojson", color: "#e63946", width: 1 },
-  { id: "borders", label: "Countries", file: "data/borders.geojson", color: "#999999", width: 1 },
+  { id: "coastline", label: "Coastline", file: "data/layers/coastline.geojson", color: "#e63946", width: 1 },
+  { id: "borders", label: "Countries", file: "data/layers/borders.geojson", color: "#999999", width: 1 },
 ];
 
 // Geographic place-name labels (e.g. "Doggerland", "the Alps"), styled by category.
@@ -24,10 +24,6 @@ const LINE_LAYERS = [
 const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
-
-// Order overlays are added in — used to re-insert the basemap below all of them
-// whenever the period switches (see setBasemapForPeriod).
-const OVERLAY_LAYER_ORDER = ["coastline", "borders", "archaeological-sites", "eveline-places", "labels"];
 
 const CATEGORY_TEXT_COLOR = [
   "match", ["get", "category"],
@@ -66,11 +62,22 @@ let state = {
   activePeriodId: null,
   activeTab: "info",
   periodContent: {}, // cache
+
+  // Research essays ("deep dives"): one list file + one content file per essay,
+  // same pattern as periods.json / periods/{id}.json.
+  essays: [],
+  activeEssayId: null,
+  essayContent: {}, // cache
+
+  // "map" | "essay" — controls which view is visible. Shares the same topbar.
+  view: "map",
+
   layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": true, "labels": true },
 };
 
 let map;
 let protocol;
+let tilesMap;
 
 async function init() {
   const periodsRes = await fetch("data/periods.json");
@@ -81,8 +88,22 @@ async function init() {
   const tilesRes = await fetch("data/tiles-map.json");
   tilesMap = await tilesRes.json();
 
+  // Essay list — safe to skip silently if the file doesn't exist yet.
+  try {
+    const essaysRes = await fetch("data/essays.json");
+    if (essaysRes.ok) {
+      const essaysData = await essaysRes.json();
+      state.essays = essaysData.essays;
+    }
+  } catch (e) {
+    state.essays = [];
+  }
+
   renderTimeline();
   renderToggles();
+  renderTopics();
+  document.getElementById("essay-back").addEventListener("click", closeEssay);
+
   await loadPeriodContent(state.activePeriodId);
   renderPanel();
   initMap();
@@ -93,6 +114,14 @@ async function loadPeriodContent(periodId) {
   const res = await fetch(`data/periods/${periodId}.json`);
   const data = await res.json();
   state.periodContent[periodId] = data;
+  return data;
+}
+
+async function loadEssayContent(essayId) {
+  if (state.essayContent[essayId]) return state.essayContent[essayId];
+  const res = await fetch(`data/essays/${essayId}.json`);
+  const data = await res.json();
+  state.essayContent[essayId] = data;
   return data;
 }
 
@@ -160,11 +189,13 @@ function renderPanel() {
   contentEl.innerHTML = renderTabContent(state.activeTab, content);
 }
 
-function renderSpeciesCard(f, fallbackIcon) {
-  const imgBox = f.image
-    ? `<div class="fauna-card-img"><img src="${f.image}" alt="${f.name}"></div>`
-    : `<div class="fauna-card-img"><span class="placeholder-icon">${fallbackIcon}</span></div>`;
-  return `<div class="fauna-card">${imgBox}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
+// Renders one flora/fauna card. If the entry has an "image" field (path to a
+// circular badge illustration, e.g. "assets/species/red-deer.png"), it's shown
+// bare at 64px — no extra frame, since the artwork already has its own border
+// baked in. Entries without an image just render as text, same as before.
+function renderSpeciesCard(f) {
+  const img = f.image ? `<img class="fauna-icon-img" src="${f.image}" alt="${f.name}">` : "";
+  return `<div class="fauna-card">${img}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
 }
 
 function renderTabContent(tab, content) {
@@ -174,20 +205,14 @@ function renderTabContent(tab, content) {
       return `<div>${content.info}</div>`;
     case "background":
       return `<div>${content.background}</div>`;
-    case "flora": {
-      const intro = content.floraDescription ? `<div class="content-block">${content.floraDescription}</div>` : "";
-      const cards = content.flora.length
-        ? content.flora.map(f => renderSpeciesCard(f, "🌿")).join("")
+    case "flora":
+      return content.flora.length
+        ? content.flora.map(renderSpeciesCard).join("")
         : `<span class="empty">No flora entries yet for this period.</span>`;
-      return intro + cards;
-    }
-    case "fauna": {
-      const intro = content.faunaDescription ? `<div class="content-block">${content.faunaDescription}</div>` : "";
-      const cards = content.fauna.length
-        ? content.fauna.map(f => renderSpeciesCard(f, "🐾")).join("")
+    case "fauna":
+      return content.fauna.length
+        ? content.fauna.map(renderSpeciesCard).join("")
         : `<span class="empty">No fauna entries yet for this period.</span>`;
-      return intro + cards;
-    }
     case "video":
       return content.video && content.video.url
         ? `<div>${content.video.caption || ""}</div>`
@@ -195,6 +220,63 @@ function renderTabContent(tab, content) {
     default:
       return "";
   }
+}
+
+// ============ RESEARCH ESSAYS ============
+
+function renderTopics() {
+  const el = document.getElementById("topics-row");
+  el.innerHTML = "";
+  state.essays.forEach(essay => {
+    const chip = document.createElement("div");
+    chip.className = "topic-chip" + (essay.locked ? " locked" : "");
+    chip.textContent = (essay.locked ? "🔒 " : "") + essay.title;
+    if (!essay.locked) {
+      chip.addEventListener("click", () => openEssay(essay.id));
+    }
+    el.appendChild(chip);
+  });
+}
+
+async function openEssay(essayId) {
+  const data = await loadEssayContent(essayId);
+  state.activeEssayId = essayId;
+  state.view = "essay";
+  document.getElementById("app-frame").classList.add("essay-mode");
+  renderEssay(data);
+}
+
+function closeEssay() {
+  state.view = "map";
+  document.getElementById("app-frame").classList.remove("essay-mode");
+}
+
+// Essay body content is a list of blocks so essays can mix paragraphs and
+// tables freely: { type: "paragraph", html: "..." } or
+// { type: "table", caption, columns: [...], rows: [[...], ...], note }
+function renderEssayBlock(block) {
+  if (block.type === "paragraph") {
+    return `<p>${block.html}</p>`;
+  }
+  if (block.type === "table") {
+    const head = `<tr>${block.columns.map(c => `<th>${c}</th>`).join("")}</tr>`;
+    const rows = block.rows.map(r => `<tr>${r.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
+    const note = block.note ? `<div class="dd-table-note">${block.note}</div>` : "";
+    return `<div class="dd-table-wrap"><table class="dd-table">
+      <caption>${block.caption || ""}</caption>
+      <thead>${head}</thead>
+      <tbody>${rows}</tbody>
+    </table></div>${note}`;
+  }
+  return "";
+}
+
+function renderEssay(data) {
+  document.getElementById("essay-eyebrow").textContent = data.eyebrow || "Research essay";
+  document.getElementById("essay-headline").textContent = data.title;
+  document.getElementById("essay-meta").innerHTML = (data.meta || []).map(m => `<span>${m}</span>`).join("<span>·</span>");
+  document.getElementById("essay-body").innerHTML = (data.body || []).map(renderEssayBlock).join("");
+  document.getElementById("essay-source").innerHTML = data.sourceNote || "";
 }
 
 function initMap() {
@@ -212,80 +294,64 @@ function initMap() {
     setBasemapForPeriod(state.activePeriodId);
 
     for (const layerDef of LINE_LAYERS) {
-      try {
-        const res = await fetch(layerDef.file);
-        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
-        const geojson = await res.json();
-        map.addSource(layerDef.id, { type: "geojson", data: geojson });
-        map.addLayer({
-          id: layerDef.id,
-          type: "line",
-          source: layerDef.id,
-          paint: {
-            "line-color": layerDef.color,
-            "line-width": layerDef.width
-          }
-        });
-      } catch (err) {
-        console.error(`Failed to load line layer "${layerDef.id}":`, err.message);
-      }
+      const res = await fetch(layerDef.file);
+      const geojson = await res.json();
+      map.addSource(layerDef.id, { type: "geojson", data: geojson });
+      map.addLayer({
+        id: layerDef.id,
+        type: "line",
+        source: layerDef.id,
+        paint: {
+          "line-color": layerDef.color,
+          "line-width": layerDef.width
+        }
+      });
     }
 
     for (const layerDef of LAYER_TOGGLES) {
-      try {
-        const res = await fetch(layerDef.file);
-        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
-        const geojson = await res.json();
-        map.addSource(layerDef.id, { type: "geojson", data: geojson });
-        map.addLayer({
-          id: layerDef.id,
-          type: "circle",
-          source: layerDef.id,
-          paint: {
-            "circle-radius": 6,
-            "circle-color": layerDef.color,
-            "circle-stroke-width": 1,
-            "circle-stroke-color": "#fff"
-          }
-        });
-        map.on("click", layerDef.id, (e) => {
-          const props = e.features[0].properties;
-          new maplibregl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(`<strong>${props.name}</strong><br>${props.description || props.note || ""}`)
-            .addTo(map);
-        });
-      } catch (err) {
-        console.error(`Failed to load point layer "${layerDef.id}":`, err.message);
-      }
+      const res = await fetch(layerDef.file);
+      const geojson = await res.json();
+      map.addSource(layerDef.id, { type: "geojson", data: geojson });
+      map.addLayer({
+        id: layerDef.id,
+        type: "circle",
+        source: layerDef.id,
+        paint: {
+          "circle-radius": 6,
+          "circle-color": layerDef.color,
+          "circle-stroke-width": 1,
+          "circle-stroke-color": "#fff"
+        }
+      });
+      map.on("click", layerDef.id, (e) => {
+        const props = e.features[0].properties;
+        new maplibregl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(`<strong>${props.name}</strong><br>${props.description || props.note || ""}`)
+          .addTo(map);
+      });
     }
-
     for (const layerDef of SYMBOL_LAYERS) {
-      try {
-        const res = await fetch(layerDef.file);
-        if (!res.ok) throw new Error(`${layerDef.file} → ${res.status} ${res.statusText}`);
-        const geojson = await res.json();
-        map.addSource(layerDef.id, { type: "geojson", data: geojson });
-        map.addLayer({
-          id: layerDef.id,
-          type: "symbol",
-          source: layerDef.id,
-          layout: {
-            "text-field": ["get", "name"],
-            "text-font": CATEGORY_TEXT_FONT,
-            "text-size": CATEGORY_TEXT_SIZE,
-            "text-rotate": ["coalesce", ["get", "rotation"], 0],
-            "text-allow-overlap": false
-          },
-          paint: {
-            "text-color": CATEGORY_TEXT_COLOR,
-            "text-halo-color": "#ffffff",
-            "text-halo-width": 1.2
-          }
-        });
-      } catch (err) {
-        console.error(`Failed to load symbol layer "${layerDef.id}":`, err.message);
-      }
+      const res = await fetch(layerDef.file);
+      const geojson = await res.json();
+      map.addSource(layerDef.id, { type: "geojson", data: geojson });
+      map.addLayer({
+        id: layerDef.id,
+        type: "symbol",
+        source: layerDef.id,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-font": CATEGORY_TEXT_FONT,
+          "text-size": CATEGORY_TEXT_SIZE,
+          "text-rotate": ["coalesce", ["get", "rotation"], 0],
+          "text-allow-overlap": false
+        },
+        paint: {
+          "text-color": CATEGORY_TEXT_COLOR,
+          "text-halo-color": "#ffffff",
+          "text-halo-width": 1.2
+        }
+      });
     }
 
     updateMapLayersForPeriod();
@@ -319,8 +385,8 @@ function setBasemapForPeriod(periodId) {
     });
   }
 
-  // Insert basemap below all overlay layers that currently exist, in their original order
-  const beforeId = OVERLAY_LAYER_ORDER.find(id => map.getLayer(id));
+  // Insert basemap below the point-layer overlays if they already exist, otherwise just add it
+  const beforeId = map.getLayer("archaeological-sites") ? "archaeological-sites" : undefined;
   map.addLayer({ id: "period-basemap", type: "raster", source: "period-basemap" }, beforeId);
 }
 
