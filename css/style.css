@@ -68,7 +68,7 @@ body {
 }
 
 /* ============ MAIN AREA (60/40) ============ */
-.main-area { display: grid; grid-template-columns: 60% 40%; height: 500px; }
+.main-area { display: grid; grid-template-columns: 60% 40%; height: 600px; }
 .map-area { position: relative; background: #7E9CB0; border-right: 1px solid var(--stone); }
 #map { width: 100%; height: 100%; }
 .map-placeholder-note {
@@ -81,12 +81,12 @@ body {
 /* ============ INFO PANEL ============ */
 .info-panel { display: flex; flex-direction: column; overflow: hidden; background: var(--page-bg); }
 .panel-header { padding: 18px 22px 12px; border-bottom: 1px solid var(--stone); }
-.period-title { font-family: var(--font-head); font-size: 17px; font-weight: 600; color: var(--charcoal); }
+.period-title { font-family: var(--font-head); font-size: 19px; font-weight: 600; color: var(--charcoal); }
 .period-subtitle { font-family: var(--font-body); font-size: 12px; color: var(--moss); margin-top: 3px; }
 
-.panel-tabs { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--stone); }
+.panel-tabs { display: flex; flex-wrap: nowrap; border-bottom: 1px solid var(--stone); }
 .tab {
-  flex: 1 1 33%; padding: 10px 4px; text-align: center;
+  flex: 1 1 0; padding: 10px 4px; text-align: center;
   font-family: var(--font-body); font-size: 12px; font-weight: 500;
   color: var(--moss); cursor: pointer; border-bottom: 2px solid transparent;
 }
@@ -98,6 +98,9 @@ body {
   display: flex; flex-direction: column; gap: 10px;
 }
 .panel-content .empty { color: var(--moss); font-style: italic; }
+
+.content-block { font-family: var(--font-body); font-size: 13px; color: var(--pine); line-height: 1.65; margin-bottom: 4px; }
+.content-block strong { color: var(--charcoal); font-weight: 600; }
 
 .fauna-card, .people-card {
   display: flex; align-items: center; gap: 14px;
@@ -121,9 +124,9 @@ body {
   transition: background .15s, border-color .15s;
 }
 .period-btn.active { background: rgba(125,153,165,0.14); border-color: var(--water); }
-.period-btn .p-name { font-family: var(--font-body); font-size: 10.5px; font-weight: 600; color: var(--charcoal); }
+.period-btn .p-name { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--charcoal); }
 .period-btn.active .p-name { color: var(--water-dark); }
-.period-btn .p-age { font-family: var(--font-body); font-size: 9.5px; color: var(--moss); margin-top: 1px; }
+.period-btn .p-age { font-family: var(--font-body); font-size: 10.5px; color: var(--moss); margin-top: 1px; }
 
 /* ============ RESEARCH ESSAYS (topic chips) ============ */
 .topics-label {
