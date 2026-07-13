@@ -193,8 +193,9 @@ function renderPanel() {
 // circular badge illustration, e.g. "assets/species/red-deer.png"), it's shown
 // bare at 64px — no extra frame, since the artwork already has its own border
 // baked in. Entries without an image just render as text, same as before.
-function renderSpeciesCard(f) {
-  const img = f.image ? `<img class="fauna-icon-img" src="${f.image}" alt="${f.name}">` : "";
+function renderSpeciesCard(f, fallbackImage) {
+  const imgSrc = f.image || fallbackImage;
+  const img = imgSrc ? `<img class="fauna-icon-img" src="${imgSrc}" alt="${f.name}">` : "";
   return `<div class="fauna-card">${img}<div class="fauna-card-text"><p>${f.name}</p><span>${f.latin || ""} ${f.note ? "— " + f.note : ""}</span></div></div>`;
 }
 
