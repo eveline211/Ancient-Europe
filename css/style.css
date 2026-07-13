@@ -68,7 +68,7 @@ body {
 }
 
 /* ============ MAIN AREA (60/40) ============ */
-.main-area { display: grid; grid-template-columns: 60% 40%; height: 600px; }
+.main-area { display: grid; grid-template-columns: 60% 40%; height: 500px; }
 .map-area { position: relative; background: #7E9CB0; border-right: 1px solid var(--stone); }
 #map { width: 100%; height: 100%; }
 .map-placeholder-note {
