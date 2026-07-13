@@ -24,7 +24,14 @@ const LINE_LAYERS = [
 const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
-
+// The intended bottom-to-top stacking order of every overlay layer.
+// setBasemapForPeriod() uses this to always re-insert the basemap
+// below whichever overlay currently sits lowest, regardless of load order.
+const OVERLAY_LAYER_ORDER = [
+  ...LINE_LAYERS.map(l => l.id),
+  ...LAYER_TOGGLES.map(l => l.id),
+  ...SYMBOL_LAYERS.map(l => l.id),
+];
 const CATEGORY_TEXT_COLOR = [
   "match", ["get", "category"],
   "sea", "#2a6f97",
