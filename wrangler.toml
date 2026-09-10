@@ -1,0 +1,13 @@
+name = "ancient-europe-mailing-list"
+main = "mailing-list-worker.js"
+compatibility_date = "2026-09-01"
+
+# Fill in after running: wrangler kv:namespace create "SIGNUPS_KV"
+[[kv_namespaces]]
+binding = "SIGNUPS_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+# Optional: attach a custom route once DNS is set up in Cloudflare, e.g.
+# routes = [
+#   { pattern = "signup.ancienteurope.org/subscribe", zone_name = "ancienteurope.org" }
+# ]
