@@ -33,6 +33,10 @@
   .nav-logo img{height:34px;width:34px;object-fit:contain;display:block;}
   .nav-cta{font-size:13px;padding:9px 20px;border-radius:24px;background:var(--bronze);color:#fff;border:none;cursor:pointer;font-weight:500;font-family:'Inter',sans-serif;letter-spacing:0.01em;transition:background .15s;text-decoration:none;display:inline-block;}
   .nav-cta:hover{background:var(--bronze-dark);}
+  .nav-links{ display:flex; gap:28px; }
+  .nav-links a{ font-size:13px; color: var(--pine); text-decoration:none; font-weight:500; }
+  .nav-links a.current{ color: var(--bronze); }
+  @media (max-width: 860px){ .nav-links{ display:none; } }
 
   /* HERO */
   .hero{padding:56px 32px 40px;text-align:center;border-bottom:1px solid var(--stone);}
@@ -40,7 +44,7 @@
   .hero h1{font-size:34px;font-weight:700;line-height:1.28;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto;}
   .hero p{font-size:15.5px;color:var(--pine);line-height:1.7;max-width:520px;margin:0 auto 28px;}
   .hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
-  .btn-primary{padding:11px 26px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-primary{padding:11px 26px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-block;}
   .btn-primary:hover{background:var(--bronze-dark);}
   .btn-secondary{padding:11px 26px;border-radius:24px;background:transparent;color:var(--charcoal);border:1px solid var(--stone);font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-block;}
   .btn-secondary:hover{border-color:var(--moss);}
@@ -68,7 +72,7 @@
   .feat-card span{font-size:13px;color:var(--pine);line-height:1.55;}
 
   .preview-strip{display:flex;gap:10px;overflow-x:auto;padding:4px 0 10px;}
-  .period-preview{flex-shrink:0;width:130px;border-radius:10px;border:1px solid var(--stone);overflow:hidden;cursor:pointer;background:var(--page-bg);}
+  .period-preview{flex-shrink:0;width:130px;border-radius:10px;border:1px solid var(--stone);overflow:hidden;cursor:pointer;background:var(--page-bg);display:block;text-decoration:none;color:inherit;}
   .period-preview.locked{opacity:0.6;}
   .period-preview.free{border-color:var(--water);}
   .pp-map{height:56px;display:flex;align-items:center;justify-content:center;color:#fff;}
@@ -94,7 +98,7 @@
   .pf-row{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--charcoal);}
   .pf-row .check{width:18px;height:18px;border-radius:50%;background:var(--moss);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .pf-row .check svg{width:10px;height:10px;}
-  .buy-btn{width:100%;padding:13px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+  .buy-btn{width:100%;padding:13px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;display:block;box-sizing:border-box;text-align:center;text-decoration:none;}
   .buy-btn:hover{background:var(--bronze-dark);}
   .guarantee{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:12px;color:var(--moss);font-weight:500;}
   .guarantee svg{width:13px;height:13px;}
@@ -136,7 +140,13 @@
 
   <nav class="nav">
     <div class="nav-logo"><img src="assets/images/icon_LOGO_circle_only.PNG" alt="Ancient Europe" /> Ancient Europe</div>
-    <a class="nav-cta" href="#">Get access — €8.99</a>
+    <div class="nav-links">
+      <a href="index.html" class="current">Landing</a>
+      <a href="ancient_europe_introduction_page_v3_5.html">Introduction</a>
+      <a href="ancient_europe_geological_timeline_v1_3.html">Geological Timeline</a>
+      <a href="app.html">Ancient Europe App</a>
+    </div>
+    <a class="nav-cta" href="#pricing">Get access — €8.99</a>
   </nav>
 
   <div class="hero">
@@ -144,9 +154,9 @@
     <h1>Journey Through Time, from the Last Ice Age to Today.</h1>
     <p>Explore 10 beautifully detailed geological maps that reveal Europe as our ancestors knew it after the last Neanderthals disappeared. Discover Doggerland, ancient ice lakes, prehistoric flora, iconic megafauna, and key archaeological sites.</p>
     <div class="hero-btns">
-      <a class="btn-secondary" href="ancient_europe_introduction_page_v3_2.html">Introduction</a>
-      <button class="btn-primary">Explore a free preview</button>
-      <a class="btn-secondary" href="#">See all 10 periods</a>
+      <a class="btn-secondary" href="ancient_europe_introduction_page_v3_5.html">Introduction</a>
+      <a class="btn-primary" href="app.html?period=lgm">Explore a free preview</a>
+      <a class="btn-secondary" href="#periods">See all 10 periods</a>
     </div>
 
     <div class="hero-logo">
@@ -196,73 +206,73 @@
     </div>
   </div>
 
-  <div class="section">
+  <div class="section" id="periods">
     <div class="section-label">Explore the periods — 2 free, 8 unlocked after purchase</div>
     <div class="preview-strip">
-      <div class="period-preview free">
+      <a class="period-preview free" href="app.html?period=lgm">
         <div class="pp-map" style="background:#c9d6d0;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="white" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="white" stroke-width="1.8"/></svg>
         </div>
         <div class="pp-label"><p>Last Glacial Maximum</p><span>25,500–17,500 BCE</span><div class="pp-tag free">Free preview</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#9ab0a0;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Meiendorf</p><span>12,650–11,950 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#8fae82;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Allerød</p><span>11,950–10,750 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#a3b48f;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Younger Dryas</p><span>10,750–9,700 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#8fae82;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Early Preboreal</p><span>9,700–9,200 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview free">
+      </a>
+      <a class="period-preview free" href="app.html?period=late-preboreal">
         <div class="pp-map" style="background:#7fa377;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="white" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="white" stroke-width="1.8"/></svg>
         </div>
         <div class="pp-label"><p>Late Preboreal</p><span>9,200–8,700 BCE</span><div class="pp-tag free">Free preview</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#6f9868;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Early Boreal</p><span>8,700–8,000 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#5f8c5c;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Late Boreal</p><span>8,000–7,200 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#4f8060;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Atlantic</p><span>6,500–4,500 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
-      <div class="period-preview locked">
+      </a>
+      <a class="period-preview locked" href="#pricing">
         <div class="pp-map" style="background:#3f6b52;">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
         </div>
         <div class="pp-label"><p>Present Day</p><span>0 BCE</span><div class="pp-tag locked">Locked</div></div>
-      </div>
+      </a>
     </div>
   </div>
 
-  <div class="pricing-section">
+  <div class="pricing-section" id="pricing">
     <div class="section-label" style="text-align:center;">Simple pricing</div>
     <div class="pricing-card">
       <div class="pricing-top">
@@ -281,7 +291,8 @@
         <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> No app needed, works on any device</div>
         <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> All updates included</div>
       </div>
-      <button class="buy-btn">Unlock all 10 maps — €8.99</button>
+      <!-- TODO: replace href with the real Gumroad checkout link once the product is live -->
+      <a class="buy-btn" href="#">Unlock all 10 maps — €8.99</a>
       <div class="guarantee">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="#6F7B5B" stroke-width="1.8" stroke-linejoin="round"/></svg>
         Instant Access
@@ -305,10 +316,10 @@
   <div class="footer">
     <span>© 2026 Ancient Europe</span>
     <div class="footer-links">
-      <a href="#">About</a>
-      <a href="#">Privacy</a>
-      <a href="#">References</a>
-      <a href="#">Contact</a>
+      <a href="ancient_europe_about.html">About</a>
+      <a href="ancient_europe_privacy.html">Privacy</a>
+      <a href="ancient_europe_references.html">References</a>
+      <a href="ancient_europe_contact.html">Contact</a>
     </div>
   </div>
 
