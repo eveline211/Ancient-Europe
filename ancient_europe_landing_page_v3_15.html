@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ancient Europe — Landing Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2E2E2B;
+    --bronze:#A98455;
+    --bronze-dark:#8C6A41;
+    --moss:#6F7B5B;
+    --pine:#435348;
+    --stone:#C5BEB1;
+    --sand:#ECE7DD;
+    --water:#7D99A5;
+    --page-bg:#F7F5EF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--page-bg);
+    color:var(--pine);
+  }
+  h1,h2,h3,.font-heading{font-family:'Manrope',sans-serif;color:var(--charcoal);}
+  .lp{max-width:1080px;margin:0 auto;background:var(--page-bg);}
+
+  /* NAV */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;border-bottom:1px solid var(--stone);}
+  .nav-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;letter-spacing:0.06em;color:var(--charcoal);text-transform:uppercase;}
+  .nav-logo img{height:34px;width:34px;object-fit:contain;display:block;}
+  .nav-cta{font-size:13px;padding:9px 20px;border-radius:24px;background:var(--bronze);color:#fff;border:none;cursor:pointer;font-weight:500;font-family:'Inter',sans-serif;letter-spacing:0.01em;transition:background .15s;text-decoration:none;display:inline-block;}
+  .nav-cta:hover{background:var(--bronze-dark);}
+
+  /* HERO */
+  .hero{padding:56px 32px 40px;text-align:center;border-bottom:1px solid var(--stone);}
+  .hero-eyebrow{font-size:11px;font-weight:600;color:var(--bronze-dark);background:var(--sand);display:inline-block;padding:5px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:0.08em;text-transform:uppercase;}
+  .hero h1{font-size:34px;font-weight:700;line-height:1.28;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto;}
+  .hero p{font-size:15.5px;color:var(--pine);line-height:1.7;max-width:520px;margin:0 auto 28px;}
+  .hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+  .btn-primary{padding:11px 26px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn-primary:hover{background:var(--bronze-dark);}
+  .btn-secondary{padding:11px 26px;border-radius:24px;background:transparent;color:var(--charcoal);border:1px solid var(--stone);font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;display:inline-block;}
+  .btn-secondary:hover{border-color:var(--moss);}
+
+  .hero-logo{display:flex;justify-content:center;margin-top:32px;}
+  .hero-logo img{width:280px;height:280px;object-fit:contain;display:block;}
+
+  /* MAP PREVIEW — two free-period wedge figures, floating on the page (no card frame) */
+  .map-preview-section{padding:32px 32px 36px;}
+  .map-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .map-figure{position:relative;aspect-ratio:3/2;display:flex;align-items:center;justify-content:center;}
+  .map-figure img{width:100%;height:100%;object-fit:contain;display:block;filter:drop-shadow(0 6px 14px rgba(46,46,43,0.16));}
+  .map-figure-label{position:absolute;bottom:10px;left:12px;background:rgba(46,46,43,0.6);padding:6px 14px;border-radius:20px;}
+  .map-figure-label span{font-size:12px;color:#fff;font-weight:600;font-family:'Manrope',sans-serif;letter-spacing:0.02em;}
+  .map-figure-freetag{position:absolute;top:10px;right:10px;background:var(--water);padding:4px 11px;border-radius:20px;}
+  .map-figure-freetag span{font-size:10px;color:#fff;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;}
+
+  /* SECTIONS */
+  .section{padding:36px 32px;border-bottom:1px solid var(--stone);}
+  .section-label{font-size:11px;font-weight:600;color:var(--moss);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:22px;}
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;}
+  .feat-card{padding:18px;background:var(--sand);border-radius:12px;}
+  .feat-icon{width:86px;height:86px;border-radius:50%;display:block;margin-bottom:14px;object-fit:contain;}
+  .feat-card p{font-size:14px;font-weight:600;color:var(--charcoal);margin-bottom:6px;font-family:'Manrope',sans-serif;}
+  .feat-card span{font-size:13px;color:var(--pine);line-height:1.55;}
+
+  .preview-strip{display:flex;gap:10px;overflow-x:auto;padding:4px 0 10px;}
+  .period-preview{flex-shrink:0;width:130px;border-radius:10px;border:1px solid var(--stone);overflow:hidden;cursor:pointer;background:var(--page-bg);}
+  .period-preview.locked{opacity:0.6;}
+  .period-preview.free{border-color:var(--water);}
+  .pp-map{height:56px;display:flex;align-items:center;justify-content:center;color:#fff;}
+  .pp-map svg{width:18px;height:18px;}
+  .pp-label{padding:8px 10px;}
+  .pp-label p{font-size:12px;font-weight:600;color:var(--charcoal);font-family:'Manrope',sans-serif;}
+  .pp-label span{font-size:10.5px;color:var(--pine);opacity:0.75;}
+  .pp-tag{font-size:10px;font-weight:600;margin-top:4px;letter-spacing:0.02em;}
+  .pp-tag.free{color:var(--water);}
+  .pp-tag.locked{color:var(--stone);}
+
+  /* PRICING */
+  .pricing-section{padding:36px 32px;border-bottom:1px solid var(--stone);}
+  .pricing-card{border:2px solid var(--bronze);border-radius:14px;padding:26px;max-width:400px;margin:0 auto;background:var(--sand);}
+  .pricing-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;}
+  .pricing-badge{font-size:11px;background:var(--page-bg);color:var(--bronze-dark);padding:4px 12px;border-radius:20px;font-weight:600;}
+  .price-display{text-align:right;}
+  .price-display .amount{font-size:30px;font-weight:700;color:var(--charcoal);font-family:'Manrope',sans-serif;}
+  .price-display .sub{font-size:12px;color:var(--pine);}
+  .pricing-title{font-size:17px;font-weight:600;color:var(--charcoal);margin-bottom:6px;font-family:'Manrope',sans-serif;}
+  .pricing-desc{font-size:13.5px;color:var(--pine);margin-bottom:18px;line-height:1.55;}
+  .pricing-features{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+  .pf-row{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--charcoal);}
+  .pf-row .check{width:18px;height:18px;border-radius:50%;background:var(--moss);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .pf-row .check svg{width:10px;height:10px;}
+  .buy-btn{width:100%;padding:13px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14.5px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;}
+  .buy-btn:hover{background:var(--bronze-dark);}
+  .guarantee{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:12px;color:var(--moss);font-weight:500;}
+  .guarantee svg{width:13px;height:13px;}
+
+  /* SOCIAL PROOF */
+  .social-proof{padding:32px;border-bottom:1px solid var(--stone);}
+  .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .tcard{padding:18px;background:var(--sand);border-radius:12px;}
+  .tcard-stars{color:var(--bronze);font-size:13px;margin-bottom:10px;letter-spacing:2px;}
+  .tcard p{font-size:13px;color:var(--pine);line-height:1.6;margin-bottom:10px;font-style:italic;}
+  .tcard-author{font-size:12px;font-weight:600;color:var(--charcoal);font-family:'Manrope',sans-serif;}
+
+  /* MAILING LIST */
+  .mailing-section{padding:36px 32px;border-bottom:1px solid var(--stone);}
+  .mailing-card{max-width:480px;margin:0 auto;text-align:center;}
+  .mailing-card h3{font-size:19px;font-weight:600;margin-bottom:8px;}
+  .mailing-card p{font-size:13.5px;color:var(--pine);line-height:1.6;margin-bottom:20px;}
+  .mailing-form{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;}
+  .mailing-form input[type="email"]{flex:1;min-width:200px;padding:11px 16px;border-radius:24px;border:1px solid var(--stone);font-family:'Inter',sans-serif;font-size:14px;color:var(--charcoal);background:#fff;}
+  .mailing-form input[type="email"]:focus{outline:none;border-color:var(--bronze);}
+  .mailing-form button{padding:11px 24px;border-radius:24px;background:var(--bronze);color:#fff;border:none;font-size:14px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;}
+  .mailing-form button:hover{background:var(--bronze-dark);}
+  .mailing-form button:disabled{opacity:0.6;cursor:default;}
+  .mailing-note{font-size:11.5px;color:var(--pine);opacity:0.65;margin-top:10px;}
+  .mailing-status{font-size:13px;margin-top:12px;min-height:18px;}
+  .mailing-status.success{color:var(--moss);font-weight:500;}
+  .mailing-status.error{color:#b5543f;font-weight:500;}
+
+  .footer{padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .footer span{font-size:12px;color:var(--pine);opacity:0.7;}
+  .footer-links{display:flex;gap:18px;}
+  .footer-links a{font-size:12px;color:var(--pine);opacity:0.7;text-decoration:none;}
+  .footer-links a:hover{opacity:1;color:var(--bronze-dark);}
+</style>
+</head>
+<body>
+
+<div class="lp">
+
+  <nav class="nav">
+    <div class="nav-logo"><img src="assets/images/icon_LOGO_circle_only.PNG" alt="Ancient Europe" /> Ancient Europe</div>
+    <a class="nav-cta" href="#">Get access — €8.99</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">25,000 years of European landscape</div>
+    <h1>Journey Through Time, from the Last Ice Age to Today.</h1>
+    <p>Explore 10 beautifully detailed geological maps that reveal Europe as our ancestors knew it after the last Neanderthals disappeared. Discover Doggerland, ancient ice lakes, prehistoric flora, iconic megafauna, and key archaeological sites.</p>
+    <div class="hero-btns">
+      <a class="btn-secondary" href="ancient_europe_introduction_page_v3_2.html">Introduction</a>
+      <button class="btn-primary">Explore a free preview</button>
+      <a class="btn-secondary" href="#">See all 10 periods</a>
+    </div>
+
+    <div class="hero-logo">
+      <img src="assets/images/badge_ancienteurope_divider.PNG" alt="Ancient Europe logo">
+    </div>
+
+  </div>
+
+  <div class="map-preview-section">
+    <div class="map-preview-grid">
+      <div class="map-figure">
+        <img src="assets/images/map_lgm_free_preview.PNG" alt="Last Glacial Maximum map" />
+        <div class="map-figure-freetag"><span>Free preview</span></div>
+        <div class="map-figure-label"><span>Last Glacial Maximum &mdash; 25,500&ndash;17,500 BCE</span></div>
+      </div>
+      <div class="map-figure">
+        <img src="assets/images/map_latepreboreal_free_preview.PNG" alt="Late Preboreal map, showing Doggerland" />
+        <div class="map-figure-freetag"><span>Free preview</span></div>
+        <div class="map-figure-label"><span>Late Preboreal &mdash; 9,700&ndash;9,200 BCE</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">What's Included</div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <img class="feat-icon" src="assets/images/icon_maps.PNG" alt="maps icon">
+        <p>10 Geological Maps</p>
+        <span>Travel from the Last Ice Age to present day across beautiful reconstructions of prehistoric Europe.</span>
+      </div>
+      <div class="feat-card">
+        <img class="feat-icon" src="assets/images/icon_florafauna.PNG" alt="florafauna icon">
+        <p>Flora, Megafauna &amp; Archaeology</p>
+        <span>Learn about prehistoric ecosystems, iconic animals, and key archaeological sites per period.</span>
+      </div>
+      <div class="feat-card">
+        <img class="feat-icon" src="assets/images/icon_Overlays.PNG" alt="Overlays icon">
+        <p>Interactive Overlays</p>
+        <span>Switch present-day coastlines and country borders on and off.</span>
+      </div>
+      <div class="feat-card">
+        <img class="feat-icon" src="assets/images/icon_deepdive.PNG" alt="deepdive icon">
+        <p>Deep Dive Research Essays</p>
+        <span>Compiled from the latest geological, palaeoecological and archaeological research.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Explore the periods — 2 free, 8 unlocked after purchase</div>
+    <div class="preview-strip">
+      <div class="period-preview free">
+        <div class="pp-map" style="background:#c9d6d0;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="white" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="white" stroke-width="1.8"/></svg>
+        </div>
+        <div class="pp-label"><p>Last Glacial Maximum</p><span>25,500–17,500 BCE</span><div class="pp-tag free">Free preview</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#9ab0a0;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Meiendorf</p><span>12,650–11,950 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#8fae82;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Allerød</p><span>11,950–10,750 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#a3b48f;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Younger Dryas</p><span>10,750–9,700 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#8fae82;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Early Preboreal</p><span>9,700–9,200 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview free">
+        <div class="pp-map" style="background:#7fa377;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" stroke="white" stroke-width="1.8"/><circle cx="12" cy="12" r="2.5" stroke="white" stroke-width="1.8"/></svg>
+        </div>
+        <div class="pp-label"><p>Late Preboreal</p><span>9,200–8,700 BCE</span><div class="pp-tag free">Free preview</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#6f9868;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Early Boreal</p><span>8,700–8,000 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#5f8c5c;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Late Boreal</p><span>8,000–7,200 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#4f8060;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Atlantic</p><span>6,500–4,500 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+      <div class="period-preview locked">
+        <div class="pp-map" style="background:#3f6b52;">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="14" height="9" rx="2" stroke="white" stroke-width="1.8"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pp-label"><p>Present Day</p><span>0 BCE</span><div class="pp-tag locked">Locked</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pricing-section">
+    <div class="section-label" style="text-align:center;">Simple pricing</div>
+    <div class="pricing-card">
+      <div class="pricing-top">
+        <div><div class="pricing-badge">Bèta version</div></div>
+        <div class="price-display">
+          <div class="amount">€8.99</div>
+          <div class="sub">early access</div>
+        </div>
+      </div>
+      <div class="pricing-title">Early access — future versions included</div>
+      <div class="pricing-desc">Pay once. No subscription. All maps, all content, all future updates included.</div>
+      <div class="pricing-features">
+        <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> All 10 geological time periods</div>
+        <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Flora and fauna guides per period</div>
+        <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Deep dive research essays</div>
+        <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> No app needed, works on any device</div>
+        <div class="pf-row"><span class="check"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 13l4 4L19 7" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span> All updates included</div>
+      </div>
+      <button class="buy-btn">Unlock all 10 maps — €8.99</button>
+      <div class="guarantee">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="#6F7B5B" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        Instant Access
+      </div>
+    </div>
+  </div>
+
+  <div class="mailing-section">
+    <div class="mailing-card">
+      <h3>Join the journey</h3>
+      <p>Sign up for the mailing list and be among the first to explore Ancient Europe as it comes to life. Discover ancient landscapes, changing coastlines, prehistoric cultures and the people who shaped them — through new maps, discoveries and stories. Get early access, follow the journey, and explore the ancient world with us.</p>
+      <form class="mailing-form" id="mailing-form">
+        <input type="email" id="mailing-email" name="email" placeholder="you@email.com" required autocomplete="email">
+        <button type="submit" id="mailing-submit">Notify me</button>
+      </form>
+      <div class="mailing-status" id="mailing-status" role="status" aria-live="polite"></div>
+      <div class="mailing-note">We'll only email you about Ancient Europe updates.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 Ancient Europe</span>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">References</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Mailing list signup — POSTs to a Cloudflare Worker endpoint backed by KV.
+  // Replace MAILING_ENDPOINT with your deployed Worker route once it's live,
+  // e.g. "https://signup.ancienteurope.org" or a workers.dev URL.
+  const MAILING_ENDPOINT = "https://signup.ancienteurope.org/subscribe";
+
+  const mailingForm = document.getElementById('mailing-form');
+  const mailingEmail = document.getElementById('mailing-email');
+  const mailingSubmit = document.getElementById('mailing-submit');
+  const mailingStatus = document.getElementById('mailing-status');
+
+  mailingForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = mailingEmail.value.trim();
+    if(!email){ return; }
+
+    mailingSubmit.disabled = true;
+    mailingSubmit.textContent = 'Adding…';
+    mailingStatus.textContent = '';
+    mailingStatus.className = 'mailing-status';
+
+    try{
+      const res = await fetch(MAILING_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, source: 'landing' })
+      });
+
+      if(!res.ok){
+        const data = await res.json().catch(function(){ return {}; });
+        throw new Error(data.error || 'Something went wrong.');
+      }
+
+      mailingStatus.textContent = "You're on the list — thanks!";
+      mailingStatus.className = 'mailing-status success';
+      mailingForm.reset();
+    } catch(err){
+      mailingStatus.textContent = err.message || "Couldn't sign up right now — try again shortly.";
+      mailingStatus.className = 'mailing-status error';
+    } finally {
+      mailingSubmit.disabled = false;
+      mailingSubmit.textContent = 'Notify me';
+    }
+  });
+</script>
+
+</body>
+</html>

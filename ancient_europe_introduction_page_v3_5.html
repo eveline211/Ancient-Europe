@@ -1,0 +1,221 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Inter:wght@400;500&display=swap');
+
+body { margin: 0; background: #F7F5EF; }
+
+.aei32 * { box-sizing: border-box; margin: 0; padding: 0; }
+.aei32 {
+  --charcoal: #2E2E2B;
+  --bronze: #A98455;
+  --moss: #6F7B5B;
+  --pine: #435348;
+  --stone: #C5BEB1;
+  --sand: #ECE7DD;
+  --water: #7D99A5;
+  --page-bg: #F7F5EF;
+  font-family: 'Inter', sans-serif;
+  background: var(--page-bg);
+  color: var(--pine);
+}
+.aei32 h1, .aei32 h2, .aei32 h3, .aei32 .heading-font { font-family: 'Manrope', sans-serif; color: var(--charcoal); }
+
+.intro-page32 { max-width: 1080px; margin: 0 auto; background: var(--page-bg); }
+
+.site-nav32 { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: 1px solid var(--stone); }
+.site-nav-logo32 { font-family: 'Manrope', sans-serif; font-weight: 600; font-size: 16px; color: var(--charcoal); display: flex; align-items: center; gap: 10px; }
+.site-nav-logo32 .mark32 { width: 28px; height: 28px; border-radius: 50%; background: var(--bronze); flex-shrink: 0; }
+.site-nav-links32 { display: flex; gap: 4px; align-items: center; }
+.site-nav-link32 { font-size: 12px; padding: 6px 12px; border-radius: 20px; color: var(--moss); text-decoration: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+.site-nav-link32.active { background: var(--sand); color: var(--charcoal); font-weight: 500; }
+.site-nav-link32.cta-button32 {
+  background: var(--bronze); color: var(--page-bg); font-weight: 500;
+  padding: 8px 18px; margin-left: 8px; box-shadow: 0 1px 2px rgba(46,46,43,0.15);
+}
+
+.intro-hero32 { padding: 48px 24px 20px; text-align: center; }
+.intro-eyebrow32 { font-size: 11px; font-weight: 500; color: var(--bronze); background: rgba(169,132,85,0.14); display: inline-block; padding: 4px 14px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+.intro-hero32 h1 { font-size: 32px; font-weight: 600; line-height: 1.28; margin-bottom: 14px; max-width: 580px; margin-left: auto; margin-right: auto; }
+.intro-hero32 p { font-size: 15px; color: var(--moss); line-height: 1.65; max-width: 480px; margin: 0 auto; }
+
+.badge-divider32 { display: flex; justify-content: center; padding: 8px 0 28px; }
+.badge-divider32 img { height: 210px; }
+
+.panorama-strip32 { display: grid; grid-template-columns: 1fr 1fr; height: 170px; border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone); position: relative; }
+.panorama-half32 { position: relative; overflow: hidden; }
+.panorama-half32 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.panorama-label32 { position: absolute; bottom: 12px; left: 16px; z-index: 2; }
+.panorama-label32 span { font-size: 12px; color: #FBF8F2; font-weight: 500; background: rgba(46,46,43,0.55); padding: 5px 12px; border-radius: 20px; font-family: 'Inter', sans-serif; }
+.panorama-divider32 { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(251,248,242,0.5); z-index: 2; }
+
+.narrative-section32 { padding: 34px 24px; border-bottom: 1px solid var(--stone); }
+.narrative-section32:last-of-type { border-bottom: none; }
+.narrative-label32 { font-size: 11px; font-weight: 500; color: var(--bronze); letter-spacing: 0.06em; margin-bottom: 14px; text-transform: uppercase; font-family: 'Inter', sans-serif; }
+.narrative-section32 h2 { font-size: 20px; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
+.narrative-section32 p { font-size: 14px; color: var(--pine); line-height: 1.7; max-width: 640px; }
+.narrative-section32 p + p { margin-top: 10px; }
+
+/* Short-version summary cards: landscape / flora / megafauna */
+.summary-grid32 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 6px; }
+.summary-card32 { padding: 16px; background: var(--sand); border-radius: 12px; }
+.icon-placeholder32 {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: rgba(169,132,85,0.14);
+  border: 1.5px dashed var(--bronze);
+  margin-bottom: 12px;
+}
+.icon86 { width: 86px; height: 86px; border-radius: 20px; object-fit: cover; margin-bottom: 14px; display: block; }
+.icon-spotlight96 { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.summary-card32 h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.summary-card32 p { font-size: 12.5px; color: var(--moss); line-height: 1.6; }
+
+.how-it-works32 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+.step-card32 { padding: 16px; border: 1px solid var(--stone); border-radius: 12px; background: var(--page-bg); }
+.step-card32 p.step-title32 { font-size: 13px; font-weight: 500; color: var(--charcoal); margin-bottom: 4px; }
+.step-card32 span { font-size: 12px; color: var(--moss); line-height: 1.5; }
+
+.continue-block32 { padding: 30px 24px; text-align: center; }
+.continue-button32 {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500;
+  color: var(--page-bg); text-decoration: none; background: var(--bronze);
+  padding: 12px 26px; border-radius: 30px; box-shadow: 0 1px 2px rgba(46,46,43,0.15);
+}
+.continue-button32 svg { width: 14px; height: 14px; }
+
+.site-footer32 { padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--stone); }
+.site-footer32 span { font-size: 12px; color: var(--moss); }
+.footer-links32 { display: flex; gap: 16px; }
+.footer-links32 a { font-size: 12px; color: var(--moss); text-decoration: none; }
+
+@media (max-width: 720px) {
+  .summary-grid32 { grid-template-columns: 1fr; }
+  .how-it-works32 { grid-template-columns: 1fr; }
+  .panorama-strip32 { grid-template-columns: 1fr; height: auto; }
+  .panorama-half32 { height: 170px; }
+  .panorama-divider32 { display: none; }
+}
+</style>
+
+
+<div class="aei32">
+<div class="intro-page32">
+
+  <!-- NAV -->
+  <nav class="site-nav32">
+    <div class="site-nav-logo32"><img class="mark32" src="assets/images/icon_LOGO_circle_only.PNG" alt="Ancient Europe logo" style="object-fit:cover;"/> Ancient Europe</div>
+    <div class="site-nav-links32">
+      <a class="site-nav-link32">Landing</a>
+      <a class="site-nav-link32 active">Introduction</a>
+      <a class="site-nav-link32">Geological Timeline</a>
+      <a class="site-nav-link32">Ancient Europe App</a>
+      <a class="site-nav-link32 cta-button32">Get access</a>
+    </div>
+  </nav>
+
+  <!-- 1. HERO -->
+  <div class="intro-hero32">
+    <div class="intro-eyebrow32">25,000 years of European landscape</div>
+    <h1>Explore the changing lands of prehistoric Europe</h1>
+    <p>From the lost lands of Doggerland and the vast ice sheets of the Last Glacial Maximum to the dense oak forests of the Atlantic period, Europe&rsquo;s landscapes have constantly changed. Shaped by climate, by animals, and eventually, by us.</p>
+  </div>
+
+  <div class="badge-divider32">
+    <img src="assets/images/badge_ancienteurope_divider.PNG" alt="Ancient Europe badge" />
+  </div>
+
+  <div class="panorama-strip32">
+    <div class="panorama-half32">
+      <img src="assets/images/panorama_lgm.PNG" alt="Last Glacial Maximum landscape with mammoths and ice sheet" />
+      <div class="panorama-label32"><span>Last Glacial Maximum &mdash; 25,000 years ago &mdash; ice and steppe</span></div>
+    </div>
+    <div class="panorama-half32">
+      <img src="assets/images/panorama_presentday.PNG" alt="Present-day closed forest landscape with wolf and beaver" />
+      <div class="panorama-label32"><span>Today &mdash; mixed closed forest and its myth</span></div>
+    </div>
+    <div class="panorama-divider32"></div>
+  </div>
+
+  <!-- 2. THE SHORT VERSION -->
+  <div class="narrative-section32">
+    <div class="narrative-label32">The short version</div>
+    <h2>Landscape, flora and fauna, in brief</h2>
+    <p>Three threads run through all ten periods in this atlas. The full story unfolds period by period once you're in the app.</p>
+    <div class="summary-grid32">
+      <div class="summary-card32">
+        <img class="icon86" src="assets/images/icon_landscape.PNG" alt="Landscape &amp; climate icon"/>
+        <h3>Landscape &amp; climate</h3>
+        <p>From a gigantic ice sheet over Scandinavia and Britain, winters roughly 15&ndash;30&deg;C colder than today, through sea levels 120m lower, to the flooding of Doggerland and the coastlines we now call normal.</p>
+      </div>
+      <div class="summary-card32">
+        <img class="icon86" src="assets/images/icon_flora.PNG" alt="Flora icon"/>
+        <h3>Flora</h3>
+        <p>The barren polar desert gave way to birch and pine, then an explosive spread of hazel, then oak, elm and lime took over, closing into the densest forest Europe had seen in 23 million years.</p>
+      </div>
+      <div class="summary-card32">
+        <img class="icon86" src="assets/images/icon_megafauna.PNG" alt="Megafauna icon"/>
+        <h3>Megafauna</h3>
+        <p>Mammoths, woolly rhinos, wild horses, aurochs and giant deer once kept the land open. Today, large-herbivore biomass is 94.5% below the last interglacial baseline. The animals that shaped the landscape are now largely gone.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. WHAT ACTUALLY HAPPENED -->
+  <div class="narrative-section32">
+    <div class="narrative-label32">What actually happened</div>
+    <h2>A slow megafauna collapse, not a single event</h2>
+    <p>The loss of Europe&rsquo;s megafauna unfolded over tens of thousands of years. Mammoths disappeared first, followed by wild horses, giant deer, aurochs, bison, elk and beaver. As human pressure, climate and habitat change compounded, species retreated one by one. Without these large herbivores, the open, forb-rich landscapes gradually closed into dense forests &mdash; often mistaken for Europe&rsquo;s natural primeval state.</p>
+  </div>
+
+  <!-- 4. HOW THIS APP WORKS -->
+  <div class="narrative-section32">
+    <div class="narrative-label32">How this app works</div>
+    <h2>Explore the landscape, period by period</h2>
+    <p>Step through 10 time periods and watch Europe come back to life after the last Ice Age. Toggle present-day coastlines and borders to orient yourself, then discover drowned lands like Doggerland, lost inland seas, ancient lakes, shifting forests, megafauna, and the people who lived through it all.</p>
+    <div class="how-it-works32">
+      <div class="step-card32">
+        <img class="icon86" src="assets/images/icon_pickperiod.PNG" alt="Pick a period icon"/>
+        <p class="step-title32">Pick a period</p>
+        <span>Move through the timeline from the Last Glacial Maximum to present day using the period bar.</span>
+      </div>
+      <div class="step-card32">
+        <img class="icon86" src="assets/images/icon_navigatethelandscape.PNG" alt="Navigate the ancient landscape icon"/>
+        <p class="step-title32">Navigate the ancient landscape</p>
+        <span>See vegetation, forest cover, coastlines, river-systems, lakes and land ice extent rendered from real palaeoecological datasets.</span>
+      </div>
+      <div class="step-card32">
+        <img class="icon86" src="assets/images/icon_species.PNG" alt="Meet the species icon"/>
+        <p class="step-title32">Meet the species</p>
+        <span>Flora and fauna cards reveal what once lived there, how these species shaped the landscape, and what happened to them as the environment changed.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. NEW SECTION: DISCOVER THE ARCHAEOLOGY -->
+  <div class="narrative-section32">
+    <div class="narrative-label32">New in the app!</div>
+    <div style="display:flex; align-items:flex-start; gap:20px;">
+      <img class="icon-spotlight96" src="assets/images/icon_Archaeology.PNG" alt="Archaeology icon"/>
+      <div>
+        <h2 style="margin-top:0;">Discover the archaeology</h2>
+        <p>For every period, key archaeological sites and summaries are now available in the app. Explore the archaeological sites where discoveries were made, and learn how our ancestors lived, adapted, and thrived across a constantly changing Europe.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="continue-block32">
+    <a class="continue-button32">Continue to the Geological Timeline
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="site-footer32">
+    <span>&copy; 2026 Ancient Europe</span>
+    <div class="footer-links32">
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">References</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+</div>
+</div>

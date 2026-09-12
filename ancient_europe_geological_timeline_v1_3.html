@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ancient Europe — Geological Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#2E2E2B;
+    --bronze:#A98455;
+    --moss:#6F7B5B;
+    --pine:#435348;
+    --stone:#C5BEB1;
+    --sand:#ECE7DD;
+    --water:#7D99A5;
+    --page-bg:#F7F5EF;
+  }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body{
+    font-family:'Inter', sans-serif;
+    background: var(--page-bg);
+    color: var(--pine);
+  }
+  h1,h2,h3{ font-family:'Manrope', sans-serif; color: var(--charcoal); font-weight:600; }
+
+  .page{ max-width: 1100px; margin: 0 auto; }
+
+  /* NAV */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 32px; border-bottom: 1px solid var(--stone);
+  }
+  .nav-logo{ font-family:'Manrope', sans-serif; font-weight:600; font-size:16px; color:var(--charcoal); display:flex; align-items:center; gap:10px; }
+  .nav-logo .mark{ width:28px; height:28px; border-radius:50%; background:var(--bronze); }
+  .nav-links{ display:flex; gap:28px; }
+  .nav-links a{ font-size:13px; color: var(--pine); text-decoration:none; font-weight:500; }
+  .nav-links a.current{ color: var(--bronze); }
+  .nav-cta{ font-size:13px; padding:9px 18px; border-radius:20px; background:var(--bronze); color:#fff; border:none; font-weight:500; cursor:pointer; }
+
+  /* PAGE HEADER */
+  .page-header{ padding: 44px 32px 8px; text-align:center; }
+  .eyebrow{
+    display:inline-block; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+    color: var(--bronze); background: rgba(169,132,85,0.12); padding:5px 14px; border-radius:20px; margin-bottom:16px;
+  }
+  .page-header h1{ font-size:32px; line-height:1.25; max-width:640px; margin:0 auto 14px; }
+  .page-header p.lede{ font-size:15px; color: var(--pine); line-height:1.7; max-width:560px; margin:0 auto; }
+
+  /* OVERVIEW IMAGE SECTION */
+  .overview-section{ padding: 36px 32px 8px; }
+  .overview-frame{
+    background: var(--sand); border-radius: 14px; padding: 18px; border: 1px solid var(--stone);
+  }
+  .overview-frame img{ width:100%; height:auto; display:block; border-radius:8px; }
+  .overview-caption{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    margin-top:12px; padding: 0 4px;
+  }
+  .overview-caption span{ font-size:12px; color: var(--moss); }
+  .overview-caption .source{ font-style:italic; }
+
+  /* TEXT SECTION */
+  .text-section{ padding: 56px 32px; max-width: 720px; margin: 0 auto; }
+  .text-section h2{ font-size:22px; margin-bottom:18px; }
+  .text-section p{ font-size:15px; line-height:1.75; color: var(--pine); margin-bottom:16px; }
+  .text-section p.detail{ font-size:14px; color: var(--moss); border-left: 2px solid var(--stone); padding-left:16px; }
+  .term-row{ display:flex; gap:16px; margin: 22px 0; flex-wrap:wrap; }
+  .term-card{
+    flex:1; min-width:200px; background: var(--sand); border-radius:12px; padding:16px 18px;
+  }
+  .term-card .term-label{ font-family:'Manrope', sans-serif; font-weight:600; font-size:14px; color: var(--charcoal); margin-bottom:6px; }
+  .term-card p{ font-size:13px; color: var(--pine); line-height:1.6; margin:0; }
+
+  /* TABLE SECTION */
+  .table-section{ padding: 8px 32px 64px; }
+  .table-section h2{ font-size:20px; margin-bottom:6px; text-align:center; }
+  .table-sub{ text-align:center; font-size:13px; color: var(--moss); margin-bottom:28px; }
+
+  .period-table{
+    width:100%; border-collapse:collapse; background: #fff; border-radius:14px; overflow:hidden;
+    border:1px solid var(--stone); font-size:13.5px;
+  }
+  .period-table thead th{
+    background: var(--charcoal); color:#fff; text-align:left; padding:12px 16px;
+    font-family:'Manrope', sans-serif; font-weight:600; font-size:11.5px; letter-spacing:0.04em; text-transform:uppercase;
+  }
+  .period-table thead th.num{ text-align:right; }
+  .period-table tbody tr{ border-bottom:1px solid var(--sand); }
+  .period-table tbody tr:last-child{ border-bottom:none; }
+  .period-table tbody tr:nth-child(even){ background: rgba(236,231,221,0.4); }
+  .period-table td{ padding:12px 16px; vertical-align:middle; color: var(--pine); }
+  .period-table td.name{ font-weight:600; color: var(--charcoal); font-family:'Manrope', sans-serif; font-size:13.5px; }
+  .period-table td.name .free-tag{
+    display:inline-block; margin-left:8px; font-size:9.5px; font-weight:500; letter-spacing:0.03em; text-transform:uppercase;
+    color: var(--moss); background: rgba(111,123,91,0.14); padding:2px 7px; border-radius:10px; vertical-align:middle;
+  }
+  .period-table td.num{ text-align:right; font-variant-numeric: tabular-nums; }
+  .period-table td.temp{ text-align:right; font-variant-numeric: tabular-nums; }
+  .period-table td.temp .qual{ font-size:11.5px; color: var(--moss); font-style:italic; max-width:220px; display:inline-block; }
+  .period-table td.temp .val{ font-weight:500; color: var(--charcoal); }
+  .period-table td.temp .val.cold{ color: var(--water); }
+  .period-table td.temp .val.warm{ color: var(--bronze); }
+  .period-table td.temp .val.neutral{ color: var(--charcoal); }
+  .row-divider td{ padding:0; height:0; border-bottom: 2px solid var(--stone); }
+
+  .table-footnote{ font-size:11.5px; color: var(--moss); margin-top:14px; line-height:1.6; max-width: 760px; margin-left:auto; margin-right:auto; }
+  .table-footnote strong{ color: var(--pine); }
+
+  /* FOOTER */
+  .footer{
+    padding: 22px 32px; border-top:1px solid var(--stone);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .footer span{ font-size:12px; color: var(--moss); }
+  .footer-links{ display:flex; gap:18px; }
+  .footer-links a{ font-size:12px; color: var(--moss); text-decoration:none; }
+
+  @media (max-width: 640px){
+    .nav-links{ display:none; }
+    .page-header h1{ font-size:24px; }
+    .period-table{ font-size:12px; }
+    .period-table td, .period-table th{ padding:9px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="nav">
+    <div class="nav-logo"><img class="mark" src="assets/images/icon_LOGO_circle_only.PNG" alt="Ancient Europe logo" style="object-fit:cover;"/> Ancient Europe</div>
+    <div class="nav-links">
+      <a href="#">Landing</a>
+      <a href="#">Introduction</a>
+      <a href="#" class="current">Geological Timeline</a>
+      <a href="#">Ancient Europe App</a>
+    </div>
+    <button class="nav-cta">Get access — €8.99</button>
+  </nav>
+
+  <header class="page-header">
+    <div class="eyebrow">25,500 BCE — Present</div>
+    <h1>Ten climate chapters that shaped Europe</h1>
+    <p class="lede">Europe's landscape wasn't carved once — it was reshaped again and again as the ice retreated, flooded, froze back, and finally gave way to the forests and coastlines we know today.</p>
+  </header>
+
+  <section class="overview-section">
+    <div class="overview-frame">
+      <img src="assets/images/overview_grid_10periods.PNG" alt="Overview grid of ten maps showing the geological periods covered in Ancient Europe, from the LGM ice sheet to present-day satellite imagery">
+      <div class="overview-caption">
+        <span>Ten snapshots of the same landscape, LGM to present — each one a period you can explore in the app.</span>
+        <span class="source">Source: EPHA basemap series</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-section">
+    <h2>What are ice ages and interstadials?</h2>
+    <p>An <strong>ice age</strong> (or glacial period) is a long stretch of cold climate in which ice sheets expand and grip large parts of the continent — in Europe's case, burying Scandinavia and much of the North Sea basin under kilometres of ice, as seen in the LGM map above. But an ice age isn't uniformly cold throughout. It's punctuated by shorter, warmer swings called <strong>interstadials</strong>, when the ice front retreats and forests briefly return, before the cold reasserts itself.</p>
+    <p class="detail">The ten periods in this atlas trace exactly that back-and-forth: the depths of the Last Glacial Maximum, the sharp interstadial warming of the Meiendorf/Bølling and Allerød, a sudden relapse into near-glacial cold during the Younger Dryas, and then the definitive shift into the Holocene — the current interglacial, not just another interstadial — as the Preboreal, Boreal, and Atlantic periods unfold.</p>
+
+    <div class="term-row">
+      <div class="term-card">
+        <div class="term-label">Interstadial</div>
+        <p>A brief warm interval <em>within</em> an ice age — centuries to a few thousand years. Forests can expand, but the underlying glacial climate never fully lets go. The Bølling and Allerød are Europe's clearest examples.</p>
+      </div>
+      <div class="term-card">
+        <div class="term-label">Interglacial</div>
+        <p>A full return to warm, ice-free conditions between ice ages — lasting tens of thousands of years. The Holocene, which began at the end of the Younger Dryas, is the interglacial we're still living in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="table-section">
+    <h2>The ten periods at a glance</h2>
+    <p class="table-sub">Dates shown as years BCE and years Before Present (BP, counted from 1950)</p>
+
+    <table class="period-table">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th class="num">Years BCE</th>
+          <th class="num">Years BP</th>
+          <th class="num">Winter temperature</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">LGM <span class="free-tag">Free</span></td>
+          <td class="num">25,500–17,500</td>
+          <td class="num">~27,450–19,450</td>
+          <td class="temp"><span class="val cold">−30 ± 10°C</span><br><span class="qual">vs. today — coldest point in the sequence</span></td>
+        </tr>
+        <tr>
+          <td class="name">Meiendorf / Bølling</td>
+          <td class="num">12,650–11,950</td>
+          <td class="num">~14,600–13,900</td>
+          <td class="temp"><span class="val neutral">+10°C jump</span><br><span class="qual">vs. the preceding cold — still far colder than today</span></td>
+        </tr>
+        <tr>
+          <td class="name">Allerød</td>
+          <td class="num">11,950–10,750</td>
+          <td class="num">~13,900–12,700</td>
+          <td class="temp"><span class="qual">stable, not separately quantified</span></td>
+        </tr>
+        <tr>
+          <td class="name">Younger Dryas</td>
+          <td class="num">10,750–9,700</td>
+          <td class="num">~12,700–11,650</td>
+          <td class="temp"><span class="val neutral">−5 to −10°C</span><br><span class="qual">vs. the preceding Bølling-Allerød</span></td>
+        </tr>
+        <tr>
+          <td class="name">Early Preboreal <span class="free-tag">Free</span></td>
+          <td class="num">9,700–9,200</td>
+          <td class="num">~11,650–11,150</td>
+          <td class="temp"><span class="val neutral">+5 to +10°C jump</span><br><span class="qual">vs. the Younger Dryas — still cooler than today</span></td>
+        </tr>
+        <tr>
+          <td class="name">Late Preboreal</td>
+          <td class="num">9,200–8,700</td>
+          <td class="num">~11,150–10,650</td>
+          <td class="temp"><span class="qual">stabilising, not separately quantified</span></td>
+        </tr>
+        <tr>
+          <td class="name">Early Boreal</td>
+          <td class="num">8,700–8,000</td>
+          <td class="num">~10,650–9,950</td>
+          <td class="temp"><span class="qual">gradual warming continues</span></td>
+        </tr>
+        <tr>
+          <td class="name">Late Boreal</td>
+          <td class="num">8,000–7,200</td>
+          <td class="num">~9,950–9,150</td>
+          <td class="temp"><span class="val warm">+1 to +2°C</span><br><span class="qual">vs. today — Climate Optimum begins</span></td>
+        </tr>
+        <tr>
+          <td class="name">Atlanticum</td>
+          <td class="num">6,500–4,500</td>
+          <td class="num">~8,450–6,450</td>
+          <td class="temp"><span class="val warm">+1 to +2°C</span><br><span class="qual">vs. today — Holocene Climate Optimum</span></td>
+        </tr>
+        <tr>
+          <td class="name">Present day</td>
+          <td class="num">—</td>
+          <td class="num">0</td>
+          <td class="temp"><span class="qual">reference point</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="table-footnote">
+      <strong>Two different reference points, on purpose:</strong> only LGM (−30±10°C) and Late Boreal/Atlanticum (+1–2°C) are stated relative to <em>today's</em> temperature — those are the figures the literature gives directly. Bølling, Younger Dryas, and Early Preboreal are stated as jumps relative to the <em>preceding period</em>, because that's how the sources quantify them; despite the "+10°C" and "+5–10°C" jumps, the Bølling and Early Preboreal winters were still considerably colder than today. Read the qualifier under each number before comparing rows.
+    </p>
+    <p class="table-footnote">
+      <strong>On the numbers:</strong> figures are pulled directly from the pollen- and ice-core-based reconstructions behind this atlas (Peyron et al. 1998; Greenland ice cores; Nature 2025 North Sea study). Where a period has no separately quantified winter figure in the literature, the cell says so rather than guessing. BP years are approximate (BCE date + 1950) and rounded for this overview.
+    </p>
+  </section>
+
+  <div class="footer">
+    <span>© 2026 Ancient Europe</span>
+    <div class="footer-links">
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">References</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
