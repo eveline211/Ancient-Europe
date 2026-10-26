@@ -1,6 +1,8 @@
 {
   "essays": [
     { "id": "megafauna-collapse", "title": "The megafauna collapse", "locked": false },
+    { "id": "landscape-reconstruction", "title": "Ancient landscape vegetation reconstruction", "locked": false },
+    { "id": "maps-overview", "title": "10 maps overview", "locked": false },
     { "id": "atlantic-forest-myth", "title": "Why the Atlantic forest is a myth", "locked": true },
     { "id": "doggerland", "title": "Doggerland: the lost land", "locked": true },
     { "id": "who-shaped-landscape", "title": "Who shaped this landscape?", "locked": true }
