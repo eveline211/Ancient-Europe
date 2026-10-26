@@ -1,0 +1,215 @@
+{
+  "id": "landscape-reconstruction",
+  "title": "Ancient landscape vegetation reconstruction",
+  "eyebrow": "Research essay",
+  "meta": [
+    "7 min read",
+    "Czyżewski et al. 2026, Giesecke et al. 2017, Pearce et al. 2023"
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "html": "The maps in this atlas are not photographs of the past. They are reconstructions: nine time slices of Northern and Western Europe, from the Last Glacial Maximum (c. 25,500 BCE) to the Atlantic period (c. 4,500 BCE), each built from interpreted geological and ecological evidence and rendered to look like a satellite image. This essay documents how they were made — what goes in, which assumptions were made, and where the maps are still weakest — so that you can judge the reconstructions for yourself."
+    },
+    {
+      "type": "paragraph",
+      "html": "The starting point is a set of schematic, polygon-based palaeogeographic reconstructions developed for the European Prehistoric Heritage Atlas (EPHA). Such polygons are useful to specialists but hard to read for everyone else. The aim of the workflow described here is to translate them into maps that are scientifically defensible and immediately legible to a general audience, while keeping the method transparent enough for an earth-science reader to evaluate the assumptions behind them. It combines GIS source data (classmasks, digital elevation models, drainage networks) with a procedural Python rendering pipeline that turns schematic vegetation and hydrology classes into textured, georeferenced raster output. A companion essay, “10 maps overview”, walks through the nine reconstructed periods one by one."
+    },
+    {
+      "type": "heading",
+      "text": "From schematic polygons to classmasks"
+    },
+    {
+      "type": "paragraph",
+      "html": "Every time slice begins as an EPHA base map: a GeoTIFF classmask in EPSG:3035 (the European equal-area projection) with seven integer classes. Class 1 is sea or ocean, class 2 the ice sheet, class 3 ice lake and class 4 lake. Classes 5, 6 and 7 are three vegetation sub-zones: Northern, Central and Coastal. The masks were originally digitised as interpreted polygons (land area, ice sheet, ice lake, lake) and then reclassified into this seven-class scheme."
+    },
+    {
+      "type": "paragraph",
+      "html": "The three vegetation zones are deliberately coarse. They capture the dominant climatic gradient across the map area — from the oceanically buffered coast, through a Central belt that serves as the proxy for the European average, to a cooler, more continental north — without pretending to resolve every regional pollen record. The Atlantic period served as the pilot for the pipeline because its coastline closely approximates today's, which allows the present-day elevation model to be used directly. The method was then extended to the eight earlier periods, with bathymetric data added wherever sea level and coastline differed substantially from the present."
+    },
+    {
+      "type": "heading",
+      "text": "The rendering pipeline"
+    },
+    {
+      "type": "paragraph",
+      "html": "Each classmask passes through the same sequence of steps."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Relief.</strong> A 1000 m resolution digital elevation model is shaded with a relief-adaptive hillshade. Above a relief threshold (in the range 0.40–0.80) a distinct rocky-highland tint is applied, so that mountain terrain separates visibly from lowland."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Vegetation texture.</strong> Each vegetation zone is filled with organic, multi-scale noise. The noise is modulated by the period-specific canopy-percentage mix described in the next section, so that a woodland-rich period looks different from an open steppe not just in colour but in grain."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Blending.</strong> Transitions between neighbouring vegetation zones are rendered as smooth sigmoid blends driven by spatial distance transforms, rather than as hard polygon edges. Real vegetation boundaries are gradients, and the same technique is reused inside a single zone where the evidence calls for it (see “Option A” below)."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Hydrology.</strong> Palaeo-rivers and valleys are extracted from the EPHA drainage-systems shapefile, filtered to the “river valley” and “palaeo valley” feature types, reprojected to EPSG:3035 and skeletonised. The result is a continuous, vector-derived river network appropriate to each period."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Lakes and ice margins.</strong> Lake colour was recalibrated from an initial bright turquoise to a dark blue-grey (RGB 38, 58, 62), closer to the humic, sediment-rich boreal lakes it is meant to suggest while remaining distinct from vegetation. Where no dedicated lake polygon exists for a period, the footprint from an adjacent period is used as a documented proxy."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Output.</strong> Each period is exported as an RGBA PNG with transparent no-data regions and as a georeferenced GeoTIFF, which feeds the MapLibre and PMTiles web-tile pipeline used by the app."
+    },
+    {
+      "type": "heading",
+      "text": "Parameterising vegetation structure"
+    },
+    {
+      "type": "paragraph",
+      "html": "Vegetation cover in each zone is described by a three-way percentage split: open woodland, fully open ground and closed canopy. The Central zone is the anchor for the European-average canopy-structure estimate of the period, drawn from Czyżewski et al. (2026) and adjusted regionally using Giesecke et al. (2017) and Kern et al. (2025). Because this rests on European-average estimates and a limited number of regional sources rather than a site-resolved pollen synthesis for every zone, the table carries a medium confidence rating overall."
+    },
+    {
+      "type": "paragraph",
+      "html": "Two climatic regimes are distinguished. In a <strong>mild regime</strong>, with the Atlantic Meridional Overturning Circulation (AMOC) active, the share of closed canopy decreases from Coastal to Central to Northern: the warmer, oceanically buffered coast is more wooded than the cooler north. In a <strong>hard regime</strong> — AMOC shutdown, or a coast pressed against an ice margin — this ordering inverts, because the Coastal zone lies against the ice and becomes sparser than the Central zone. Two periods are treated as hard regimes: the Last Glacial Maximum and the Younger Dryas, the latter being the less extreme of the two. In both, the Coastal zone is treated as internally heterogeneous. Instead of a single mix it is rendered with an internal sigmoid gradient, called “Option A”, driven by distance to the ice-sheet polygon. The gradient runs from a barren ice-margin endpoint to a more wooded refugium endpoint representing the southern Coastal extent, such as the Atlantic coast of northern Spain."
+    },
+    {
+      "type": "table",
+      "caption": "Table 1 — Canopy mix per zone and period (open woodland / fully open / closed canopy, %)",
+      "compact": true,
+      "columns": [
+        "Period",
+        "Regime",
+        "Central",
+        "Coastal",
+        "Northern"
+      ],
+      "rows": [
+        [
+          "LGM<br>25,500–17,500 BCE",
+          "Hard",
+          "8 / 88 / 4",
+          "Gradient: 3 / 96 / 1 → 15 / 75 / 10",
+          "3 / 96 / 1"
+        ],
+        [
+          "Meiendorf / Bølling<br>12,650–11,950 BCE",
+          "Mild (slight)",
+          "20 / 75 / 5",
+          "18 / 72 / 10",
+          "8 / 90 / 2"
+        ],
+        [
+          "Allerød<br>11,950–10,750 BCE",
+          "Mild",
+          "35 / 55 / 10",
+          "30 / 52 / 18",
+          "42 / 52 / 6"
+        ],
+        [
+          "Younger Dryas<br>10,750–9,700 BCE",
+          "Hard",
+          "12 / 83 / 5",
+          "Gradient: 8 / 90 / 2 → 18 / 74 / 8",
+          "6 / 92 / 2"
+        ],
+        [
+          "Early Preboreal<br>9,700–9,200 BCE",
+          "Mild",
+          "35 / 55 / 10",
+          "30 / 52 / 18",
+          "42 / 52 / 6"
+        ],
+        [
+          "Late Preboreal<br>9,200–8,700 BCE",
+          "Mild",
+          "45 / 40 / 15",
+          "40 / 35 / 25",
+          "52 / 40 / 8"
+        ],
+        [
+          "Early Boreal<br>8,700–8,000 BCE",
+          "Mild",
+          "50 / 32 / 18",
+          "44 / 28 / 28",
+          "58 / 32 / 10"
+        ],
+        [
+          "Late Boreal<br>8,000–7,200 BCE",
+          "Mild",
+          "40 / 25 / 35",
+          "34 / 20 / 46",
+          "52 / 35 / 13"
+        ],
+        [
+          "Atlantic<br>6,500–4,500 BCE",
+          "Mild (definitive)",
+          "25 / 12 / 63",
+          "18 / 7 / 75",
+          "35 / 25 / 40"
+        ]
+      ],
+      "note": "In the two hard-regime periods the Coastal zone is not given a single mix. It is rendered as a gradient from an ice-margin endpoint (first triple) to a more wooded refugium endpoint (second triple); the two periods are discussed in the companion essay, “10 maps overview”."
+    },
+    {
+      "type": "paragraph",
+      "html": "Figure 1 shows how these numbers read on the maps. The legend translates the closed-canopy share into six vegetation-structure classes, each with its own colour, from open steppe and tundra (under 5%) to closed-canopy forest (over 55%). Applied to Table 1, the Central zone during the LGM (4% closed canopy) falls in the open steppe and tundra class. The Coastal zone in the Early Boreal (28%) is woodland with open patches, the Northern zone in the Atlantic period (40%) is mixed deciduous forest, and the Atlantic Coastal zone (75%) is closed-canopy forest. These are zone-level values: within a zone, the noise texture and the sigmoid blends mean that the colour you see varies around them."
+    },
+    {
+      "type": "figure",
+      "src": "assets/images/legend_en.png",
+      "alt": "Map legend titled Vegetation structure, closed-canopy share. Six colour classes from light khaki to dark green: open steppe/tundra (under 5%), steppe with scrub (5–10%), open birch–pine mosaic (10–20%), woodland with open patches (20–35%), mixed deciduous forest (35–55%) and closed-canopy forest (over 55%).",
+      "caption": "Figure 1 — Map legend. Vegetation-structure classes on the EPHA maps, defined by closed-canopy share."
+    },
+    {
+      "type": "heading",
+      "text": "What shapes openness"
+    },
+    {
+      "type": "paragraph",
+      "html": "The percentages are not arbitrary tuning knobs; they encode an interpretation of what kept European landscapes open or let them close. Tree-species arrival follows the classic pollen-zone sequence: birch and pine pioneers, then hazel, then the thermophilous deciduous trees — elm, oak, lime, alder and ash. The drivers of openness versus canopy closure, however, change markedly through the sequence."
+    },
+    {
+      "type": "paragraph",
+      "html": "In the early part of the record, from the LGM to the Allerød, openness was maintained mainly by large herbivores rather than by climate or fire alone. This is the logic of the mammoth-steppe model, supported by sedimentary ancient-DNA evidence in which forbs dominate over grasses. Czyżewski et al. (2026) synthesise this evidence into the argument that a woodland–grassland mosaic, not a closed forest, was Europe’s prevailing natural state. As megafauna populations collapsed through the Lateglacial, that regulating mechanism was progressively lost. From the Early Preboreal onwards, fire — increasingly of human origin — and the surviving smaller herbivores (red deer, roe deer, wild boar and, locally, aurochs) took over as the main structuring agents."
+    },
+    {
+      "type": "paragraph",
+      "html": "This matters most for the last period of the sequence. The closed-canopy forest of the Atlantic period looks like the climax of the series, but reconstructions of the Last Interglacial (Eemian), when megaherbivores were still present, point to a far more open structure: roughly 60% open woodland, 19% fully open ground and 22% closed canopy (Pearce et al. 2023). The Atlantic forest is therefore best read as a post-megafauna landscape — closed not because it represents an unmodified natural state, but because the animals that had kept interglacial woodland open were already gone. The per-period flora and fauna are described in the app’s Flora &amp; fauna panel and in the essay on the megafauna collapse; this essay concentrates on the structural parameters behind the maps. The reasoning behind each period’s values is set out period by period in the companion essay, “10 maps overview”."
+    },
+    {
+      "type": "heading",
+      "text": "Limitations and open corrections"
+    },
+    {
+      "type": "paragraph",
+      "html": "A reconstruction is only as useful as its stated limits. Four are known and documented."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Black Sea.</strong> For the periods before it reconnected with the Mediterranean (the Littorina transgression, c. 7,850 BCE), the Black Sea was a freshwater basin and should be classified as a lake rather than as sea. This correction has been identified but not yet applied across the affected classmasks."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Baltic Ice Lake.</strong> The Younger Dryas render reuses the Early Boreal lake footprint as a geometric proxy. This is a documented simplification, not an independent reconstruction of the lake."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Regional resolution.</strong> The three-zone scheme does not resolve secondary regional effects noted during method development: an early forest refugium on the Iberian Atlantic coast, delayed postglacial recolonisation in Norway, and forest-steppe dynamics in the east, in Ukraine. These are candidates for a more granular zonation in a later version."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Confidence.</strong> The canopy-percentage table rests on European-average estimates regionally adjusted with a limited set of sources, and is rated medium confidence overall. The maps should be read as well-reasoned structural reconstructions, not as site-resolved vegetation surveys."
+    },
+    {
+      "type": "references",
+      "title": "Sources",
+      "items": [
+        "Czyżewski, S., Søndergaard, S. A., Molnár, Á. P., et al. (2026). Revisiting Europe’s temperate forests: palaeoecological evidence for an herbivory-driven woodland–grassland mosaic biome. <em>Biological Conservation</em>, 316, 111749. <a href=\"https://doi.org/10.1016/j.biocon.2026.111749\" target=\"_blank\" rel=\"noopener\">doi:10.1016/j.biocon.2026.111749</a>",
+        "Giesecke, T., Brewer, S., Finsinger, W., Leydet, M., &amp; Bradshaw, R. H. W. (2017). Patterns and dynamics of European vegetation change over the last 15,000 years. <em>Journal of Biogeography</em>, 44(7), 1441–1456. <a href=\"https://doi.org/10.1111/jbi.12974\" target=\"_blank\" rel=\"noopener\">doi:10.1111/jbi.12974</a>",
+        "Kern, Z. et al. (2025). Regional vegetation-cover reconstructions for the European Holocene.",
+        "Pearce, E. A., Mazier, F., Normand, S., et al. (2023). Substantial light woodland and open vegetation characterized the temperate forest biome before <em>Homo sapiens</em>. <em>Science Advances</em>, 9(45), eadi9135. <a href=\"https://doi.org/10.1126/sciadv.adi9135\" target=\"_blank\" rel=\"noopener\">doi:10.1126/sciadv.adi9135</a>",
+        "EPHA base maps (EPHA project, internal): schematic classmask polygons per time period; EPHA_Drainage_Systems_v100 (EPHA project, internal): palaeo-drainage shapefile; EPHA canopy-percentage reference table (EPHA project, internal)."
+      ]
+    }
+  ],
+  "sourceNote": "Sources and further reading on the <a href=\"#\">References page →</a>"
+}

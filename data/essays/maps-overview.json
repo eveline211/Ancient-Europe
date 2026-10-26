@@ -1,0 +1,91 @@
+{
+  "id": "maps-overview",
+  "title": "10 maps overview",
+  "eyebrow": "Research essay",
+  "meta": [
+    "6 min read",
+    "Czyżewski et al. 2026, Giesecke et al. 2017, Van Andel & Tzedakis 1996"
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "html": "This essay walks through the sequence of maps in the atlas: nine reconstructed time slices of Northern and Western Europe, from the Last Glacial Maximum (c. 25,500 BCE) to the Atlantic period (c. 4,500 BCE), together with a present-day satellite image for comparison (Figure 1). For each period it sets out the landscape and vegetation evidence behind the map, the climatic regime that was assumed, and the choices made in the reconstruction."
+    },
+    {
+      "type": "paragraph",
+      "html": "The method itself — the classmasks, the rendering pipeline and the canopy-percentage model — is described in the companion essay, “Ancient landscape vegetation reconstruction”. The percentages quoted below are the zone values from Table 1 of that essay, given as open woodland / fully open ground / closed canopy, and the map colours follow the vegetation-structure legend shown there."
+    },
+    {
+      "type": "paragraph",
+      "html": "Three threads run through the sequence and are worth keeping in mind while reading the maps. The first is the retreat of the Fennoscandian ice sheet, with the changing coastlines and the lakes and seas that form and drain in its wake. The second is the climatic regime, mild or hard, which decides whether the coast or the continental interior is the more wooded. The third is the shift in what keeps the landscape open: large-herbivore grazing in the early periods, and fire and human activity once the megafauna had declined."
+    },
+    {
+      "type": "figure",
+      "src": "assets/images/overview_grid_10periods_en.png",
+      "alt": "Overview grid of ten maps of Northern and Western Europe, in two rows of five: LGM, Meiendorf / Bølling, Allerød, Younger Dryas, Early Preboreal, Late Preboreal, Early Boreal, Late Boreal, Atlantic and present-day satellite imagery. The Fennoscandian ice sheet is large in the LGM, shrinks through the Lateglacial and early Holocene, and is gone by the Atlantic period, while the vegetation shifts from pale steppe tones to dark green forest.",
+      "caption": "Figure 1 — The ten EPHA time slices: nine reconstructed periods from the LGM to the Atlantic, and present-day satellite imagery for comparison. Click the image to view it full size.",
+      "wide": true,
+      "link": true
+    },
+    {
+      "type": "heading",
+      "text": "Period by period"
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>LGM (25,500–17,500 BCE).</strong> The coldest and most arid interval of the sequence: the Fennoscandian ice sheet is at its maximum and the AMOC is largely shut down. Most of the map is an open tundra–steppe mosaic of grasses, <em>Artemisia</em> and goosefoots with a surprisingly rich forb layer. Trees survive only in microrefugia such as sheltered valleys and south-facing slopes, and in the south, where the Atlantic coast of Iberia and the foothills of the Pyrenees, Apennines and Balkans held parkland and scattered woodland (Van Andel &amp; Tzedakis 1996). The mild-regime ordering inverts. The Northern zone lies almost entirely beneath the ice (class 2) and retains essentially no open vegetated area. The Coastal zone is polar desert where it abuts the ice margin in Britain, Ireland, Denmark and northern France, and so it is treated as internally heterogeneous. This is “Option A”: a sigmoid gradient driven by distance to the ice-sheet polygon, running from a barren ice-margin endpoint (3 / 96 / 1) to a more wooded refugium endpoint (15 / 75 / 10) that represents the Iberian Atlantic coast and northern Spain. The Central zone, anchored to the loess-steppe and herb-tundra belt, is the best proxy for the European average (8 / 88 / 4). The exposed North Sea basin, Doggerland, is cold, dry land at this stage rather than the wetland of later periods."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Meiendorf / Bølling (12,650–11,950 BCE).</strong> The first sustained interstadial warming. The AMOC resumes at least partially, and the mild ordering returns, though only weakly so soon after the ice began to retreat. Dwarf birch and willow scrub colonise barren ground, and closed canopy stays low in every zone (2–10%). This is the weakest link in the table, because it is unclear how far the AMOC had recovered. The resolved decision was to give the Coastal zone a slight mild skew, in the direction of later mild periods, without the full Option A treatment."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Allerød (11,950–10,750 BCE).</strong> A pronounced warm interstadial. Closed canopy rises to 6–18% across the zones as birch, and locally pine, woodland spreads and hazel appears for the first time in the pollen record. The result is an open birch–pine mosaic, structurally comparable to present-day Scandinavian birch-woodland zones. The mild ordering is fully established, with the Coastal zone the most wooded."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Younger Dryas (10,750–9,700 BCE).</strong> The best-documented abrupt AMOC-shutdown event of the transition, and the second hard-regime period. Closed canopy collapses to 2–8% and cold-steppe herbs return, but the reversal is incomplete: woodland persists in sheltered refugia. That is exactly what the wooded endpoint of the Coastal gradient (Option A, 8 / 90 / 2 → 18 / 74 / 8) preserves, calibrated to a much smaller ice sheet than in the LGM. The renderer also reconstructs the Baltic Ice Lake for this period, using the Early Boreal lake footprint as a geometric proxy because no dedicated polygon exists; sea pixels inside that footprint are overridden to ice-lake colour."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Early Preboreal (9,700–9,200 BCE).</strong> The start of the Holocene proper and the definitive return to a mild regime. Birch dominates an open woodland, pine expands from the south and hazel begins to spread. The canopy percentages are carried over directly from the Allerød, assuming comparable early-successional structure once the AMOC has recovered, pending a finer palynological subdivision."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Late Preboreal (9,200–8,700 BCE).</strong> Closed canopy increases further (8–25%) as birch–pine forest consolidates and hazel expands rapidly. Czyżewski et al. (2026) read this hazel as a disturbance-adapted shrub responding to browsing pressure as much as to climate. The Coastal zone leads in closed canopy."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Early Boreal (8,700–8,000 BCE).</strong> Pine and hazel dominate and elm and oak arrive in the south and east — the first fully thermophilous deciduous trees in the sequence. Fully open ground is now in clear decline and closed canopy continues to rise (10–28%). Pollen richness begins to fall, a pattern documented by Giesecke et al. (2017) and generally read as canopy closure shading out light-demanding ground flora. This period is also the donor classmask for the Baltic Ice Lake proxy, and its own mask was corrected from Ice Lake (class 3) to Lake (class 4) to reflect the lake’s freshwater, non-glacial character by this stage."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Late Boreal (8,000–7,200 BCE).</strong> Oak, elm and hazel dominate most of the map, lime arrives, and alder expands along rivers and the margins of the emerging Baltic basin. Closed canopy climbs steeply (13–46%; in the Central zone from 18% to 35%) as the landscape becomes a dense mixed-deciduous forest. Mesolithic fire use is increasingly invoked to explain residual openness in a closing landscape, together with locally surviving aurochs. As in the Early Boreal, the classmask was corrected from Ice Lake to Lake."
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>Atlantic (6,500–4,500 BCE).</strong> The climatic optimum and the structural climax of the sequence, with closed canopy dominant in all three zones (40–75%) and the Coastal zone at its most forested. Oak, lime, elm and alder dominate, with ash and ivy, and alder carr is established in the wetlands. The mix (Coastal 18 / 7 / 75, Central 25 / 12 / 63, Northern 35 / 25 / 40) derives from the European-average estimates of Czyżewski et al. (2026), adjusted regionally with Giesecke et al. (2017) and Kern et al. (2025), and carries a medium confidence rating. Its interpretation as a post-megafauna forest is discussed in the companion essay, “Ancient landscape vegetation reconstruction”."
+    },
+    {
+      "type": "heading",
+      "text": "Reading the maps with care"
+    },
+    {
+      "type": "paragraph",
+      "html": "The known limitations of these reconstructions — the Black Sea classification, the Baltic Ice Lake proxy, the coarse regional zoning and the medium confidence rating of the canopy table — are documented in the companion essay. The maps are best read as well-reasoned structural reconstructions of landscape and vegetation openness, not as site-resolved vegetation surveys."
+    },
+    {
+      "type": "references",
+      "title": "Sources",
+      "items": [
+        "Czyżewski, S., Søndergaard, S. A., Molnár, Á. P., et al. (2026). Revisiting Europe’s temperate forests: palaeoecological evidence for an herbivory-driven woodland–grassland mosaic biome. <em>Biological Conservation</em>, 316, 111749. <a href=\"https://doi.org/10.1016/j.biocon.2026.111749\" target=\"_blank\" rel=\"noopener\">doi:10.1016/j.biocon.2026.111749</a>",
+        "Giesecke, T., Brewer, S., Finsinger, W., Leydet, M., &amp; Bradshaw, R. H. W. (2017). Patterns and dynamics of European vegetation change over the last 15,000 years. <em>Journal of Biogeography</em>, 44(7), 1441–1456. <a href=\"https://doi.org/10.1111/jbi.12974\" target=\"_blank\" rel=\"noopener\">doi:10.1111/jbi.12974</a>",
+        "Kern, Z. et al. (2025). Regional vegetation-cover reconstructions for the European Holocene.",
+        "Van Andel, T. H., &amp; Tzedakis, P. C. (1996). Palaeolithic landscapes of Europe and environs, 150,000–25,000 years ago: an overview. <em>Quaternary Science Reviews</em>, 15(5–6), 481–500.",
+        "EPHA base maps (EPHA project, internal): schematic classmask polygons per time period; EPHA_Drainage_Systems_v100 (EPHA project, internal): palaeo-drainage shapefile; EPHA canopy-percentage reference table (EPHA project, internal)."
+      ]
+    }
+  ],
+  "sourceNote": "Sources and further reading on the <a href=\"#\">References page →</a>"
+}
