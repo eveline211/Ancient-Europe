@@ -266,18 +266,42 @@ function closeEssay() {
   document.getElementById("app-frame").classList.remove("essay-mode");
 }
 
-// Essay body content is a list of blocks so essays can mix paragraphs and
-// tables freely: { type: "paragraph", html: "..." } or
-// { type: "table", caption, columns: [...], rows: [[...], ...], note }
+// Essay body content is a list of blocks so essays can mix paragraphs,
+// headings, tables, figures and a reference list freely:
+//   { type: "paragraph", html: "..." }
+//   { type: "heading", text: "..." }
+//   { type: "table", caption, columns: [...], rows: [[...], ...], note, compact? }
+//     (compact: true = narrow table that fits the essay column without scrolling)
+//   { type: "figure", src, alt, caption, wide?, link? }
+//     (wide: true = extends beyond the text column on large screens;
+//      link: true = clicking the image opens it full size in a new tab)
+//   { type: "references", title, items: ["<html>", ...] }
 function renderEssayBlock(block) {
   if (block.type === "paragraph") {
     return `<p>${block.html}</p>`;
+  }
+  if (block.type === "heading") {
+    return `<h2>${block.text}</h2>`;
+  }
+  if (block.type === "figure") {
+    const img = `<img src="${block.src}" alt="${block.alt || ""}" loading="lazy">`;
+    const media = block.link
+      ? `<a href="${block.src}" target="_blank" rel="noopener">${img}</a>`
+      : img;
+    return `<figure class="dd-figure${block.wide ? " wide" : ""}">
+      ${media}
+      <figcaption>${block.caption || ""}</figcaption>
+    </figure>`;
+  }
+  if (block.type === "references") {
+    const items = (block.items || []).map(i => `<li>${i}</li>`).join("");
+    return `<div class="dd-refs"><h3>${block.title || "Sources"}</h3><ol>${items}</ol></div>`;
   }
   if (block.type === "table") {
     const head = `<tr>${block.columns.map(c => `<th>${c}</th>`).join("")}</tr>`;
     const rows = block.rows.map(r => `<tr>${r.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
     const note = block.note ? `<div class="dd-table-note">${block.note}</div>` : "";
-    return `<div class="dd-table-wrap"><table class="dd-table">
+    return `<div class="dd-table-wrap"><table class="dd-table${block.compact ? " compact" : ""}">
       <caption>${block.caption || ""}</caption>
       <thead>${head}</thead>
       <tbody>${rows}</tbody>
