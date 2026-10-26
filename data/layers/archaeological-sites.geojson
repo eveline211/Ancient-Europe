@@ -1,29 +1,528 @@
 {
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [5.18, 50.40] },
-      "properties": {
-        "id": "site-001",
-        "name": "Goyet Caves",
-        "periods": ["lgm", "meiendorf-bolling"],
-        "siteType": "cave-site",
-        "description": "Placeholder description — replace with real site text and sourcing.",
-        "source": "placeholder"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [2.35, 48.86] },
-      "properties": {
-        "id": "site-002",
-        "name": "Example Mesolithic camp",
-        "periods": ["early-boreal", "late-boreal"],
-        "siteType": "settlement",
-        "description": "Placeholder description — replace with real site text and sourcing.",
-        "source": "placeholder"
-      }
-    }
-  ]
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -3.4467,
+     43.2633
+    ]
+   },
+   "properties": {
+    "name": "Red Lady of El Mirón",
+    "periods": [
+     "lgm"
+    ],
+    "description": "A 35–40-year-old woman of the Magdalenian culture, buried around 18,700 years ago in the El Mirón cave covered in red ochre giving rise to her name",
+    "link": "https://en.wikipedia.org/wiki/El_Mir%C3%B3n_Cave"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     1.1706,
+     45.0536
+    ]
+   },
+   "properties": {
+    "name": "Lascaux",
+    "periods": [
+     "lgm"
+    ],
+    "description": "Lascaux is a world-famous cave containing spectacular Upper Paleolithic paintings of Ice Age animals, created around 17,000 years ago during the Magdalenian period.",
+    "link": "https://en.wikipedia.org/wiki/Lascaux"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.47,
+     50.46
+    ]
+   },
+   "properties": {
+    "name": "Gönnersdorf",
+    "periods": [
+     "lgm"
+    ],
+    "description": "Gönnersdorf is a Magdalenian settlement dating to around 15,500 years ago, renowned for its engraved slate plaques depicting stylized female figures, animals, and everyday life",
+    "link": "https://en.wikipedia.org/wiki/Venus_figurines_of_G%C3%B6nnersdorf"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     10.16,
+     53.65
+    ]
+   },
+   "properties": {
+    "name": "Meiendorf",
+    "periods": [
+     "meiendorf-bolling"
+    ],
+    "description": "Meiendorf is the type site of the Hamburgian hunter-gatherer culture, famous for its exceptionally preserved organic artifacts and evidence of Ice Age reindeer hunting dating to around 15,000 years ago, putting it at end of the last Ice Age.",
+    "link": "https://en.wikipedia.org/wiki/Hamburg_culture"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     0.9919,
+     45.0153
+    ]
+   },
+   "properties": {
+    "name": "Grotte du Rouffignac",
+    "periods": [
+     "meiendorf-bolling"
+    ],
+    "description": "Grotte de Rouffignac is a vast Upper Paleolithic cave famous for its hundreds of engravings and paintings of Ice Age animals, including mammoths, created around 13,000–15,000 years ago during the Magdalenian period",
+    "link": "https://en.wikipedia.org/wiki/Rouffignac_Cave"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.2711,
+     50.4128
+    ]
+   },
+   "properties": {
+    "name": "Laacher See",
+    "periods": [
+     "allerod"
+    ],
+    "description": "Laacher See marks the site of a massive volcanic eruption around 12,900 years ago, blanketing much of Europe in ash and profoundly affecting Late Ice Age environments and human populations.",
+    "link": "https://en.wikipedia.org/wiki/Laacher_See"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.405,
+     50.44
+    ]
+   },
+   "properties": {
+    "name": "Andernach-Martinsberg",
+    "periods": [
+     "allerod"
+    ],
+    "description": "A Late Magdalenian hunter-gatherer campsite on the Rhine, preserved with hearths, stone tools, and evidence of seasonal occupation during the Allerød interstadia",
+    "link": ""
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     11.23,
+     52.12
+    ]
+   },
+   "properties": {
+    "name": "Ummendorf",
+    "periods": [
+     "allerod"
+    ],
+    "description": "An Allerød-period hunter-gatherer site associated with reindeer hunting and Late Glacial settlement in Central Europe.",
+    "link": ""
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.965,
+     48.38
+    ]
+   },
+   "properties": {
+    "name": "Pincevent",
+    "periods": [
+     "allerod"
+    ],
+    "description": "A Magdalenian open-air campsite revealing the organization of hunter-gatherer camps along the Seine during the Late Glacial dating to around 13,000 years ago.",
+    "link": "https://en.wikipedia.org/wiki/Pincevent"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     1.36,
+     43.08
+    ]
+   },
+   "properties": {
+    "name": "Mas d'Azil",
+    "periods": [
+     "younger-dryas"
+    ],
+    "description": "Mas d'Azil Cave is a key Late Ice Age site marking the transition from the Magdalenian to the Azilian culture around 12,000 years ago during the climatic upheaval of the Younger Dryas.",
+    "link": "https://en.wikipedia.org/wiki/Azilian"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     2.18,
+     48.87
+    ]
+   },
+   "properties": {
+    "name": "Le Closeau",
+    "periods": [
+     "younger-dryas"
+    ],
+    "description": "A Late Magdalenian hunter-gatherer campsite dating to the onset of the Younger Dryas, revealing reindeer hunting and seasonal settlement along the Seine.",
+    "link": ""
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     0.38,
+     42.975
+    ]
+   },
+   "properties": {
+    "name": "Grotte du Moulin",
+    "periods": [
+     "younger-dryas"
+    ],
+    "description": "Grotte du Moulin is a Late Magdalenian site dating to the end of the Ice Age, with occupations around the Allerød–Younger Dryas transition and evidence of hunter-gatherer adaptation in a changing climate",
+    "link": "https://fr.wikipedia.org/wiki/Grotte_du_Moulin_(Troubat)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     24.66,
+     58.395
+    ]
+   },
+   "properties": {
+    "name": "Pulli",
+    "periods": [
+     "early-preboreal",
+     "late-preboreal"
+    ],
+    "description": "Pulli settlement is Estonia’s oldest known settlement, an Early Mesolithic hunter-fisher camp representing the spread of humans into northern Europe after the Ice Age.",
+    "link": "https://en.wikipedia.org/wiki/Pulli_settlement"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -0.4,
+     54.22
+    ]
+   },
+   "properties": {
+    "name": "Star Carr",
+    "periods": [
+     "early-preboreal"
+    ],
+    "description": "Iconic early Holocene wetland settlement, famous for antler frontlets, wooden artefacts, and evidence of hunter-gatherer life in a warming landscape.",
+    "link": "https://en.wikipedia.org/wiki/Star_Carr"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     7.8,
+     58.05
+    ]
+   },
+   "properties": {
+    "name": "Hummervikholmen",
+    "periods": [
+     "early-preboreal"
+    ],
+    "description": "Early Mesolithic coastal settlement with evidence of marine adaptation including fishing, shellfish gathering, and bone tools.",
+    "link": ""
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.56,
+     50.993
+    ]
+   },
+   "properties": {
+    "name": "Bedburg-Königshoven",
+    "periods": [
+     "late-preboreal"
+    ],
+    "description": "A Preboreal Mesolithic settlement on a former branch of the Erft River, famous for two red deer antler frontlet headdresses that provide some of the earliest evidence of ritual or shamanistic practices in post-Ice Age Europe.",
+    "link": "https://en.wikipedia.org/wiki/Bedburg-K%C3%B6nigshoven_(Mesolithic_antler_frontlets)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     11.62,
+     54.19
+    ]
+   },
+   "properties": {
+    "name": "The Blinkerwall",
+    "periods": [
+     "late-preboreal"
+    ],
+    "description": "Blinkerwall is a 11,000 to 10,000 year-old stone hunting structure in the Baltic Sea, built from granite boulders by Mesolithic hunter-gatherers and preserved on the former coastline of the now-submerged landscape.",
+    "link": "https://en.wikipedia.org/wiki/Bay_of_Mecklenburg"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     6.52,
+     52.82
+    ]
+   },
+   "properties": {
+    "name": "Pesse Canoe",
+    "periods": [
+     "early-boreal"
+    ],
+    "description": "The Pesse canoe is the world’s oldest known dugout canoe, carved from a single alder tree trunk around 10,000 years ago during the Early Mesolithic, providing evidence of early watercraft and the importance of waterways in post-Ice Age hunter-gatherer life.",
+    "link": "https://en.wikipedia.org/wiki/Pesse_canoe"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     10.63,
+     53.63
+    ]
+   },
+   "properties": {
+    "name": "Duvensee Bog sites",
+    "periods": [
+     "early-boreal"
+    ],
+    "description": "Early Mesolithic lakeshore settlement complex renowned for its preserved wooden artefacts, bark mats, hearths, and evidence of large-scale hazelnut processing in the expanding post-glacial forests",
+    "link": "https://en.wikipedia.org/wiki/Duvensee_archaeological_sites"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -2.765,
+     51.283
+    ]
+   },
+   "properties": {
+    "name": "Cheddar Man",
+    "periods": [
+     "early-boreal"
+    ],
+    "description": "Cheddar Man was a Mesolithic hunter-gatherer who lived around 10,000 years ago whose exceptionally preserved skeleton provides insight into the earliest post-Ice Age inhabitants of Britain.",
+    "link": "https://en.wikipedia.org/wiki/Cheddar_Man"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     26.54,
+     59.5
+    ]
+   },
+   "properties": {
+    "name": "Kunda",
+    "periods": [
+     "early-boreal"
+    ],
+    "description": "Type site of the Kunda culture, representing early Mesolithic adaptation around the Baltic region dating from ca. 9,500 years ago.",
+    "link": "https://en.wikipedia.org/wiki/Kunda_culture"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -3.12,
+     53.56
+    ]
+   },
+   "properties": {
+    "name": "Human footprints",
+    "periods": [
+     "late-boreal"
+    ],
+    "description": "Human footprints preserved in ancient wetland sediments of the North Sea area, dating to around 9,000 years ago, provide rare direct evidence of Mesolithic hunter-gatherers living there.",
+    "link": "https://www.ncl.ac.uk/press/articles/archive/2022/09/ancientfootprints/"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     12.07,
+     51.29
+    ]
+   },
+   "properties": {
+    "name": "Shamanka of Bad Durrenberg",
+    "periods": [
+     "late-boreal"
+    ],
+    "description": "Mesolithic burial famous for a woman buried with animal ornaments and a ritual headdress, revealing the symbolic and spiritual world of the European hunter-gatherers.",
+    "link": "https://en.wikipedia.org/wiki/Bad_D%C3%BCrrenberg_burial"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -1.87,
+     46.62
+    ]
+   },
+   "properties": {
+    "name": "Plage du Bâtard",
+    "periods": [
+     "late-boreal"
+    ],
+    "description": "A fossilised coastal mudflat buried beneath the sands of Plage du Bâtard, preserving pollen evidence for the earliest traces of agriculture in Europe around 7,000 BCE.",
+    "link": "https://sciencepress.mnhn.fr/en/periodiques/comptes-rendus-palevol/4/fasc3/nouveaux-elements-d-anthropisation-sur-le-littoral-vendeen-des-la-fin-du-mesolithique"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     22.027,
+     44.55
+    ]
+   },
+   "properties": {
+    "name": "Lepenski Vir",
+    "periods": [
+     "late-boreal"
+    ],
+    "description": "One of the most important Mesolithic sites in Europe with main occupation between 7,400 and 6,000 BCE. Famous for elaborate burials, stone sculptures, and ritual architecture along the Danube.",
+    "link": "https://en.wikipedia.org/wiki/Lepenski_Vir"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     4.5,
+     51.99
+    ]
+   },
+   "properties": {
+    "name": "Bergenschenhoek",
+    "periods": [
+     "atlantic"
+    ],
+    "description": "A Late Mesolithic wetland camp dating to around 6,200 years ago, famous for its exceptionally preserved woven fish traps, revealing sophisticated fishing techniques and adaptation to the rivers and wetlands of northwest Europe.",
+    "link": ""
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     -1.43,
+     50.725
+    ]
+   },
+   "properties": {
+    "name": "Bouldnor Cliff",
+    "periods": [
+     "atlantic"
+    ],
+    "description": "Bouldnor Cliff is a Mesolithic coastal settlement dating to around 8,000 years ago, preserved beneath the sea and famous for its wooden structures, worked timber, and evidence of advanced seafaring and woodland adaptation.",
+    "link": "https://en.wikipedia.org/wiki/Bouldnor_Cliff"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.85,
+     55.24
+    ]
+   },
+   "properties": {
+    "name": "Tybrind Vig",
+    "periods": [
+     "atlantic"
+    ],
+    "description": "Exceptional submerged coastal settlement of the Ertebølle culture with paddles, canoes, and fishing technology, occupied between 7,500 to 6,000 years ago.",
+    "link": "https://en.wikipedia.org/wiki/Erteb%C3%B8lle_culture"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     10.849,
+     46.779
+    ]
+   },
+   "properties": {
+    "name": "Ötzi the Iceman",
+    "periods": [
+     "present-day"
+    ],
+    "description": "Ötzi the Iceman was a Copper Age man who died around 5,300 years ago in the Alps. His naturally preserved body and belongings provide a unique glimpse into prehistoric life, technology, and mobility.",
+    "link": "https://en.wikipedia.org/wiki/%C3%96tzi"
+   }
+  }
+ ]
 }
