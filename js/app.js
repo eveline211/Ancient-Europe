@@ -7,7 +7,9 @@ const TAB_DEFS = [
 
 const LAYER_TOGGLES = [
   { id: "archaeological-sites", label: "Archaeological sites", file: "data/layers/archaeological-sites.geojson", color: "#b5651d" },
-  { id: "eveline-places", label: "Eveline's places", file: "data/layers/eveline-places.geojson", color: "#7a3e9d" },
+  // Hidden for the Bèta version (only holds a placeholder point for now).
+  // To bring it back: remove the two slashes at the start of the next line.
+  // { id: "eveline-places", label: "Eveline's places", file: "data/layers/eveline-places.geojson", color: "#7a3e9d" },
 ];
 
 // Present-day coastline and country borders, exported from QGIS as GeoJSON (EPSG:4326).
@@ -81,7 +83,8 @@ let state = {
   // "map" | "essay" — controls which view is visible. Shares the same topbar.
   view: "map",
 
-  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": true, "labels": true },
+  // Start view: Countries off; coastline, sites and labels on.
+  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": false, "labels": true },
 };
 
 let map;
@@ -340,6 +343,8 @@ function initMap() {
         id: layerDef.id,
         type: "line",
         source: layerDef.id,
+        // Respect the start state right away, so a layer that starts "off" never flashes on.
+        layout: { visibility: state.layersOn[layerDef.id] ? "visible" : "none" },
         paint: {
           "line-color": layerDef.color,
           "line-width": layerDef.width
