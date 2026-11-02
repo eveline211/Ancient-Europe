@@ -369,9 +369,9 @@ function initMap() {
       });
       map.on("click", layerDef.id, (e) => {
         const props = e.features[0].properties;
-        new maplibregl.Popup()
+        new maplibregl.Popup({ maxWidth: "290px", className: "site-popup" })
           .setLngLat(e.lngLat)
-          .setHTML(`<strong>${props.name}</strong><br>${props.description || props.note || ""}`)
+          .setDOMContent(buildSiteCard(props))
           .addTo(map);
       });
     }
@@ -400,6 +400,85 @@ function initMap() {
 
     updateMapLayersForPeriod();
   });
+}
+
+// ============ SITE CARD (map pop-up) ============
+// Front: optional small picture + name + description, and (only when the site has a "link")
+// a small arrow after the last sentence. Back: a "More information" link to the source.
+// Optional fields in archaeological-sites.geojson:
+//   "image": "assets/images/sites/lascaux.jpg"   (small picture; leave out = no picture)
+//   "link":  "https://..."                       (leave out = no arrow, no back side)
+function buildSiteCard(props) {
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  };
+
+  // Only ordinary web links are allowed.
+  let link = "";
+  try {
+    const u = new URL(props.link || "");
+    if (u.protocol === "https:" || u.protocol === "http:") link = u.href;
+  } catch (e) { /* no or invalid link */ }
+
+  const card = el("div", "site-card");
+  const inner = el("div", "site-card-inner");
+  card.appendChild(inner);
+
+  // ----- front -----
+  const front = el("div", "site-face site-front");
+  const head = el("div", "site-head");
+  if (props.image) {
+    const img = document.createElement("img");
+    img.className = "site-thumb";
+    img.src = props.image;
+    img.alt = props.name || "";
+    img.loading = "lazy";
+    img.addEventListener("error", () => img.remove()); // a missing picture never breaks the card
+    head.appendChild(img);
+  }
+  head.appendChild(el("div", "site-name", props.name || ""));
+  front.appendChild(head);
+
+  const desc = el("p", "site-desc", (props.description || props.note || "") + (link ? " " : ""));
+
+  // ----- back (only when there is a link) -----
+  let back = null;
+  const setSide = (showBack) => {
+    card.classList.toggle("flipped", showBack);
+    front.inert = showBack;
+    if (back) back.inert = !showBack;
+    (showBack ? back.querySelector(".site-more") : front.querySelector(".site-flip")).focus();
+  };
+
+  if (link) {
+    const toBack = el("button", "site-flip", "›");
+    toBack.type = "button";
+    toBack.setAttribute("aria-label", "More information about " + (props.name || "this site"));
+    toBack.addEventListener("click", () => setSide(true));
+    desc.appendChild(toBack);
+
+    back = el("div", "site-face site-back");
+    back.inert = true;
+    back.appendChild(el("div", "site-name", props.name || ""));
+    const a = el("a", "site-more", "More information");
+    a.href = link; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.appendChild(el("span", "site-more-arrow", " ↗"));
+    back.appendChild(a);
+    const toFront = el("button", "site-flip site-flip-back", "‹");
+    toFront.type = "button";
+    toFront.setAttribute("aria-label", "Back to the description");
+    toFront.addEventListener("click", () => setSide(false));
+    back.appendChild(toFront);
+  }
+
+  front.appendChild(desc);
+  inner.appendChild(front);
+  if (back) inner.appendChild(back);
+  if (!link) card.classList.add("no-back");
+  return card;
 }
 
 // Swaps the basemap source/layer: real PMTiles for this period if converted yet,
