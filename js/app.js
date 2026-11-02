@@ -27,17 +27,31 @@ const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
 
-// Map legend (Legend button): vegetation structure, same six classes and colours as legend_en.png.
-// Colours were measured from the period maps. Only the names are shown for now;
-// "share" and "desc" are kept here for a later, longer version of the legend.
-const LEGEND_TITLE = "Vegetation structure";
-const LEGEND_VEGETATION = [
-  { color: "#BCB281", name: "Open steppe / tundra",        share: "< 5%",   desc: "Almost treeless; grasses, forbs and Artemisia, kept open by megaherbivores." },
-  { color: "#97975A", name: "Steppe with scrub",           share: "5–10%",  desc: "Open grassland with scattered dwarf birch and willow scrub; trees only in sheltered spots." },
-  { color: "#7F884B", name: "Open birch–pine mosaic",      share: "10–20%", desc: "Light woodland patches alternating with grassland and forb-rich openings." },
-  { color: "#667B3B", name: "Woodland with open patches",  share: "20–35%", desc: "Birch, pine and hazel woodland; canopy partly closed, openings persist." },
-  { color: "#4E6932", name: "Mixed deciduous forest",      share: "35–55%", desc: "Oak, elm and hazel dominate; canopy mostly closed, locally open through fire." },
-  { color: "#415329", name: "Closed-canopy forest",        share: "> 55%",  desc: "Dense oak, lime, elm and alder forest; canopy dominates, almost no open ground." },
+// Map legend (Legend button): two columns, vegetation structure and water & ice.
+// Colours were measured from the period maps (vegetation: same six classes as legend_en.png;
+// water & ice: lake colour from the workflow document, the rest measured).
+// For vegetation only the names are shown for now; "share" and "desc" are kept for a later, longer version.
+const LEGEND_SECTIONS = [
+  {
+    title: "Vegetation structure",
+    items: [
+      { color: "#BCB281", name: "Open steppe / tundra",        share: "< 5%",   desc: "Almost treeless; grasses, forbs and Artemisia, kept open by megaherbivores." },
+      { color: "#97975A", name: "Steppe with scrub",           share: "5–10%",  desc: "Open grassland with scattered dwarf birch and willow scrub; trees only in sheltered spots." },
+      { color: "#7F884B", name: "Open birch–pine mosaic",      share: "10–20%", desc: "Light woodland patches alternating with grassland and forb-rich openings." },
+      { color: "#667B3B", name: "Woodland with open patches",  share: "20–35%", desc: "Birch, pine and hazel woodland; canopy partly closed, openings persist." },
+      { color: "#4E6932", name: "Mixed deciduous forest",      share: "35–55%", desc: "Oak, elm and hazel dominate; canopy mostly closed, locally open through fire." },
+      { color: "#415329", name: "Closed-canopy forest",        share: "> 55%",  desc: "Dense oak, lime, elm and alder forest; canopy dominates, almost no open ground." },
+    ],
+  },
+  {
+    title: "Water & ice",
+    items: [
+      { color: "#276471", name: "Sea / ocean" },
+      { color: "#FEFFFF", name: "Ice sheet" },
+      { color: "#88C5C9", name: "Ice lake" },
+      { color: "#263A3E", name: "Lake" },
+    ],
+  },
 ];
 // The legend describes the reconstructed landscapes, so it is not offered for the present-day satellite image.
 const LEGEND_HIDDEN_PERIODS = ["present-day"];
@@ -441,11 +455,6 @@ function buildLegend() {
   box.setAttribute("role", "region");
   box.setAttribute("aria-label", "Map legend");
 
-  const head = document.createElement("div");
-  head.className = "map-legend-head";
-  const title = document.createElement("div");
-  title.className = "map-legend-title";
-  title.textContent = LEGEND_TITLE;
   const close = document.createElement("button");
   close.type = "button";
   close.className = "map-legend-close";
@@ -456,25 +465,36 @@ function buildLegend() {
     renderToggles();
     updateLegend();
   });
-  head.appendChild(title);
-  head.appendChild(close);
-  box.appendChild(head);
+  box.appendChild(close);
 
-  const list = document.createElement("ul");
-  list.className = "map-legend-list";
-  LEGEND_VEGETATION.forEach(item => {
-    const li = document.createElement("li");
-    const sw = document.createElement("span");
-    sw.className = "map-legend-swatch";
-    sw.style.background = item.color;
-    const name = document.createElement("span");
-    name.className = "map-legend-name";
-    name.textContent = item.name;
-    li.appendChild(sw);
-    li.appendChild(name);
-    list.appendChild(li);
+  const cols = document.createElement("div");
+  cols.className = "map-legend-cols";
+  LEGEND_SECTIONS.forEach(section => {
+    const col = document.createElement("div");
+    col.className = "map-legend-col";
+    const title = document.createElement("div");
+    title.className = "map-legend-title";
+    title.textContent = section.title;
+    col.appendChild(title);
+
+    const list = document.createElement("ul");
+    list.className = "map-legend-list";
+    section.items.forEach(item => {
+      const li = document.createElement("li");
+      const sw = document.createElement("span");
+      sw.className = "map-legend-swatch";
+      sw.style.background = item.color;
+      const name = document.createElement("span");
+      name.className = "map-legend-name";
+      name.textContent = item.name;
+      li.appendChild(sw);
+      li.appendChild(name);
+      list.appendChild(li);
+    });
+    col.appendChild(list);
+    cols.appendChild(col);
   });
-  box.appendChild(list);
+  box.appendChild(cols);
   mapArea.appendChild(box);
 }
 
@@ -527,11 +547,32 @@ function buildSiteCard(props) {
 
   // ----- back (only when there is a link) -----
   let back = null;
-  const setSide = (showBack) => {
+  const swapSide = (showBack) => {
     card.classList.toggle("flipped", showBack);
     front.inert = showBack;
     if (back) back.inert = !showBack;
     (showBack ? back.querySelector(".site-more") : front.querySelector(".site-flip")).focus();
+  };
+  // "Flip" = the card squeezes to a line, swaps sides, and opens again. The transform only exists
+  // during the animation and is removed afterwards, so the text stays perfectly sharp at rest
+  // (a permanent 3D transform makes browsers draw the text slightly blurry).
+  let flipping = false;
+  const setSide = (showBack) => {
+    if (flipping) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { swapSide(showBack); return; }
+    flipping = true;
+    inner.style.transition = "transform .17s ease-in";
+    inner.style.transform = "scaleX(0.02)";
+    setTimeout(() => {
+      swapSide(showBack);
+      inner.style.transition = "transform .17s ease-out";
+      inner.style.transform = "scaleX(1)";
+      setTimeout(() => {
+        inner.style.transition = "";
+        inner.style.transform = "";
+        flipping = false;
+      }, 190);
+    }, 180);
   };
 
   if (link) {
