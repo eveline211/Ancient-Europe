@@ -630,7 +630,7 @@ function setBasemapForPeriod(periodId) {
       type: "raster",
       url: `pmtiles://${pmtilesPath}`,
       tileSize: 256,
-      attribution: "Period basemap — derived from QGIS DEM/classification render"
+      attribution: "Period maps were specially created for © 2026 Ancient Europe - Reuse requires prior permission"
     });
   } else {
     map.addSource("period-basemap", {
