@@ -27,6 +27,21 @@ const SYMBOL_LAYERS = [
   { id: "labels", label: "Labels", file: "data/labels.geojson" },
 ];
 
+// Map legend (Legend button): vegetation structure, same six classes and colours as legend_en.png.
+// Colours were measured from the period maps. Only the names are shown for now;
+// "share" and "desc" are kept here for a later, longer version of the legend.
+const LEGEND_TITLE = "Vegetation structure";
+const LEGEND_VEGETATION = [
+  { color: "#BCB281", name: "Open steppe / tundra",        share: "< 5%",   desc: "Almost treeless; grasses, forbs and Artemisia, kept open by megaherbivores." },
+  { color: "#97975A", name: "Steppe with scrub",           share: "5–10%",  desc: "Open grassland with scattered dwarf birch and willow scrub; trees only in sheltered spots." },
+  { color: "#7F884B", name: "Open birch–pine mosaic",      share: "10–20%", desc: "Light woodland patches alternating with grassland and forb-rich openings." },
+  { color: "#667B3B", name: "Woodland with open patches",  share: "20–35%", desc: "Birch, pine and hazel woodland; canopy partly closed, openings persist." },
+  { color: "#4E6932", name: "Mixed deciduous forest",      share: "35–55%", desc: "Oak, elm and hazel dominate; canopy mostly closed, locally open through fire." },
+  { color: "#415329", name: "Closed-canopy forest",        share: "> 55%",  desc: "Dense oak, lime, elm and alder forest; canopy dominates, almost no open ground." },
+];
+// The legend describes the reconstructed landscapes, so it is not offered for the present-day satellite image.
+const LEGEND_HIDDEN_PERIODS = ["present-day"];
+
 // The intended bottom-to-top stacking order of every overlay layer.
 // setBasemapForPeriod() uses this to always re-insert the basemap
 // below whichever overlay currently sits lowest, regardless of load order.
@@ -84,7 +99,7 @@ let state = {
   view: "map",
 
   // Start view: Countries off; coastline, sites and labels on.
-  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": false, "labels": true },
+  layersOn: { "archaeological-sites": true, "eveline-places": true, "coastline": true, "borders": false, "labels": true, "legend": false },
 };
 
 let map;
@@ -112,7 +127,9 @@ async function init() {
   }
 
   renderTimeline();
+  buildLegend();
   renderToggles();
+  updateLegend();
   renderTopics();
   document.getElementById("essay-back").addEventListener("click", closeEssay);
 
@@ -147,6 +164,8 @@ function renderTimeline() {
     btn.addEventListener("click", async () => {
       state.activePeriodId = p.id;
       renderTimeline();
+      renderToggles();
+      updateLegend();
       await loadPeriodContent(p.id);
       renderPanel();
       if (map && map.isStyleLoaded()) setBasemapForPeriod(p.id);
@@ -160,18 +179,21 @@ function renderToggles() {
   const el = document.getElementById("overlay-toggles");
   el.innerHTML = "";
   const allToggles = [
+    // The Legend button always comes first (far left), in the bronze highlight colour.
+    ...(legendAvailable() ? [{ id: "legend", label: "Legend" }] : []),
     ...LINE_LAYERS.map(l => ({ id: l.id, label: l.label })),
     ...SYMBOL_LAYERS.map(l => ({ id: l.id, label: l.label })),
     ...LAYER_TOGGLES.map(l => ({ id: l.id, label: l.label })),
   ];
   allToggles.forEach(t => {
     const btn = document.createElement("button");
-    btn.className = "toggle-btn" + (state.layersOn[t.id] ? " on" : "");
+    btn.className = "toggle-btn" + (t.id === "legend" ? " toggle-legend" : "") + (state.layersOn[t.id] ? " on" : "");
     btn.textContent = t.label;
     btn.addEventListener("click", () => {
       state.layersOn[t.id] = !state.layersOn[t.id];
       renderToggles();
-      applyLayerVisibility(t.id);
+      if (t.id === "legend") updateLegend();
+      else applyLayerVisibility(t.id);
     });
     el.appendChild(btn);
   });
@@ -400,6 +422,65 @@ function initMap() {
 
     updateMapLayersForPeriod();
   });
+}
+
+// ============ MAP LEGEND ============
+function legendAvailable() {
+  return !LEGEND_HIDDEN_PERIODS.includes(state.activePeriodId);
+}
+
+// Builds the legend once, inside the map area; updateLegend() shows / hides it.
+function buildLegend() {
+  const mapArea = document.querySelector(".map-area");
+  if (!mapArea || document.getElementById("map-legend")) return;
+
+  const box = document.createElement("div");
+  box.className = "map-legend";
+  box.id = "map-legend";
+  box.hidden = true;
+  box.setAttribute("role", "region");
+  box.setAttribute("aria-label", "Map legend");
+
+  const head = document.createElement("div");
+  head.className = "map-legend-head";
+  const title = document.createElement("div");
+  title.className = "map-legend-title";
+  title.textContent = LEGEND_TITLE;
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "map-legend-close";
+  close.setAttribute("aria-label", "Close legend");
+  close.textContent = "×";
+  close.addEventListener("click", () => {
+    state.layersOn.legend = false;
+    renderToggles();
+    updateLegend();
+  });
+  head.appendChild(title);
+  head.appendChild(close);
+  box.appendChild(head);
+
+  const list = document.createElement("ul");
+  list.className = "map-legend-list";
+  LEGEND_VEGETATION.forEach(item => {
+    const li = document.createElement("li");
+    const sw = document.createElement("span");
+    sw.className = "map-legend-swatch";
+    sw.style.background = item.color;
+    const name = document.createElement("span");
+    name.className = "map-legend-name";
+    name.textContent = item.name;
+    li.appendChild(sw);
+    li.appendChild(name);
+    list.appendChild(li);
+  });
+  box.appendChild(list);
+  mapArea.appendChild(box);
+}
+
+function updateLegend() {
+  const box = document.getElementById("map-legend");
+  if (box) box.hidden = !(state.layersOn.legend && legendAvailable());
 }
 
 // ============ SITE CARD (map pop-up) ============
