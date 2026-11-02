@@ -405,10 +405,11 @@ function initMap() {
       });
       map.on("click", layerDef.id, (e) => {
         const props = e.features[0].properties;
-        new maplibregl.Popup({ maxWidth: "290px", className: "site-popup" })
+        const popup = new maplibregl.Popup({ maxWidth: "290px", className: "site-popup" })
           .setLngLat(e.lngLat)
           .setDOMContent(buildSiteCard(props))
           .addTo(map);
+        snapPopupToPixels(popup);
       });
     }
     for (const layerDef of SYMBOL_LAYERS) {
@@ -509,6 +510,16 @@ function updateLegend() {
 // Optional fields in archaeological-sites.geojson:
 //   "image": "assets/images/sites/lascaux.jpg"   (small picture; leave out = no picture)
 //   "link":  "https://..."                       (leave out = no arrow, no back side)
+// Crisp text: the map positions the pop-up with translate(-50%, -100%). If the card height has
+// decimals (e.g. 164.84px) the text lands between screen pixels and looks soft. Round the height up
+// to a whole number of pixels (the width is fixed in CSS).
+function snapPopupToPixels(popup) {
+  const card = popup.getElement() && popup.getElement().querySelector(".site-card");
+  if (!card) return;
+  const h = card.getBoundingClientRect().height;
+  if (h % 1 !== 0) card.style.minHeight = Math.ceil(h) + "px";
+}
+
 function buildSiteCard(props) {
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
