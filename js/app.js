@@ -5,6 +5,99 @@ const TAB_DEFS = [
   { key: "video", label: "Video" },
 ];
 
+// ============ FEEDBACK (Bèta) ============
+// Where the answers are sent: the Cloudflare Worker "ancient-europe-feedback".
+// Paste your Worker URL between the quotes after you have deployed it, e.g.
+// "https://ancient-europe-feedback.YOUR-NAME.workers.dev"
+const FEEDBACK_ENDPOINT = "REPLACE-WITH-YOUR-WORKER-URL";
+
+// Texts at the top of the pop-up and on the thank-you screen.
+// Use <br><br> between paragraphs.
+const FEEDBACK_TEXT = {
+  title: "Ancient Europe Beta – Feedback",
+  intro: "Thank you for exploring the Ancient Europe Atlas beta version. We would love to hear what you think and what would make the app more useful and enjoyable.",
+  thanksTitle: "Thank you!",
+  thanks: "Thank you for taking the time to explore the Ancient Europe beta and share your feedback.<br><br>Your input will help us improve the app and shape the next version of Ancient Europe. We hope you enjoyed discovering Europe’s deep past and we look forward to exploring it further together!",
+};
+
+// The questions in the pop-up. To change a question, edit its "label", "hint" or "options".
+// To add or remove a question, add or remove one block.
+// Types:  "stars"  = 1-5 stars          | "multi"  = tick one or more options
+//         "single" = choose one option  | "text"   = open answer
+//         "email"  = optional email address
+// An option written as { label: "Other", other: true } gets its own text box when ticked.
+// "showIf" shows a question only after one of the listed options of another question is chosen.
+// Questions with "showIf" get no number of their own.
+// Answers are stored together with the question text, so changing a question later
+// never breaks the answers you already collected.
+const FEEDBACK_QUESTIONS = [
+  { id: "overall", type: "stars", required: true,
+    label: "Overall, how would you rate your experience with Ancient Europe?",
+    low: "1 = Not very useful", high: "5 = Excellent" },
+
+  { id: "enjoyed", type: "multi", hint: "Select all that apply",
+    label: "Which parts of Ancient Europe did you enjoy most?",
+    options: [
+      "The interactive map",
+      "Exploring different time periods",
+      "The background articles / deep dive stories",
+      "Discovering archaeological sites and monuments",
+      "The landscape, flora and fauna information",
+      "Exploring how Europe changed over time",
+      { label: "Other", other: true },
+    ] },
+
+  { id: "wishes", type: "multi", hint: "Select all that apply",
+    label: "What information or features would you like to see added?",
+    options: [
+      "More archaeological sites",
+      "More background articles and stories",
+      "More information about prehistoric people and societies",
+      "More information about landscapes, climate and environment",
+      "More maps / interactive map features",
+      "More images, reconstructions or videos",
+      "More detail about individual sites/places",
+      { label: "Something else", other: true },
+    ] },
+
+  { id: "use", type: "multi", hint: "Select all that apply",
+    label: "When would you most likely use Ancient Europe?",
+    options: [
+      "When visiting archaeological or prehistoric sites",
+      "When planning a trip or holiday",
+      "At home, to explore and learn",
+      "For school, university or research",
+      "As a regular way to discover new places or stories",
+      { label: "Other", other: true },
+    ] },
+
+  { id: "paid", type: "single", hint: "Choose one",
+    label: "Would you consider using Ancient Europe as a paid version?",
+    options: [
+      "Yes, definitely",
+      "Yes, if the content and features continue to grow",
+      "Maybe / I'm not sure yet",
+      "Probably not / No",
+    ] },
+
+  { id: "price", type: "single",
+    label: "If yes or maybe: what would you consider a reasonable price?",
+    showIf: { id: "paid", options: ["Yes, definitely", "Yes, if the content and features continue to grow", "Maybe / I'm not sure yet"] },
+    options: [
+      "€2–4 one-off",
+      "€5–8 one-off",
+      "€9–12 one-off",
+      "Per month payment would be preferable",
+      "I would only use it for free",
+    ] },
+
+  { id: "other_feedback", type: "text",
+    label: "Do you have other feedback (positive or negative)?" },
+
+  { id: "email", type: "email",
+    label: "Your email address (optional) - if you like a reply or updates" },
+];
+
 const LAYER_TOGGLES = [
   { id: "archaeological-sites", label: "Archaeological sites", file: "data/layers/archaeological-sites.geojson", color: "#b5651d" },
   // Hidden for the Bèta version (only holds a placeholder point for now).
@@ -667,4 +760,280 @@ function updateMapLayersForPeriod() {
   });
 }
 
+// ============ FEEDBACK POP-UP ============
+
+let fbLastFocus = null;
+
+function initFeedback() {
+  const btn = document.getElementById("feedback-btn");
+  const overlay = document.getElementById("fb-overlay");
+  if (!btn || !overlay) return;
+  btn.addEventListener("click", openFeedback);
+  document.getElementById("fb-close").addEventListener("click", closeFeedback);
+  // A click on the dark background closes the pop-up (clicks inside the dialog do not).
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) closeFeedback(); });
+  document.addEventListener("keydown", (e) => {
+    if (overlay.hidden) return;
+    if (e.key === "Escape") { closeFeedback(); return; }
+    if (e.key === "Tab") fbTrapFocus(e, overlay.querySelector(".fb-dialog"));
+  });
+}
+
+// Keeps Tab inside the pop-up while it is open.
+function fbTrapFocus(e, dialog) {
+  const items = [...dialog.querySelectorAll("button, input, textarea, a[href]")]
+    .filter(el => !el.disabled && el.offsetParent !== null && !el.closest(".fb-trap"));
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
+
+function openFeedback() {
+  fbLastFocus = document.activeElement;
+  renderFeedbackForm();
+  document.getElementById("fb-overlay").hidden = false;
+  document.querySelector(".fb-dialog").scrollTop = 0;
+  document.querySelector(".fb-dialog").focus();
+}
+
+function closeFeedback() {
+  document.getElementById("fb-overlay").hidden = true;
+  if (fbLastFocus && fbLastFocus.focus) fbLastFocus.focus();
+}
+
+function fbEl(tag, className, text) {
+  const el = document.createElement(tag);
+  if (className) el.className = className;
+  if (text !== undefined) el.textContent = text;
+  return el;
+}
+
+const fbOptLabel = (opt) => (typeof opt === "string" ? opt : opt.label);
+
+function fbStars(q) {
+  const row = fbEl("div", "fb-stars");
+  row.setAttribute("role", "radiogroup");
+  const paint = (n) => row.querySelectorAll(".fb-star").forEach((s, i) => s.classList.toggle("on", i < n));
+  const checkedValue = () => { const c = row.querySelector("input:checked"); return c ? Number(c.value) : 0; };
+  for (let n = 1; n <= 5; n++) {
+    const lab = fbEl("label", "fb-star");
+    lab.title = `${n} star${n > 1 ? "s" : ""}`;
+    const input = document.createElement("input");
+    input.type = "radio"; input.name = q.id; input.value = String(n);
+    input.setAttribute("aria-label", lab.title);
+    input.addEventListener("change", () => paint(n));
+    lab.addEventListener("mouseenter", () => paint(n));
+    lab.appendChild(input);
+    lab.appendChild(fbEl("span", "", "★"));
+    row.appendChild(lab);
+  }
+  row.addEventListener("mouseleave", () => paint(checkedValue()));
+  return row;
+}
+
+function fbOptions(q) {
+  const list = fbEl("div", "fb-choices");
+  q.options.forEach((opt, i) => {
+    const label = fbOptLabel(opt);
+    const item = fbEl("div", "fb-choice-item");
+    const lab = fbEl("label", "fb-choice");
+    const input = document.createElement("input");
+    input.type = q.type === "single" ? "radio" : "checkbox";
+    input.name = q.id; input.value = label;
+    lab.appendChild(input);
+    lab.appendChild(fbEl("span", "", label + (opt.other ? ":" : "")));
+    item.appendChild(lab);
+    if (opt.other) {
+      // Text box for "Other": appears when the option is ticked.
+      const box = document.createElement("input");
+      box.type = "text"; box.className = "fb-input fb-other"; box.maxLength = 300;
+      box.name = `${q.id}__other`; box.hidden = true;
+      box.setAttribute("aria-label", `${label} – please specify`);
+      input.addEventListener("change", () => {
+        box.hidden = !input.checked;
+        if (input.checked) box.focus();
+      });
+      // Typing in the box ticks the option automatically.
+      box.addEventListener("input", () => { if (box.value.trim()) input.checked = true; });
+      item.appendChild(box);
+    }
+    list.appendChild(item);
+  });
+  return list;
+}
+
+// Shows or hides questions with "showIf", depending on the current answers.
+function fbUpdateConditional(form) {
+  FEEDBACK_QUESTIONS.filter(q => q.showIf).forEach(q => {
+    const chosen = [...form.querySelectorAll(`input[name="${q.showIf.id}"]:checked`)].map(i => i.value);
+    const show = chosen.some(v => q.showIf.options.includes(v));
+    const wrap = form.querySelector(`.fb-q[data-qid="${q.id}"]`);
+    if (!wrap) return;
+    wrap.hidden = !show;
+    if (!show) wrap.querySelectorAll("input").forEach(i => { if (i.type === "radio" || i.type === "checkbox") i.checked = false; else i.value = ""; });
+  });
+}
+
+function renderFeedbackForm() {
+  const body = document.getElementById("fb-body");
+  body.innerHTML = "";
+
+  const title = fbEl("h2", "fb-title", FEEDBACK_TEXT.title);
+  title.id = "fb-title";
+  body.appendChild(title);
+  const intro = fbEl("p", "fb-intro");
+  intro.innerHTML = FEEDBACK_TEXT.intro;
+  body.appendChild(intro);
+
+  const form = document.createElement("form");
+  form.noValidate = true;
+
+  let number = 0;
+  FEEDBACK_QUESTIONS.forEach(q => {
+    const wrap = fbEl("div", "fb-q" + (q.showIf ? " fb-followup" : ""));
+    wrap.dataset.qid = q.id;
+    const prefix = q.showIf ? "" : `${++number}. `;
+    wrap.appendChild(fbEl("div", "fb-label", `${prefix}${q.label}${q.required ? " *" : ""}`));
+    if (q.hint) wrap.appendChild(fbEl("div", "fb-hint", q.hint));
+
+    if (q.type === "stars") {
+      wrap.appendChild(fbStars(q));
+      if (q.low || q.high) {
+        const ends = fbEl("div", "fb-rating-ends");
+        ends.appendChild(fbEl("span", "", q.low || ""));
+        ends.appendChild(fbEl("span", "", q.high || ""));
+        wrap.appendChild(ends);
+      }
+    } else if (q.type === "multi" || q.type === "single") {
+      wrap.appendChild(fbOptions(q));
+    } else if (q.type === "email") {
+      const input = document.createElement("input");
+      input.type = "email"; input.name = q.id; input.className = "fb-input";
+      input.autocomplete = "email"; input.maxLength = 200;
+      wrap.appendChild(input);
+    } else {
+      const ta = document.createElement("textarea");
+      ta.name = q.id; ta.className = "fb-input"; ta.rows = 4; ta.maxLength = 2000;
+      wrap.appendChild(ta);
+    }
+    form.appendChild(wrap);
+  });
+
+  // Honeypot: hidden for people, filled in by simple spam bots.
+  const trap = fbEl("div", "fb-trap");
+  trap.setAttribute("aria-hidden", "true");
+  const trapInput = document.createElement("input");
+  trapInput.type = "text"; trapInput.name = "website"; trapInput.tabIndex = -1; trapInput.autocomplete = "off";
+  trap.appendChild(trapInput);
+  form.appendChild(trap);
+
+  const msg = fbEl("div", "fb-msg");
+  msg.setAttribute("role", "alert");
+  form.appendChild(msg);
+
+  const actions = fbEl("div", "fb-actions");
+  const submit = fbEl("button", "fb-submit", "Send feedback");
+  submit.type = "submit";
+  actions.appendChild(submit);
+  form.appendChild(actions);
+
+  form.addEventListener("change", () => fbUpdateConditional(form));
+  form.addEventListener("submit", (e) => { e.preventDefault(); submitFeedback(form, msg, submit); });
+  fbUpdateConditional(form);
+  body.appendChild(form);
+}
+
+function collectFeedback(form) {
+  return FEEDBACK_QUESTIONS.map(q => {
+    let answer;
+    if (q.type === "stars") {
+      const c = form.querySelector(`input[name="${q.id}"]:checked`);
+      answer = c ? Number(c.value) : null;
+    } else if (q.type === "multi" || q.type === "single") {
+      const picked = [...form.querySelectorAll(`input[name="${q.id}"]:checked`)].map(input => {
+        const opt = q.options.find(o => fbOptLabel(o) === input.value);
+        const box = form.elements[`${q.id}__other`];
+        if (opt && opt.other && box && box.value.trim()) return `${input.value}: ${box.value.trim()}`;
+        return input.value;
+      });
+      answer = q.type === "single" ? (picked[0] || "") : picked;
+    } else {
+      answer = (form.elements[q.id].value || "").trim();
+    }
+    return { id: q.id, question: q.label, answer };
+  });
+}
+
+async function submitFeedback(form, msg, submitBtn) {
+  msg.textContent = "";
+  msg.className = "fb-msg";
+  const answers = collectFeedback(form);
+
+  const fail = (text, qid) => {
+    msg.textContent = text;
+    msg.classList.add("error");
+    const wrap = qid && form.querySelector(`.fb-q[data-qid="${qid}"]`);
+    if (wrap) wrap.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  const missing = FEEDBACK_QUESTIONS.find(q => q.required && !answers.find(a => a.id === q.id).answer);
+  if (missing) return fail("Please answer the starred question first.", missing.id);
+
+  const email = answers.find(a => a.id === "email");
+  if (email && email.answer && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.answer)) {
+    return fail("That email address does not look right. You can also leave it empty.", "email");
+  }
+
+  const payload = {
+    answers,
+    website: form.elements["website"].value, // honeypot
+    meta: { period: state.activePeriodId, view: state.view, screen: `${window.innerWidth}x${window.innerHeight}` },
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending…";
+  try {
+    if (!FEEDBACK_ENDPOINT || FEEDBACK_ENDPOINT.startsWith("REPLACE")) throw new Error("Feedback endpoint not configured yet");
+    const res = await fetch(FEEDBACK_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    showFeedbackThanks();
+  } catch (err) {
+    console.error("Feedback could not be sent:", err);
+    msg.innerHTML = "";
+    msg.classList.add("error");
+    msg.append("Sorry, sending failed. Please try again, or email us at ");
+    const a = document.createElement("a");
+    a.href = "mailto:contact@ancienteurope.org"; a.textContent = "contact@ancienteurope.org";
+    msg.appendChild(a);
+    msg.append(".");
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send feedback";
+  }
+}
+
+function showFeedbackThanks() {
+  const body = document.getElementById("fb-body");
+  body.innerHTML = "";
+  const title = fbEl("h2", "fb-title", FEEDBACK_TEXT.thanksTitle);
+  title.id = "fb-title";
+  body.appendChild(title);
+  const text = fbEl("p", "fb-intro");
+  text.innerHTML = FEEDBACK_TEXT.thanks;
+  body.appendChild(text);
+  const actions = fbEl("div", "fb-actions");
+  const close = fbEl("button", "fb-submit", "Close");
+  close.type = "button";
+  close.addEventListener("click", closeFeedback);
+  actions.appendChild(close);
+  body.appendChild(actions);
+  document.querySelector(".fb-dialog").scrollTop = 0;
+  close.focus();
+}
+
+initFeedback();
 init();
