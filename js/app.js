@@ -9,7 +9,7 @@ const TAB_DEFS = [
 // Where the answers are sent: the Cloudflare Worker "ancient-europe-feedback".
 // Paste your Worker URL between the quotes after you have deployed it, e.g.
 // "https://ancient-europe-feedback.YOUR-NAME.workers.dev"
-const FEEDBACK_ENDPOINT = "REPLACE-WITH-YOUR-WORKER-URL";
+const FEEDBACK_ENDPOINT = "https://ancient-europe-feedback.eveline-vaal.workers.dev";
 
 // Texts at the top of the pop-up and on the thank-you screen.
 // Use <br><br> between paragraphs.
